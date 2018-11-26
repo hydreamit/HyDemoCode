@@ -50,20 +50,20 @@
 
 - (void)configLayout {
     
-    [self.pushButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.popButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(150, 50));
         make.centerX.equalTo(self.view);
         make.top.mas_equalTo(50);
     }];
-    [self.popButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(self.pushButton);
-        make.centerX.equalTo(self.pushButton);
-        make.top.mas_equalTo(self.pushButton.mas_bottom).offset(50);
+    [self.pushButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(self.popButton);
+        make.centerX.equalTo(self.popButton);
+        make.top.mas_equalTo(self.popButton.mas_bottom).offset(50);
     }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(250, 50));
         make.centerX.equalTo(self.pushButton);
-        make.top.mas_equalTo(self.popButton.mas_bottom).offset(50);
+        make.top.mas_equalTo(self.pushButton.mas_bottom).offset(50);
     }];
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(250, 150));
@@ -80,7 +80,7 @@
         [button setTitle:@"Push" forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageWithColor:[UIColor orangeColor]]
                           forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]]
+        [button setBackgroundImage:[UIImage imageWithColor:[UIColor groupTableViewBackgroundColor]]
                           forState:UIControlStateDisabled];
         button;
     }));
@@ -92,6 +92,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = [UIColor blueColor];
         [button setTitle:@"Pop" forState:UIControlStateNormal];
+        button.hidden = self.navigationController.childViewControllers.count < 2;
         button;
     }));
 }

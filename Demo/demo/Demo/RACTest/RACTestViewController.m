@@ -7,15 +7,18 @@
 //
 
 #import "RACTestViewController.h"
+#import "RACTestTextFieldView.h"
+#import "RACTestViewModel.h"
 #import "HYBlockTextField.h"
 #import "HYBlockTextView.h"
 
 
 @interface RACTestViewController ()
-@property (nonatomic,strong) UIButton *pushButton;
 @property (nonatomic,strong) UIButton *popButton;
-@property (nonatomic,strong) HYBlockTextField *textField;
-@property (nonatomic,strong) HYBlockTextView *textView;
+@property (nonatomic,strong) UIButton *pushButton;
+@property (nonatomic,strong) RACTestViewModel *viewModel;
+@property (nonatomic,strong) RACTestTextFieldView *accountTextFieldView;
+@property (nonatomic,strong) RACTestTextFieldView *codeTextFieldView;
 @end
 
 
@@ -24,51 +27,45 @@
     [super viewDidLoad];
     [self configUI];
     [self configLayout];
-    [self configSignal];
 }
 
-- (void)configSignal {
-    
-    self.popButton.rac_command = RACCommand.popCommand(@"",@{});
-    
-    RACSignal *pushEnabledSignal =
-    [[self.textField.rac_textSignal merge:RACObserve(self.textField, text)]
-     map:^id (NSString *value) {
-         return @(value.length);
-    }];
-    
-    self.pushButton.rac_command =
-    RACCommand.pushEnabledCommand(pushEnabledSignal, @"RACTestViewController", @"", @{});
+- (void)configViewModel {
+    RAC(self.viewModel, account) = self.accountTextFieldView.textSignal;
+    RAC(self.viewModel, code) = self.codeTextFieldView.textSignal;
+    self.pushButton.rac_command = self.viewModel.pushCommand;
+    self.popButton.rac_command = self.viewModel.popCommand;
 }
 
 - (void)configUI {
+    [self.view addSubview:self.accountTextFieldView];
+    [self.view addSubview:self.codeTextFieldView];
     [self.view addSubview:self.pushButton];
     [self.view addSubview:self.popButton];
-    [self.view addSubview:self.textField];
-    [self.view addSubview:self.textView];
 }
 
 - (void)configLayout {
     
-    [self.popButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(150, 50));
-        make.centerX.equalTo(self.view);
+    [self.accountTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(30);
         make.top.mas_equalTo(50);
+        make.height.mas_equalTo(36);
+        make.right.mas_equalTo(-30);
     }];
+    
+    [self.codeTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.equalTo(self.accountTextFieldView);
+        make.top.mas_equalTo(self.accountTextFieldView.mas_bottom).offset(20);
+    }];
+    
     [self.pushButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(self.popButton);
-        make.centerX.equalTo(self.popButton);
-        make.top.mas_equalTo(self.popButton.mas_bottom).offset(50);
+        make.left.right.equalTo(self.accountTextFieldView);
+        make.top.mas_equalTo(self.codeTextFieldView.mas_bottom).offset(50);
+        make.height.mas_equalTo(40);
     }];
-    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(250, 50));
-        make.centerX.equalTo(self.pushButton);
-        make.top.mas_equalTo(self.pushButton.mas_bottom).offset(50);
-    }];
-    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(250, 150));
-        make.centerX.equalTo(self.pushButton);
-        make.top.mas_equalTo(self.textField.mas_bottom).offset(50);
+    
+    [self.popButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.equalTo(self.pushButton);
+        make.top.mas_equalTo(self.pushButton.mas_bottom).offset(30);
     }];
 }
 
@@ -97,65 +94,91 @@
     }));
 }
 
-- (HYBlockTextField *)textField {
-    return Hy_Lazy(_textField, ({
+- (RACTestTextFieldView *)accountTextFieldView {
+    return Hy_Lazy(_accountTextFieldView, ({
         
-        HYBlockTextField *textField =
-        [HYBlockTextField blockTextFieldWithFrame:CGRectZero configureBlock:^(HYBlockTextFieldConfigure *configure) {
-            [[[[[configure configTextFieldShouldBeginEditing:^BOOL(UITextField *textField) {
-                
-                [self handleKeyboardWithView:textField spacing:10];
-                return YES;
-            }] configTextFieldDidBeginEditing:^(UITextField *textField) {
-                
-                NSLog(@"textFieldDidBeginEditing");
-            }] configTextFieldShouldChange:^BOOL(UITextField *textField, NSRange range, NSString *replacementString) {
-                
-                return YES;
-            }] configTextFieldShouldReturn:^BOOL(UITextField *textField) {
-                
-                [textField resignFirstResponder];
-                return YES;
-            }] configTextFieldDidEndEditing:^(UITextField *textField) {
-                
-                NSLog(@"textFieldDidEndEditing");
-            }];
-        }];
-        textField.placeholder = @"输入文字后Push";
-        textField.borderStyle = UITextBorderStyleRoundedRect;
-        textField;
+        RACTestTextFieldView *textFieldView = [[RACTestTextFieldView alloc] init];
+        textFieldView.textField.placeholder = @"输入手机号码";
+        textFieldView.maxLength = 11;
+        textFieldView;
     }));
 }
 
-- (HYBlockTextView *)textView {
-    return Hy_Lazy(_textView, ({
+- (RACTestTextFieldView *)codeTextFieldView {
+    return Hy_Lazy(_codeTextFieldView, ({
         
-        HYBlockTextView *textView =
-        [HYBlockTextView blockTextViewWithFrame:CGRectZero configureBlock:^(HYBlockTextViewConfigure *configure) {
-            [[[[[configure configTextViewShouldBeginEditing:^BOOL(UITextView *textView) {
-                
-                [self handleKeyboardWithView:textView spacing:10];
-                return YES;
-            }] configTextViewDidBeginEditing:^(UITextView *textView) {
-                
-                NSLog(@"textViewDidBeginEditing");
-            }] configTextViewShouldChangeTextInRange:^BOOL(UITextView *textView, NSRange range, NSString *text) {
-                
-                return YES;
-            }] configTextViewDidEndEditing:^(UITextView *textView) {
-                
-                NSLog(@"textViewEndEditing");
-            }] configTextViewShouldEndEditing:^BOOL(UITextView *textView) {
-                return YES;
-            }];
-            
-        }];
+        RACTestTextFieldView *textFieldView = [[RACTestTextFieldView alloc] init];
+        textFieldView.textField.placeholder = @"输入验证码";
+        textFieldView.maxLength = 6;
         
-        textView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        textView;
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#3C8FF9"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+        textFieldView.rightView = btn;
+        btn.rac_command = self.viewModel.codeCommand;
+        textFieldView;
     }));
 }
 
+//- (HYBlockTextField *)textField {
+//    return Hy_Lazy(_textField, ({
+//        
+//        HYBlockTextField *textField =
+//        [HYBlockTextField blockTextFieldWithFrame:CGRectZero configureBlock:^(HYBlockTextFieldConfigure *configure) {
+//            [[[[[configure configTextFieldShouldBeginEditing:^BOOL(UITextField *textField) {
+//                
+//                [self handleKeyboardWithView:textField spacing:10];
+//                return YES;
+//            }] configTextFieldDidBeginEditing:^(UITextField *textField) {
+//                
+//                NSLog(@"textFieldDidBeginEditing");
+//            }] configTextFieldShouldChange:^BOOL(UITextField *textField, NSRange range, NSString *replacementString) {
+//                
+//                return YES;
+//            }] configTextFieldShouldReturn:^BOOL(UITextField *textField) {
+//                
+//                [textField resignFirstResponder];
+//                return YES;
+//            }] configTextFieldDidEndEditing:^(UITextField *textField) {
+//                
+//                NSLog(@"textFieldDidEndEditing");
+//            }];
+//        }];
+//        textField.placeholder = @"输入文字后Push";
+//        textField.borderStyle = UITextBorderStyleRoundedRect;
+//        textField;
+//    }));
+//}
+//
+//- (HYBlockTextView *)textView {
+//    return Hy_Lazy(_textView, ({
+//        
+//        HYBlockTextView *textView =
+//        [HYBlockTextView blockTextViewWithFrame:CGRectZero configureBlock:^(HYBlockTextViewConfigure *configure) {
+//            [[[[[configure configTextViewShouldBeginEditing:^BOOL(UITextView *textView) {
+//                
+//                [self handleKeyboardWithView:textView spacing:10];
+//                return YES;
+//            }] configTextViewDidBeginEditing:^(UITextView *textView) {
+//                
+//                NSLog(@"textViewDidBeginEditing");
+//            }] configTextViewShouldChangeTextInRange:^BOOL(UITextView *textView, NSRange range, NSString *text) {
+//                
+//                return YES;
+//            }] configTextViewDidEndEditing:^(UITextView *textView) {
+//                
+//                NSLog(@"textViewEndEditing");
+//            }] configTextViewShouldEndEditing:^BOOL(UITextView *textView) {
+//                return YES;
+//            }];
+//            
+//        }];
+//        
+//        textView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+//        textView;
+//    }));
+//}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];

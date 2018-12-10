@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HYBaseViewModel : HYBaseModel
 
 - (void)handleViewModel;
+- (void)handleBackViewModel;
 
 @end
 

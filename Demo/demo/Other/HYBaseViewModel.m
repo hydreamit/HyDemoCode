@@ -10,4 +10,5 @@
 
 @implementation HYBaseViewModel
 - (void)handleViewModel{};
+- (void)handleBackViewModel{};
 @end

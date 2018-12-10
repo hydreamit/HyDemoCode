@@ -66,6 +66,8 @@
 		515303AA219A7A5F0095B570 /* HYCurrentControllerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 515303A5219A7A5F0095B570 /* HYCurrentControllerTool.m */; };
 		515303AB219A7A5F0095B570 /* HYJumpConrollerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 515303A7219A7A5F0095B570 /* HYJumpConrollerTool.m */; };
 		515303AC219A7A5F0095B570 /* HYRunTimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 515303A9219A7A5F0095B570 /* HYRunTimeTool.m */; };
+		51D2CC8921BA491D00C1F3E7 /* RACTestTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D2CC8821BA491D00C1F3E7 /* RACTestTextFieldView.m */; };
+		51D2CC8C21BA4AEC00C1F3E7 /* RACTestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D2CC8B21BA4AEC00C1F3E7 /* RACTestViewModel.m */; };
 		51DBE278219C32BA005167DF /* HYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51DBE277219C32BA005167DF /* HYBaseViewController.m */; };
 		51DBE27B219C498E005167DF /* RACSignal+JumpMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 51DBE27A219C498E005167DF /* RACSignal+JumpMediator.m */; };
 		51DBE27E219C4BEA005167DF /* RACCommand+JumpMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 51DBE27D219C4BEA005167DF /* RACCommand+JumpMediator.m */; };
@@ -209,6 +211,10 @@
 		515303A8219A7A5F0095B570 /* HYRunTimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYRunTimeTool.h; sourceTree = "<group>"; };
 		515303A9219A7A5F0095B570 /* HYRunTimeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYRunTimeTool.m; sourceTree = "<group>"; };
 		515303AD219A7ADA0095B570 /* HYSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYSingleton.h; sourceTree = "<group>"; };
+		51D2CC8721BA491D00C1F3E7 /* RACTestTextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RACTestTextFieldView.h; sourceTree = "<group>"; };
+		51D2CC8821BA491D00C1F3E7 /* RACTestTextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RACTestTextFieldView.m; sourceTree = "<group>"; };
+		51D2CC8A21BA4AEC00C1F3E7 /* RACTestViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RACTestViewModel.h; sourceTree = "<group>"; };
+		51D2CC8B21BA4AEC00C1F3E7 /* RACTestViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RACTestViewModel.m; sourceTree = "<group>"; };
 		51DBE276219C32BA005167DF /* HYBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYBaseViewController.h; sourceTree = "<group>"; };
 		51DBE277219C32BA005167DF /* HYBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYBaseViewController.m; sourceTree = "<group>"; };
 		51DBE279219C498E005167DF /* RACSignal+JumpMediator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSignal+JumpMediator.h"; sourceTree = "<group>"; };
@@ -562,6 +568,10 @@
 			children = (
 				51DBE280219D1399005167DF /* RACTestViewController.h */,
 				51DBE281219D1399005167DF /* RACTestViewController.m */,
+				51D2CC8721BA491D00C1F3E7 /* RACTestTextFieldView.h */,
+				51D2CC8821BA491D00C1F3E7 /* RACTestTextFieldView.m */,
+				51D2CC8A21BA4AEC00C1F3E7 /* RACTestViewModel.h */,
+				51D2CC8B21BA4AEC00C1F3E7 /* RACTestViewModel.m */,
 			);
 			path = RACTest;
 			sourceTree = "<group>";
@@ -797,9 +807,11 @@
 				515303982199AFB10095B570 /* HYRecommendViewModel.m in Sources */,
 				515303082196BD6B0095B570 /* HYBaseTableViewCell.m in Sources */,
 				5153023B219597570095B570 /* main.m in Sources */,
+				51D2CC8C21BA4AEC00C1F3E7 /* RACTestViewModel.m in Sources */,
 				515303902199AAE00095B570 /* HYRecommendController.m in Sources */,
 				515303AB219A7A5F0095B570 /* HYJumpConrollerTool.m in Sources */,
 				515303AC219A7A5F0095B570 /* HYRunTimeTool.m in Sources */,
+				51D2CC8921BA491D00C1F3E7 /* RACTestTextFieldView.m in Sources */,
 				5153035B219923A20095B570 /* UIImageView+HYExtension.m in Sources */,
 				515303A2219A7A530095B570 /* UIScrollView+Refresh.m in Sources */,
 				515302E42196B8650095B570 /* HYBlockTextField.m in Sources */,

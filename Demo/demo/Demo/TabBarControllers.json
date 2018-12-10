@@ -17,7 +17,7 @@
     },
     {
         "vc"    : "RACTestViewController",
-        "viewModel" : "",
+        "viewModel" : "RACTestViewModel",
         "params" : "",
         "title" : "我的",
         "image" : "icon_w_nomal_pgall",

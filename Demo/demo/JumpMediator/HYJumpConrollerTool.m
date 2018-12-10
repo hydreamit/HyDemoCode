@@ -164,7 +164,7 @@
         id viewModel = [backVc valueForKeyPath:@"viewModel"];
         if (viewModel && [params isKindOfClass:NSDictionary.class]) {
             [[viewModel class] mj_setKeyValues:params];
-            SEL viewModelMethod = NSSelectorFromString(@"handleViewModel");
+            SEL viewModelMethod = NSSelectorFromString(@"handleBackViewModel");
             if ([viewModel respondsToSelector:viewModelMethod]) {
                 ((void (*)(id, SEL))objc_msgSend)((id)viewModel, viewModelMethod);
             }

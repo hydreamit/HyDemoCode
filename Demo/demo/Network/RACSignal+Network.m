@@ -16,8 +16,8 @@ ResponseSuccess subscribSuccesss(id<RACSubscriber> subscriber,  requestSignalBlo
         signalBlock ?
         signalBlock(response, subscriber) :
         ({
-            NSString *status= [NSString stringWithFormat:@"%@",@"status"];
-            if ([status isEqualToString:@"100"]) {
+            NSString *status= [NSString stringWithFormat:@"%@",@"info"];
+            if (![status isEqualToString:@"0"]) {
                 [subscriber sendError:nil];
             }else{
                 [subscriber sendNext:response];

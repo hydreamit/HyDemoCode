@@ -19,6 +19,7 @@
 - (instancetype)configRegisterCellClasses:(NSArray<Class> *)classes;
 - (instancetype)configHeaderViewClasses:(NSArray<Class> *)classes;
 - (instancetype)configFooterViewClasses:(NSArray<Class> *)classes;
+- (instancetype)configSectionAndCellKey:(NSArray<NSString *> *(^)(void))block;
 
 - (instancetype)configCellClassForRow:(Class(^)(HYBaseCollectionCellModel *cellModel, NSIndexPath * indexPath))block;
 - (instancetype)configHeaderFooterViewClassAtSection:(Class(^)(HYBaseCollectionSectionModel *sectionModel,
@@ -41,15 +42,22 @@
 + (instancetype)colletionViewWithFrame:(CGRect)frame
                                 layout:(UICollectionViewLayout *)layout
                            refreshType:(HYRefreshType)refreshType
-                             viewModel:(HYBaseCollectionViewModel *)viewModel
+                         refreshAction:(RefreshAction(^)(BOOL isHeaderFresh))refreshAction
+                             viewModel:(id)viewModel
                              configure:(HYBaseBlockCollectionViewConfigure *)configure;
 
 - (void)configCommandSignaleSub:(void(^)(id value))signaleSub
                        erresSub:(void(^)(id value))erresSub
                    executingSub:(void(^)(id value))executingSub;
 
+- (void)reloadWithViewModel:(id)viewModel
+                 sectionKey:(NSString *)sectionKey
+                    cellKey:(NSString *)cellKey;
+
+
 - (void)showEmptyView;
 - (void)dismissEmptyView;
+- (id)getViewModel;
 
 @end
 

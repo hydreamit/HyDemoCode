@@ -9,7 +9,7 @@
 #import "HYBlockTextField.h"
 
 @interface HYBlockTextFieldConfigure()
-@property (nonatomic,copy) TextFieldShouldChangeBlock TextFieldShouldChangeBlock;
+@property (nonatomic,copy) TextFieldShouldChangeBlock textFieldShouldChangeBlock;
 @property (nonatomic,copy) TextFieldBoolBlock textFieldShouldBeginEditingBlock;
 @property (nonatomic,copy) TextFieldBoolBlock textFieldShouldEndEditingBlock;
 @property (nonatomic,copy) TextFieldBoolBlock textFieldShouldReturnBlock;
@@ -20,7 +20,7 @@
 
 @implementation HYBlockTextFieldConfigure
 - (instancetype)configTextFieldShouldChange:(TextFieldShouldChangeBlock)block {
-    self.TextFieldShouldChangeBlock = block;
+    self.textFieldShouldChangeBlock = block;
     return self;
 }
 - (instancetype)configTextFieldShouldBeginEditing:(TextFieldBoolBlock)block {
@@ -101,8 +101,8 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range
                                                        replacementString:(NSString *)string {
     return
-    self.configure.TextFieldShouldChangeBlock ?
-    self.configure.TextFieldShouldChangeBlock(textField, range, string) : YES;
+    self.configure.textFieldShouldChangeBlock ?
+    self.configure.textFieldShouldChangeBlock(textField, range, string) : YES;
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {

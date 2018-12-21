@@ -17,14 +17,14 @@
 @implementation HYBaseCollectionViewCell
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        [self initConfig];
+        [self initConfigure];
     }
     return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self initConfig];
+        [self initConfigure];
     }
     return  self;
 }
@@ -36,15 +36,12 @@
     HYBaseCollectionViewCell *cell =
     [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(self)
                                               forIndexPath:indexPath];
-    cell.cellModel = [viewModel getCellModelAtIndexPath:indexPath];
     cell.viewModel = viewModel;
     cell.indexPath = indexPath;
-    [cell configureCell];
     return cell;
 }
 
-- (void)initConfig {}
-- (void)configureCell {};
+- (void)initConfigure {}
 - (void)reloadCellData {};
 - (void)setCustomSubViewsArray:(NSArray<UIView *> *)customSubViewsArray {
     _customSubViewsArray = customSubViewsArray;

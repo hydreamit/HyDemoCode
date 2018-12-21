@@ -10,13 +10,12 @@
 
 @interface HYBaseTableViewCell ()
 @property (nonatomic, strong) NSIndexPath *indexPath;
-@property (nonatomic, strong) HYBaseTableCellModel *cellModel;
 @end
 
 @implementation HYBaseTableViewCell
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        [self initConfig];
+        [self initConfigure];
     }
     return self;
 }
@@ -24,7 +23,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self initConfig];
+        [self initConfigure];
     }
     return self;
 }
@@ -34,19 +33,17 @@
                         viewModel:(HYBaseTableViewModel *)viewModel {
     HYBaseTableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:NSStringFromClass(self)
                                                                   forIndexPath:indexPath];
-    cell.cellModel = [viewModel getCellModelAtIndexPath:indexPath];
     cell.viewModel = viewModel;
     cell.indexPath = indexPath;
-    [cell configureCell];
     return cell;
 }
 
-- (void)initConfig {
+- (void)initConfigure {
     self.opaque = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)configureCell {};
+
 - (void)reloadCellData {};
 - (void)setCustomSubViewsArray:(NSArray<UIView *> *)customSubViewsArray {
     _customSubViewsArray = customSubViewsArray;

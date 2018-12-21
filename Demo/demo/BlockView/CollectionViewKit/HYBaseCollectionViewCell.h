@@ -18,8 +18,7 @@
 @property (nonatomic, strong) HYBaseCollectionCellModel *cellModel;
 
 
-- (void)initConfig;
-- (void)configureCell;
+- (void)initConfigure;
 - (void)reloadCellData;
 + (instancetype)cellWithColletionView:(UICollectionView *)collectionView
                             indexPath:(NSIndexPath *)indexPath

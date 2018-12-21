@@ -22,8 +22,8 @@
 
 @implementation HYNewsImageCell
 @dynamic cellModel;
-- (void)initConfig {
-    [super initConfig];
+- (void)initConfigure {
+    [super initConfigure];
     self.customSubViewsArray = @[
                                  self.newsTitleLabel,
                                  self.newsImageView,

@@ -56,6 +56,7 @@
         [HYBaseBlockCollectionView colletionViewWithFrame:rect
                                                    layout:[[UICollectionViewFlowLayout alloc] init]
                                               refreshType:HYRefreshTypePullDown
+                                            refreshAction:nil
                                                 viewModel:self.viewModel
                                                 configure:[self collectionViewConfigure]];
     }));
@@ -68,7 +69,8 @@
 #define kRecommendItemVerEdge 20
 - (HYBaseBlockCollectionViewConfigure *)collectionViewConfigure {
     HYBaseBlockCollectionViewConfigure *configure = [HYBaseBlockCollectionViewConfigure new];
-    [[[[[[[configure configRegisterCellClasses:@[HYRecommendCell.class]] configCellClassForRow:^Class(HYBaseCollectionCellModel *cellModel, NSIndexPath *indexPath) {
+    [[[[[[[configure configRegisterCellClasses:@[HYRecommendCell.class]]
+          configCellClassForRow:^Class(HYBaseCollectionCellModel *cellModel, NSIndexPath *indexPath) {
         return HYRecommendCell.class;
     }] configLayoutSize:^CGSize(UICollectionView *collectionView, UICollectionViewLayout *layout, NSIndexPath *indexPath) {
         return CGSizeMake(kRecommendItemWidth, kRecommendItemHeight);

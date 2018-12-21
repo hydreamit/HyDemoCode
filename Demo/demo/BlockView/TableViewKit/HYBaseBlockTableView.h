@@ -29,7 +29,8 @@ typedef NS_ENUM(NSUInteger, HYSeactionViewKinds) {
 
 - (instancetype)configEmptyViewConfigure:(configureBlock)configure;
 - (instancetype)configRegisterCellClasses:(NSArray<Class> *)classes;
-- (instancetype)configHeaderFooterViewClasses:(NSArray<Class> *)classes;
+- (instancetype)configSectionAndCellKey:(NSArray<NSString *> *(^)(void))block;
+- (instancetype)configRegisterHeaderFooterViewClasses:(NSArray<Class> *(^)(HYSeactionViewKinds seactionViewKinds))block;
 
 - (instancetype)configCellClassForRow:(Class(^)(HYBaseTableCellModel *cellModel, NSIndexPath * indexPath))block;
 - (instancetype)configHeaderFooterViewClassAtSection:(Class(^)(HYBaseTableSectionModel *sectionModel,
@@ -56,6 +57,11 @@ typedef void(^RefreshAction)(void);
                          viewModel:(HYBaseTableViewModel *)viewModel
                          configure:(HYBaseBlockTableViewConfigure *)configure;
 
+- (void)reloadWithViewModel:(id)viewModel
+                 sectionKey:(NSString *)sectionKey
+                    cellKey:(NSString *)cellKey;
+
+
 - (void)configCommandSignaleSub:(void(^)(id value))signaleSub
                        erresSub:(void(^)(id value))erresSub
                    executingSub:(void(^)(id value))executingSub;
@@ -63,8 +69,6 @@ typedef void(^RefreshAction)(void);
 
 - (void)showEmptyView;
 - (void)dismissEmptyView;
-
-
 
 
 /**

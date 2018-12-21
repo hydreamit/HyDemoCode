@@ -17,14 +17,14 @@
 @implementation HYBaseTableViewHeaderFooterView
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        [self initConfig];
+        [self initConfigure];
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        [self initConfig];
+        [self initConfigure];
     }
     return self;
 }
@@ -35,17 +35,14 @@
                                     viewModel:(HYBaseTableViewModel *)viewModel {
     HYBaseTableViewHeaderFooterView *headerFooterView =
     [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(self)];
-    headerFooterView.sectionModel = [viewModel getSectionModelAtSection:section];
     headerFooterView.section = section;
     headerFooterView.isHeader = isHeader;
     headerFooterView.viewModel = viewModel;
-    [headerFooterView configureHeaderFooterView];
     return headerFooterView;
 }
 
-- (void)initConfig {self.contentView.backgroundColor = [UIColor whiteColor];}
+- (void)initConfigure {self.contentView.backgroundColor = [UIColor whiteColor];}
 - (void)reloadHeaderFooterViewData {}
-- (void)configureHeaderFooterView{};
 
 @end
 

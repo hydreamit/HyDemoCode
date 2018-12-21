@@ -23,7 +23,6 @@
 - (collectionViewCommandBlock)collectionViewExecuteCommand {
     return ^RACCommand *(HYCollectionViewLoadDataType type){
         self.currentLoadDataType = type;
-        
         return self.collectionViewCommand;
     };
 }

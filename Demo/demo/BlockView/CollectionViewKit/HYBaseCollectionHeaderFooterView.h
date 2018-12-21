@@ -21,7 +21,6 @@
 
 - (void)initConfig;
 - (void)reloadHeaderFooterViewData;
-- (void)configureHeaderFooterView;
 + (instancetype)headerFooterViewWithCollectionView:(UICollectionView *)collectionView
                                          indexPath:(NSIndexPath *)indexPath
                                           isHeader:(BOOL)isHeader

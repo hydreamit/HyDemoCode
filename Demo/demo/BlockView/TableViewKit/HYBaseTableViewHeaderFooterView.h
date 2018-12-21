@@ -17,9 +17,8 @@
 @property (nonatomic,strong) HYBaseTableViewModel *viewModel;
 @property (nonatomic,strong) HYBaseTableSectionModel *sectionModel;
 
-- (void)initConfig;
+- (void)initConfigure;
 - (void)reloadHeaderFooterViewData;
-- (void)configureHeaderFooterView;
 + (instancetype)headerFooterViewWithTableView:(UITableView *)tableView
                                       section:(NSInteger)section
                                      isHeader:(BOOL)isHeader

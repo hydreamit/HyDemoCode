@@ -23,7 +23,6 @@
 - (tableViewCommandBlock)tableViewExecuteCommand {
     return ^RACCommand *(HYTableViewLoadDataType type){
         self.currentLoadDataType = type;
-
         return self.tableViewCommand;
     };
 }
@@ -31,9 +30,19 @@
 - (RACCommand *)tableViewCommand {
     return Hy_Lazy(_tableViewCommand, ({
         
-        [RACCommand commandGetCacheWithUrl:[self configtUrl]
-                                    params:[self configParams]
-                             handleCommand:[self configrequestCommand] ];
+        RACCommand *commnad = nil;
+        if (self.isGetRequest) {
+            commnad =
+            [RACCommand commandGetCacheWithUrl:[self configtUrl]
+                                        params:[self configParams]
+                                 handleCommand:[self configrequestCommand]];
+        } else {
+            commnad =
+            [RACCommand commandPostCacheWithUrl:[self configtUrl]
+                                         params:[self configParams]
+                                  handleCommand:[self configrequestCommand]];
+        }
+        commnad;
     }));
 }
 

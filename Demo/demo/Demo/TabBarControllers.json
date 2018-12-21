@@ -1,26 +1,26 @@
 [
     {
-         "vc"    : "HYNewsController",
+         "vc"        : "HYNewsController",
          "viewModel" : "HYNewsViewModel",
-         "params" : "",
-         "title" : "资讯",
-         "image" : "icon_zx_nomal_pgall",
+         "params"    : "",
+         "title"     : "资讯",
+         "image"     : "icon_zx_nomal_pgall",
          "selectedImage" : "icon_zx_pressed_pgall"
     },
     {
-        "vc"    : "HYRecommendController",
+        "vc"        : "HYRecommendController",
         "viewModel" : "HYRecommendViewModel",
-        "params" : "",
-        "title" : "精选",
-        "image" : "icon_jx_nomal_pgall",
+        "params"    : "",
+        "title"     : "精选",
+        "image"     : "icon_jx_nomal_pgall",
         "selectedImage" : "icon_jx_pressed_pgall"
     },
     {
-        "vc"    : "RACTestViewController",
+        "vc"        : "RACTestViewController",
         "viewModel" : "RACTestViewModel",
-        "params" : "",
-        "title" : "我的",
-        "image" : "icon_w_nomal_pgall",
+        "params"    : "",
+        "title"     : "我的",
+        "image"     : "icon_w_nomal_pgall",
         "selectedImage" : "icon_w_pressed_pgall"
     }
 ]

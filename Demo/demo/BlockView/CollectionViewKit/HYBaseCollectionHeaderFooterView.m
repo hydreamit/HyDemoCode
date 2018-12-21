@@ -36,17 +36,14 @@
                                          viewModel:(HYBaseCollectionViewModel *)viewModel {
     HYBaseCollectionHeaderFooterView *headerFooterView = [collectionView
                                                           dequeueReusableSupplementaryViewOfKind:(isHeader ? UICollectionElementKindSectionHeader : UICollectionElementKindSectionFooter) withReuseIdentifier:NSStringFromClass(self) forIndexPath:indexPath];
-    headerFooterView.sectionModel = [viewModel getSectionModelAtSection:indexPath.section];
     headerFooterView.isHeader = isHeader;
     headerFooterView.indexPath = indexPath;
     headerFooterView.viewModel = viewModel;
-    [headerFooterView configureHeaderFooterView];
     return headerFooterView;
 }
 
 - (void)initConfig {self.backgroundColor = [UIColor whiteColor];}
 - (void)reloadHeaderFooterViewData {}
-- (void)configureHeaderFooterView{};
 @end
 
 

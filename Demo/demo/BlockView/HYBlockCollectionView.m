@@ -46,7 +46,7 @@
     return self;
 }
 - (instancetype)configDidSelectItemAtIndexPath:(void (^)(UITableView *tableView, NSIndexPath *indexPath))block {
-    _didSelectItemAtIndexPathBlock = [block copy];
+    self.didSelectItemAtIndexPathBlock = [block copy];
     return self;
 }
 - (instancetype)configWillDisplayCell:(void(^)(UICollectionView *collectionView,UICollectionViewCell *cell, NSIndexPath * indexPath))block {

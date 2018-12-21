@@ -17,8 +17,8 @@
 
 @implementation HYRecommendCell
 @dynamic cellModel;
-- (void)initConfig {
-    [super initConfig];
+- (void)initConfigure {
+    [super initConfigure];
     self.backgroundColor = [UIColor whiteColor];
     self.customSubViewsArray = @[self.icon, self.titleL];
 }

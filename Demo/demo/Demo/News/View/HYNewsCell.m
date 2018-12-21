@@ -20,8 +20,8 @@
 
 @implementation HYNewsCell
 @dynamic cellModel;
-- (void)initConfig {
-    [super initConfig];
+- (void)initConfigure {
+    [super initConfigure];
     self.customSubViewsArray = @[self.newsImageView,
                                  self.newsTitleLabel,
                                  self.lineView];

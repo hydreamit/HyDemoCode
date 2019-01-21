@@ -13,3 +13,6 @@ RAC + MVVM + BlockView + 链式编程
 ### BlockView模块
 ![image](https://github.com/hydreamit/Hy_RAC_MVVM_Code/blob/master/BlockView.jpg)
 
+### RAC分类模块
+![image](https://github.com/hydreamit/Hy_RAC_MVVM_Code/blob/master/Category_RAC.jpg)
+

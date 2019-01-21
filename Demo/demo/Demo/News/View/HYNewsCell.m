@@ -52,7 +52,7 @@
     if (!_newsTitleLabel) {
         _newsTitleLabel = [[YYLabel alloc] init];
         _newsTitleLabel.numberOfLines = 2;
-        _newsTitleLabel.displaysAsynchronously = YES;
+        _newsTitleLabel.displaysAsynchronously = NO;
         _newsTitleLabel.fadeOnAsynchronouslyDisplay = NO;
         _newsTitleLabel.fadeOnHighlight = NO;
         _newsTitleLabel.textColor = TitleColor;

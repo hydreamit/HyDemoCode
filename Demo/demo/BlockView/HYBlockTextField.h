@@ -1,6 +1,6 @@
 //
 //  HYBlockTextField.h
-//  HYWallet
+//  Demo
 //
 //  Created by huangyi on 2018/5/19.
 //  Copyright © 2018年 HY. All rights reserved.
@@ -28,7 +28,7 @@ typedef BOOL(^TextFieldShouldChangeBlock)(UITextField *textField,
 
 
 typedef void(^textFieldConfigureBlock)(HYBlockTextFieldConfigure *configure);
-@interface HYBlockTextField : UITextField
+@interface HYBlockTextField : QMUITextField
 
 
 /**

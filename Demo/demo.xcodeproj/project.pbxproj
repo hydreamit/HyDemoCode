@@ -360,16 +360,16 @@
 		515302B62196B8650095B570 /* BlockView */ = {
 			isa = PBXGroup;
 			children = (
-				515302C42196B8650095B570 /* HYBlockCollectionView.h */,
-				515302C52196B8650095B570 /* HYBlockCollectionView.m */,
-				515302C62196B8650095B570 /* HYBlockScrollView.h */,
-				515302C72196B8650095B570 /* HYBlockScrollView.m */,
-				515302C82196B8650095B570 /* HYBlockTableView.h */,
-				515302C92196B8650095B570 /* HYBlockTableView.m */,
 				515302CA2196B8650095B570 /* HYBlockTextField.h */,
 				515302CB2196B8650095B570 /* HYBlockTextField.m */,
 				515302CC2196B8650095B570 /* HYBlockTextView.h */,
 				515302CD2196B8650095B570 /* HYBlockTextView.m */,
+				515302C82196B8650095B570 /* HYBlockTableView.h */,
+				515302C92196B8650095B570 /* HYBlockTableView.m */,
+				515302C62196B8650095B570 /* HYBlockScrollView.h */,
+				515302C72196B8650095B570 /* HYBlockScrollView.m */,
+				515302C42196B8650095B570 /* HYBlockCollectionView.h */,
+				515302C52196B8650095B570 /* HYBlockCollectionView.m */,
 				515302F92196BD6B0095B570 /* TableViewKit */,
 				515303152196C3910095B570 /* CollectionViewKit */,
 			);
@@ -379,6 +379,10 @@
 		515302F92196BD6B0095B570 /* TableViewKit */ = {
 			isa = PBXGroup;
 			children = (
+				515303042196BD6B0095B570 /* HYBaseBlockTableView.h */,
+				515303052196BD6B0095B570 /* HYBaseBlockTableView.m */,
+				515303022196BD6B0095B570 /* HYBaseTableViewModel.h */,
+				515303032196BD6B0095B570 /* HYBaseTableViewModel.m */,
 				515302FA2196BD6B0095B570 /* HYBaseTableCellModel.h */,
 				515302FB2196BD6B0095B570 /* HYBaseTableCellModel.m */,
 				515302FC2196BD6B0095B570 /* HYBaseTableSectionModel.h */,
@@ -387,10 +391,6 @@
 				515302FF2196BD6B0095B570 /* HYBaseTableViewCell.m */,
 				515303002196BD6B0095B570 /* HYBaseTableViewHeaderFooterView.h */,
 				515303012196BD6B0095B570 /* HYBaseTableViewHeaderFooterView.m */,
-				515303022196BD6B0095B570 /* HYBaseTableViewModel.h */,
-				515303032196BD6B0095B570 /* HYBaseTableViewModel.m */,
-				515303042196BD6B0095B570 /* HYBaseBlockTableView.h */,
-				515303052196BD6B0095B570 /* HYBaseBlockTableView.m */,
 			);
 			path = TableViewKit;
 			sourceTree = "<group>";
@@ -400,16 +400,16 @@
 			children = (
 				515303162196C3910095B570 /* HYBaseBlockCollectionView.h */,
 				515303172196C3910095B570 /* HYBaseBlockCollectionView.m */,
+				515303202196C3910095B570 /* HYBaseCollectionViewModel.h */,
+				515303212196C3910095B570 /* HYBaseCollectionViewModel.m */,
 				515303182196C3910095B570 /* HYBaseCollectionCellModel.h */,
 				515303192196C3910095B570 /* HYBaseCollectionCellModel.m */,
-				5153031A2196C3910095B570 /* HYBaseCollectionHeaderFooterView.h */,
-				5153031B2196C3910095B570 /* HYBaseCollectionHeaderFooterView.m */,
 				5153031C2196C3910095B570 /* HYBaseCollectionSectionModel.h */,
 				5153031D2196C3910095B570 /* HYBaseCollectionSectionModel.m */,
 				5153031E2196C3910095B570 /* HYBaseCollectionViewCell.h */,
 				5153031F2196C3910095B570 /* HYBaseCollectionViewCell.m */,
-				515303202196C3910095B570 /* HYBaseCollectionViewModel.h */,
-				515303212196C3910095B570 /* HYBaseCollectionViewModel.m */,
+				5153031A2196C3910095B570 /* HYBaseCollectionHeaderFooterView.h */,
+				5153031B2196C3910095B570 /* HYBaseCollectionHeaderFooterView.m */,
 			);
 			path = CollectionViewKit;
 			sourceTree = "<group>";
@@ -1032,10 +1032,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/demo/DemoPrefixHeader.pch";
 				INFOPLIST_FILE = demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1055,10 +1052,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/demo/DemoPrefixHeader.pch";
 				INFOPLIST_FILE = demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1072,11 +1066,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = demoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.demoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1090,11 +1080,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = demoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.demoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1107,11 +1093,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = demoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.demoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1124,11 +1106,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = demoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.demoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

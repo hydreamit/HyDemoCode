@@ -24,24 +24,24 @@ typedef id _Nonnull (^requestUrlBlock)(id input);
 
 // Get
 + (instancetype)commandGetWithUrl:(requestUrlBlock)url
-                          params:(requestParamsBlock)params
-                   handleCommand:(requestCommandBlock)handleCommand;
+                           params:(requestParamsBlock)params
+                    handleCommand:(requestCommandBlock)handleCommand;
 
 // Get 缓存
 + (instancetype)commandGetCacheWithUrl:(requestUrlBlock)url
-                               params:(requestParamsBlock)params
-                        handleCommand:(requestCommandBlock)handleCommand;
+                                params:(requestParamsBlock)params
+                         handleCommand:(requestCommandBlock)handleCommand;
 
 // Post
 + (instancetype)commandPostWithUrl:(requestUrlBlock)url
-                           params:(requestParamsBlock)params
-                    handleCommand:(requestCommandBlock)handleCommand;
+                            params:(requestParamsBlock)params
+                     handleCommand:(requestCommandBlock)handleCommand;
 
 
 // Post 缓存
 + (instancetype)commandPostCacheWithUrl:(requestUrlBlock)url
-                                params:(requestParamsBlock)params
-                         handleCommand:(requestCommandBlock)handleCommand;
+                                 params:(requestParamsBlock)params
+                          handleCommand:(requestCommandBlock)handleCommand;
 
 
 @end

@@ -131,7 +131,7 @@
             }];
         }];
         textField.borderStyle = UITextBorderStyleNone;
-//        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.keyboardType = UIKeyboardTypeNumberPad;
         textField;
     }));
 }

@@ -9,6 +9,11 @@
 #import "HYRecommendViewModel.h"
 
 @implementation HYRecommendViewModel
+- (void)handleViewModel {
+    [super handleViewModel];
+ 
+    self.isGetRequest = YES;
+}
 
 - (requestUrlBlock)configtUrl {
     return ^NSString *(id input){

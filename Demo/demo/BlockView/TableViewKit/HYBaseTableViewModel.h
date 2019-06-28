@@ -30,6 +30,7 @@ typedef RACCommand *(^tableViewCommandBlock)(HYTableViewLoadDataType type);
 @property (nonatomic,assign) BOOL isGetRequest;
 @property (nonatomic, assign) NSInteger pageSize;
 @property (nonatomic, assign) NSInteger pageNumber;
+@property (nonatomic, assign) NSInteger startPageNumber;
 @property (nonatomic, assign) HYTableViewLoadDataType currentLoadDataType;
 @property (nonatomic, strong) NSMutableArray<HYBaseTableSectionModel *> *sectionModels;
 

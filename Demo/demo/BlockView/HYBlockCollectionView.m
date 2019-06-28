@@ -129,9 +129,6 @@
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    
-    NSLog(@"%@", self.configure.numberOfSectionsBlock);
-    
     return
     self.configure.numberOfSectionsBlock ?
     self.configure.numberOfSectionsBlock(collectionView) : 0;

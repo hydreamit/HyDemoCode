@@ -10,16 +10,11 @@
 
 @implementation HYNewsViewModel
 
-- (void)handleViewModel {
-    [super handleViewModel];
-    self.pageNumber = 0;
-}
-
 - (requestUrlBlock)configtUrl {
     return ^NSString *(id input){
         NSString *url = @"http://i.play.163.com/user/article/list";
         NSString *string =
-        [NSString stringWithFormat:@"%@/%d/%zd", url, [self getLoadDataPageNumber] * self.pageSize, self.pageSize];
+        [NSString stringWithFormat:@"%@/%zd/%zd", url, [self getLoadDataPageNumber] * self.pageSize, self.pageSize];
         return string;
     };
 }

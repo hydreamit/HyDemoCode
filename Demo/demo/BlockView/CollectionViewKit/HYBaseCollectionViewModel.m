@@ -15,13 +15,15 @@
 @implementation HYBaseCollectionViewModel
 
 - (void)handleViewModel {
-    self.pageNumber = 1;
+    
+    self.startPageNumber = 1;
+    self.pageNumber = self.startPageNumber;
     self.pageSize = 20;
 }
 
-
 - (collectionViewCommandBlock)collectionViewExecuteCommand {
-    return ^RACCommand *(HYCollectionViewLoadDataType type){
+    return ^RACCommand *(HYCollectionViewLoadDataType type) {
+        
         self.currentLoadDataType = type;
         return self.collectionViewCommand;
     };
@@ -30,9 +32,19 @@
 - (RACCommand *)collectionViewCommand {
     return Hy_Lazy(_collectionViewCommand, ({
         
-        [RACCommand commandGetCacheWithUrl:[self configtUrl]
-                                    params:[self configParams]
-                             handleCommand:[self configrequestCommand] ];
+        RACCommand *commnad = nil;
+        if (self.isGetRequest) {
+            commnad =
+            [RACCommand commandGetCacheWithUrl:[self configtUrl]
+                                        params:[self configParams]
+                                 handleCommand:[self configrequestCommand]];
+        } else {
+            commnad =
+            [RACCommand commandPostCacheWithUrl:[self configtUrl]
+                                         params:[self configParams]
+                                  handleCommand:[self configrequestCommand]];
+        }
+        commnad;
     }));
 }
 
@@ -98,7 +110,7 @@
                 
                 if (self.currentLoadDataType == 0 ||
                     self.currentLoadDataType == 1) {
-                    self.pageNumber = 2;
+                    self.pageNumber = self.startPageNumber + 1;
                     self.sectionModels = sectionArray;
                 } else {
                     [self.sectionModels addObjectsFromArray:sectionArray];
@@ -143,7 +155,7 @@
                 }
                 if (self.currentLoadDataType == 0 ||
                     self.currentLoadDataType == 1) {
-                    self.pageNumber = 1;
+                    self.pageNumber = self.startPageNumber + 1;
                 } else {
                     self.pageNumber++;
                 }
@@ -157,7 +169,7 @@
 }
 
 - (NSInteger)getLoadDataPageNumber {
-    return self.currentLoadDataType == 2 ? self.pageNumber : 0;
+    return self.currentLoadDataType == 2 ? self.pageNumber : self.startPageNumber;
 }
 
 - (id)objectForDict:(NSDictionary *)dict
@@ -195,7 +207,7 @@
 //    return ^ NSDictionary * (id response){
 //        return @{
 //                 cellModelName : @"HYBaseCollectionCellModel",
-//                 CellModelDataKey : @"cell"
+//                 CellModelDataKey : response[@"data"]
 //                };
 //    };
 - (tableViewDataAnalyzeBlock)configDataParams {

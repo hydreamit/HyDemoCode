@@ -25,8 +25,10 @@ typedef NSDictionary *(^collectionViewDataAnalyzeBlock)(NSDictionary *respose);
 typedef RACCommand *(^collectionViewCommandBlock)(HYCollectionViewLoadDataType type);
 
 
+@property (nonatomic,assign) BOOL isGetRequest;
 @property (nonatomic, assign) NSInteger pageSize;
 @property (nonatomic, assign) NSInteger pageNumber;
+@property (nonatomic, assign) NSInteger startPageNumber;
 @property (nonatomic,assign) HYCollectionViewLoadDataType currentLoadDataType;
 @property (nonatomic, strong) NSMutableArray<HYBaseCollectionSectionModel *> *sectionModels;
 

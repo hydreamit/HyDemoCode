@@ -79,8 +79,10 @@
 + (void)exchangeMethodWithClass:(Class)methodClass
                    systemMethod:(SEL)systemMethod
                    customMethod:(SEL)customMethod {
+    
     Method beforMethod = class_getInstanceMethod(methodClass, systemMethod);
     Method afterMethod = class_getInstanceMethod(methodClass, customMethod);
+    
     BOOL didAddMethod = class_addMethod(methodClass,
                                         systemMethod,
                                         method_getImplementation(afterMethod),

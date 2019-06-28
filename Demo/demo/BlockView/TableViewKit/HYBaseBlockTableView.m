@@ -588,7 +588,17 @@
     };
     
     __block NSMutableArray *tempArray = @[].mutableCopy;
-    NSArray *array = @[self.nsewDataCommand , self.pullDownCommand, self.pullUpCommand];
+    NSMutableArray *array = @[].mutableCopy;
+    if ([self.nsewDataCommand isKindOfClass:RACCommand.class]) {
+        [array addObject:self.nsewDataCommand];
+    }
+    if ([self.pullDownCommand isKindOfClass:RACCommand.class]) {
+        [array addObject:self.pullDownCommand];
+    }
+    if ([self.pullUpCommand isKindOfClass:RACCommand.class]) {
+        [array addObject:self.pullUpCommand];
+    }
+    
     [array enumerateObjectsUsingBlock:^(RACCommand *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (![tempArray containsObject:obj]) {
             

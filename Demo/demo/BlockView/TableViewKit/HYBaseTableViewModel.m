@@ -16,12 +16,15 @@
 
 @implementation HYBaseTableViewModel
 - (void)handleViewModel {
-    self.pageNumber = 1;
+    
+    self.startPageNumber = 0;
+    self.pageNumber = self.startPageNumber;
     self.pageSize = 20;
 }
 
 - (tableViewCommandBlock)tableViewExecuteCommand {
     return ^RACCommand *(HYTableViewLoadDataType type){
+        
         self.currentLoadDataType = type;
         return self.tableViewCommand;
     };
@@ -108,7 +111,7 @@
                 
                 if (self.currentLoadDataType == 0 ||
                     self.currentLoadDataType == 1) {
-                    self.pageNumber = 2;
+                    self.pageNumber = self.startPageNumber  + 1;
                     self.sectionModels = sectionArray;
                 } else {
                     [self.sectionModels addObjectsFromArray:sectionArray];
@@ -153,7 +156,7 @@
                 }
                 if (self.currentLoadDataType == 0 ||
                     self.currentLoadDataType == 1) {
-                    self.pageNumber = 2;
+                    self.pageNumber = self.startPageNumber + 1;
                 } else {
                     self.pageNumber++;
                 }
@@ -167,7 +170,7 @@
 }
 
 - (NSInteger)getLoadDataPageNumber {
-    return self.currentLoadDataType == 2 ? self.pageNumber : 0;
+    return self.currentLoadDataType == 2 ? self.pageNumber : self.startPageNumber;
 }
 
 - (id)objectForDict:(NSDictionary *)dict
@@ -205,7 +208,7 @@
 //    return ^ NSDictionary * (id response){
 //        return @{
 //                 cellModelName : @"HYBaseTableCellModel",
-//                 CellModelDataKey : @"cell"
+//                 CellModelDataKey : response[@"data"]
 //                };
 //    };
 - (tableViewDataAnalyzeBlock)configDataParams {

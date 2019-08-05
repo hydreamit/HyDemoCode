@@ -105,7 +105,6 @@
 @property (nonatomic,strong) RACCommand *pullDownCommand;
 @property (nonatomic,strong) RACCommand *nsewDataCommand;
 @property (nonatomic,strong) HYBaseTableViewModel *viewModel;
-@property (nonatomic,copy) configureBlock emptyViewConfigure;
 @property (nonatomic,strong) NSMutableArray<RACDisposable *> *disposees;
 @property (nonatomic, strong) HYBaseBlockTableViewConfigure *configure;
 @property (nonatomic,copy) NSString *sectionKey;
@@ -212,25 +211,67 @@
     [self reloadData];
 }
 
+- (id)getViewModel {
+    return self.viewModel;
+}
+
 - (void)reloadData {
+    if (self.willReloadAsynHandle) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            self.willReloadAsynHandle();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self handleReload];
+            });
+        });
+    } else {
+        [self handleReload];
+    }
+}
+
+- (void)handleReload {
+    
+    [self.willReloadSignal sendNext:nil];
     [super reloadData];
     
-    if (self.emptyViewConfigure &&
-        ![self.viewModel isKindOfClass:HYBaseTableViewModel.class]) {
-        if ([self getSectionCount] <= 1 &&
-            [self getCellCountWithSection:0] == 0) {
-            [self showEmptyView];
+    [self sendMessageWithInstance:self.tableHeaderView methodNama:@"reloadWithViewModel:"];
+    [self sendMessageWithInstance:self.tableFooterView methodNama:@"reloadWithViewModel:"];
+    
+    if (self.configure.emptyViewConfigure ) {
+        
+        NSInteger sectionCount =
+        self.configure.numberOfSections ?
+        self.configure.numberOfSections(self) :
+        [self getSectionCount];
+        
+        if (sectionCount <= 1) {
+            
+            NSInteger cellCount =
+            self.configure.numberOfRowsInSection ?
+            self.configure.numberOfRowsInSection(self, 0) :
+            [self getCellCountWithSection:0];
+            
+            if (cellCount == 0) {
+                [self showEmptyView];
+            } else {
+                [self dismissEmptyView];
+            }
+            
         } else {
             [self dismissEmptyView];
         }
     }
+    [self.reloadSignal sendNext:nil];
+}
+
+- (void)sendMessageWithInstance:(id)instance
+                     methodNama:(NSString *)methodName {
+    if ([instance respondsToSelector:NSSelectorFromString(methodName)]) {
+        ((void (*)(id, SEL, id))objc_msgSend)(instance, NSSelectorFromString(methodName),self.viewModel);
+    }
 }
 
 - (void)configTableViewBlockWithConfigure:(HYBaseBlockTableViewConfigure *)configure {
-    if (configure.emptyViewConfigure) {
-        self.emptyViewConfigure = configure.emptyViewConfigure;
-    }
-    
+  
     [self registerCellWithCellClasses:configure.registerCellClasses];
     [self registerHeaderFooterWithViewClasses:configure.registerHeaderFooterViewClasses];
     
@@ -574,13 +615,6 @@
         ({
             if (!executing.boolValue) {
                 [MBProgressHUD hidden];
-                if (self.emptyViewConfigure) {
-                    if (self.viewModel.sectionModels.count) {
-                        [self dismissEmptyView];
-                    } else {
-                        [self showEmptyView];
-                    }
-                }
             } else {
                 if (self.viewModel.currentLoadDataType == HYTableViewLoadDataTypeFirst) {
                     [MBProgressHUD showHUD];
@@ -709,9 +743,9 @@
 }
 
 - (void)showEmptyView {
-    if (self.emptyViewConfigure) {
+    if (self.configure.emptyViewConfigure) {
         [MBProgressHUD showEmptyViewToView:self
-                                 configure:self.emptyViewConfigure
+                                 configure:self.configure.emptyViewConfigure
                             reloadCallback:nil];
     }
 }
@@ -730,7 +764,17 @@
     }));
 }
 
+- (RACSubject *)reloadSignal {
+    return Hy_Lazy(_reloadSignal, ({
+        [RACSubject subject];
+    }));
+}
 
+- (RACSubject *)willReloadSignal {
+    return Hy_Lazy(_willReloadSignal, ({
+        [RACSubject subject];
+    }));
+}
 @end
 
 

@@ -101,7 +101,6 @@
 @property (nonatomic,strong) RACCommand *pullDownCommand;
 @property (nonatomic,strong) RACCommand *nsewDataCommand;
 @property (nonatomic,strong) HYBaseCollectionViewModel *viewModel;
-@property (nonatomic,copy) configureBlock emptyViewConfigure;
 @property (nonatomic,strong) NSMutableArray<RACDisposable *> *disposees;
 @property (nonatomic,copy) NSString *sectionKey;
 @property (nonatomic,copy) NSString *cellKey;
@@ -176,17 +175,48 @@
 }
 
 - (void)reloadData {
+    if (self.willReloadAsynHandle) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            self.willReloadAsynHandle();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self handleReload];
+            });
+        });
+    } else {
+        [self handleReload];
+    }
+}
+
+- (void)handleReload {
+    
+    [self.willReloadSignal sendNext:nil];
     [super reloadData];
     
-    if (self.emptyViewConfigure &&
-        ![self.viewModel isKindOfClass:HYBaseCollectionViewModel.class]) {
-        if ([self getSectionCount] <= 1 &&
-            [self getCellCountWithSection:0] == 0) {
-            [self showEmptyView];
+    if (self.configure.emptyViewConfigure ) {
+        
+        NSInteger sectionCount =
+        self.configure.numberOfSectionsBlock ?
+        self.configure.numberOfSectionsBlock(self) :
+        [self getSectionCount];
+        
+        if (sectionCount <= 1) {
+            
+            NSInteger cellCount =
+            self.configure.numberOfItemsInSectionBlock ?
+            self.configure.numberOfItemsInSectionBlock(self, 0) :
+            [self getCellCountWithSection:0];
+            
+            if (cellCount == 0) {
+                [self showEmptyView];
+            } else {
+                [self dismissEmptyView];
+            }
+            
         } else {
             [self dismissEmptyView];
         }
     }
+    [self.reloadSignal sendNext:nil];
 }
 
 - (id)getViewModel {
@@ -228,10 +258,6 @@
 
 - (void)configCollectionViewBlockWithConfigure:(HYBaseBlockCollectionViewConfigure *)configure {
     @weakify(self);
-    
-    if (configure.emptyViewConfigure) {
-        self.emptyViewConfigure = configure.emptyViewConfigure;
-    }
     
     [self registerCellWithCellClasses:configure.registerCellClasses];
     [self registerHeaderWithViewClasses:configure.registerHeaderViewClasses];
@@ -627,9 +653,9 @@
 }
 
 - (void)showEmptyView {
-    if (self.emptyViewConfigure) {
+    if (self.configure.emptyViewConfigure) {
         [MBProgressHUD showEmptyViewToView:self
-                                 configure:self.emptyViewConfigure
+                                 configure:self.configure.emptyViewConfigure
                             reloadCallback:nil];
     }
 }
@@ -648,6 +674,17 @@
     }));
 }
 
+- (RACSubject *)reloadSignal {
+    return Hy_Lazy(_reloadSignal, ({
+        [RACSubject subject];
+    }));
+}
+
+- (RACSubject *)willReloadSignal {
+    return Hy_Lazy(_willReloadSignal, ({
+        [RACSubject subject];
+    }));
+}
 @end
 
 

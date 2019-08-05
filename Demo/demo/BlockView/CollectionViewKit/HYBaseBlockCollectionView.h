@@ -39,6 +39,10 @@
 
 @interface HYBaseBlockCollectionView : HYBlockCollectionView
 
+@property (nonatomic,strong) RACSubject *reloadSignal;
+@property (nonatomic,strong) RACSubject *willReloadSignal;
+@property (nonatomic,copy) void(^willReloadAsynHandle)(void);
+
 + (instancetype)colletionViewWithFrame:(CGRect)frame
                                 layout:(UICollectionViewLayout *)layout
                            refreshType:(HYRefreshType)refreshType

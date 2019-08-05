@@ -50,6 +50,10 @@ typedef NS_ENUM(NSUInteger, HYSeactionViewKinds) {
 typedef void(^RefreshAction)(void);
 @interface HYBaseBlockTableView : HYBlockTableView
 
+@property (nonatomic,strong) RACSubject *reloadSignal;
+@property (nonatomic,strong) RACSubject *willReloadSignal;
+@property (nonatomic,copy) void(^willReloadAsynHandle)(void);
+
 + (instancetype)tableViewWithFrame:(CGRect)frame
                              style:(UITableViewStyle)style
                        refreshType:(HYRefreshType)refreshType
@@ -69,6 +73,7 @@ typedef void(^RefreshAction)(void);
 
 - (void)showEmptyView;
 - (void)dismissEmptyView;
+- (id)getViewModel;
 
 
 /**

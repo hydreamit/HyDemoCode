@@ -110,6 +110,7 @@
 
 
 @implementation HYBaseBlockCollectionView
+@dynamic configure;
 + (instancetype)colletionViewWithFrame:(CGRect)frame
                                 layout:(UICollectionViewLayout *)layout
                            refreshType:(HYRefreshType)refreshType

@@ -27,19 +27,10 @@ typedef BOOL(^TextFieldShouldChangeBlock)(UITextField *textField,
 
 
 
-typedef void(^textFieldConfigureBlock)(HYBlockTextFieldConfigure *configure);
+typedef void(^TextFieldConfigureBlock)(HYBlockTextFieldConfigure *configure);
 @interface HYBlockTextField : QMUITextField
 
-
-/**
- 创建方式
- 
- @param frame frame
- @param configure configure
- @return HYBlockTextField
- */
-+ (instancetype)blockTextFieldWithFrame:(CGRect)frame
-                              configure:(HYBlockTextFieldConfigure *)configure;
+@property (nonatomic,strong,readonly) HYBlockTextFieldConfigure *configure;
 
 
 /**
@@ -50,7 +41,7 @@ typedef void(^textFieldConfigureBlock)(HYBlockTextFieldConfigure *configure);
  @return HYBlockTextField
  */
 + (instancetype)blockTextFieldWithFrame:(CGRect)frame
-                         configureBlock:(textFieldConfigureBlock)configureBlock;
+                         configureBlock:(TextFieldConfigureBlock)configureBlock;
 
 
 @end

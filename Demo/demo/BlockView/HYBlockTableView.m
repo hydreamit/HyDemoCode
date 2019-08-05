@@ -8,7 +8,7 @@
 
 #import "HYBlockTableView.h"
 
-@interface HYBlockTableViewConfigure ()
+@interface HYBlockTableViewConfigure () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic,copy) NSInteger(^numberOfSections)(UITableView *tableView);
 @property (nonatomic,copy) NSInteger(^numberOfRowsInSection)(UITableView *tableView, NSInteger section);
 // cell
@@ -123,10 +123,213 @@
     self.moveRowAtIndexPath = [block copy];
     return self;
 }
+
+#pragma mark - UITableViewDataSource, UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return
+    self.numberOfSections ?
+    self.numberOfSections(tableView) : 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+    return
+    self.numberOfRowsInSection ?
+    self.numberOfRowsInSection(tableView, section) : 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.cellForRowAtIndexPath ?
+    self.cellForRowAtIndexPath(tableView, indexPath) : nil;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.willDisplayCell ?
+    self.willDisplayCell(tableView, cell, indexPath) : nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return
+    self.viewForHeaderInSection ?
+    self.viewForHeaderInSection(tableView, section) : nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return
+    self.viewForFooterInSection ?
+    self.viewForFooterInSection(tableView, section) : nil;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view
+       forSection:(NSInteger)section {
+    self.willDisplayHeaderView ?
+    self.willDisplayHeaderView(tableView, view,section) : nil;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view
+       forSection:(NSInteger)section {
+    self.willDisplayFooterView ?
+    self.willDisplayFooterView(tableView, view, section) : nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.heightForRowAtIndexPath ?
+    self.heightForRowAtIndexPath(tableView, indexPath) : tableView.rowHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return
+    self.heightForHeaderInSection ?
+    self.heightForHeaderInSection(tableView, section) : (tableView.sectionHeaderHeight > 0 ? tableView.sectionHeaderHeight : 0.001);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return
+    self.heightForFooterInSection ?
+    self.heightForFooterInSection(tableView, section) : (tableView.sectionFooterHeight > 0 ? tableView.sectionFooterHeight : 0.001);
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.didSelectRowAtIndexPath ?
+    self.didSelectRowAtIndexPath(tableView, indexPath) : nil;
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.didDeselectRowAtIndexPath ?
+    self.didDeselectRowAtIndexPath(tableView, indexPath) : nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.canEditRowAtIndexPath ?
+    self.canEditRowAtIndexPath(tableView, indexPath) : NO;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.editingStyleForRowAtIndexPath ?
+    self.editingStyleForRowAtIndexPath(tableView, indexPath) : 0;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.commitEditingStyle ?
+    self.commitEditingStyle(tableView, editingStyle, indexPath) : 0;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView
+                  editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.editActionsForRowAtIndexPath ?
+    self.editActionsForRowAtIndexPath(tableView, indexPath) : 0;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    !self.scrollViewDidScrollBlock ?:
+    self.scrollViewDidScrollBlock(scrollView);
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView  {
+    !self.scrollViewDidZoomBlock ?:
+    self.scrollViewDidZoomBlock(scrollView);
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    !self.scrollViewWillBeginDraggingBlock ?:
+    self.scrollViewWillBeginDraggingBlock(scrollView);
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    !self.scrollViewWillBeginDeceleratingBlock ?:
+    self.scrollViewWillBeginDeceleratingBlock(scrollView);
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    !self.scrollViewDidEndDeceleratingBlock ?:
+    self.scrollViewDidEndDeceleratingBlock(scrollView);
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    !self.scrollViewDidEndScrollingAnimationBlock ?:
+    self.scrollViewDidEndScrollingAnimationBlock(scrollView);
+}
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return
+    self.viewForZoomingInScrollViewBlock ?
+    self.viewForZoomingInScrollViewBlock(scrollView) : nil;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    self.scrollViewWillEndDraggingBlock ?
+    self.scrollViewWillEndDraggingBlock(scrollView, velocity, *targetContentOffset) : nil;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.scrollViewDidEndDraggingBlock ?
+    self.scrollViewDidEndDraggingBlock(scrollView, decelerate) : nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
+    self.scrollViewWillBeginZoomingBlock ?
+    self.scrollViewWillBeginZoomingBlock(scrollView, view) : nil;
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+    self.scrollViewDidEndZoomingBlock ?
+    self.scrollViewDidEndZoomingBlock(scrollView, view, scale) : nil;
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    return
+    self.scrollViewShouldScrollToTopBlock ?
+    self.scrollViewShouldScrollToTopBlock(scrollView) : YES;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    !self.scrollViewDidScrollToTopBlock ?:
+    self.scrollViewDidScrollToTopBlock(scrollView);
+}
+
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
+    !self.scrollViewDidChangeAdjustedContentInsetBlock ?:
+    self.scrollViewDidChangeAdjustedContentInsetBlock(scrollView);
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.canMoveRowAtIndexPath ?
+    self.canMoveRowAtIndexPath(tableView, indexPath) : NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+    self.shouldIndentWhileEditingRowAtIndexPath ?
+    self.shouldIndentWhileEditingRowAtIndexPath(tableView, indexPath) : YES;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+       toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    return
+    self.targetIndexPathForMoveFromRowAtIndexPath ?
+    self.targetIndexPathForMoveFromRowAtIndexPath
+    (tableView, sourceIndexPath, proposedDestinationIndexPath) : proposedDestinationIndexPath;
+    
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    !self.moveRowAtIndexPath ?:
+    self.moveRowAtIndexPath(tableView, sourceIndexPath, destinationIndexPath);
+}
 @end
 
 
-@interface HYBlockTableView ()<UITableViewDataSource, UITableViewDelegate>
+@interface HYBlockTableView ()
 @property (nonatomic, strong) HYBlockTableViewConfigure *configure;
 @end
 
@@ -142,8 +345,7 @@
     [tableView addRefreshWithHeaderRefreshCallback:headerRefreshCallback
                              footerRefreshCallback:footerRefreshCallback];
     tableView.configure = configure;
-    tableView.dataSource = tableView;
-    tableView.delegate = tableView;
+    [tableView initConfigure];
     return tableView;
 }
 
@@ -156,217 +358,32 @@
     [tableView addRefreshWithHeaderRefreshCallback:refreshCommand(YES).bindExcuteEmtyBlock(tableView)
                              footerRefreshCallback:refreshCommand(NO).bindExcuteEmtyBlock(tableView)];
     tableView.configure = configure;
-    tableView.dataSource = tableView;
-    tableView.delegate = tableView;
+    [tableView initConfigure];
     return tableView;
 }
 
-- (void)refreshConfigure:(HYBlockTableViewConfigure *)configure {
-    self.configure = configure;
-}
-
-#pragma mark - UITableViewDataSource, UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return
-    self.configure.numberOfSections ?
-    self.configure.numberOfSections(tableView) : 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
-    return
-    self.configure.numberOfRowsInSection ?
-    self.configure.numberOfRowsInSection(tableView, section) : 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.cellForRowAtIndexPath ?
-    self.configure.cellForRowAtIndexPath(tableView, indexPath) : nil;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
-    forRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.configure.willDisplayCell ?
-    self.configure.willDisplayCell(tableView, cell, indexPath) : nil;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return
-    self.configure.viewForHeaderInSection ?
-    self.configure.viewForHeaderInSection(tableView, section) : nil;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return
-    self.configure.viewForFooterInSection ?
-    self.configure.viewForFooterInSection(tableView, section) : nil;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view
-       forSection:(NSInteger)section {
-    self.configure.willDisplayHeaderView ?
-    self.configure.willDisplayHeaderView(tableView, view,section) : nil;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view
-       forSection:(NSInteger)section {
-    self.configure.willDisplayFooterView ?
-    self.configure.willDisplayFooterView(tableView, view, section) : nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.heightForRowAtIndexPath ?
-    self.configure.heightForRowAtIndexPath(tableView, indexPath) : tableView.rowHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return
-    self.configure.heightForHeaderInSection ?
-    self.configure.heightForHeaderInSection(tableView, section) : (tableView.sectionHeaderHeight > 0 ? tableView.sectionHeaderHeight : 0.001);
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return
-    self.configure.heightForFooterInSection ?
-    self.configure.heightForFooterInSection(tableView, section) : (tableView.sectionFooterHeight > 0 ? tableView.sectionFooterHeight : 0.001);
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.configure.didSelectRowAtIndexPath ?
-    self.configure.didSelectRowAtIndexPath(tableView, indexPath) : nil;
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.configure.didDeselectRowAtIndexPath ?
-    self.configure.didDeselectRowAtIndexPath(tableView, indexPath) : nil;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.canEditRowAtIndexPath ?
-    self.configure.canEditRowAtIndexPath(tableView, indexPath) : NO;
-}
-
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
-          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.editingStyleForRowAtIndexPath ?
-    self.configure.editingStyleForRowAtIndexPath(tableView, indexPath) : 0;
-}
-
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-                                          forRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.configure.commitEditingStyle ?
-    self.configure.commitEditingStyle(tableView, editingStyle, indexPath) : 0;
-}
-
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView
-                  editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.editActionsForRowAtIndexPath ?
-    self.configure.editActionsForRowAtIndexPath(tableView, indexPath) : 0;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidScrollBlock ?:
-    self.configure.scrollViewDidScrollBlock(scrollView);
-}
-
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView  {
-    !self.configure.scrollViewDidZoomBlock ?:
-    self.configure.scrollViewDidZoomBlock(scrollView);
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    !self.configure.scrollViewWillBeginDraggingBlock ?:
-    self.configure.scrollViewWillBeginDraggingBlock(scrollView);
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    !self.configure.scrollViewWillBeginDeceleratingBlock ?:
-    self.configure.scrollViewWillBeginDeceleratingBlock(scrollView);
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidEndDeceleratingBlock ?:
-    self.configure.scrollViewDidEndDeceleratingBlock(scrollView);
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidEndScrollingAnimationBlock ?:
-    self.configure.scrollViewDidEndScrollingAnimationBlock(scrollView);
-}
-
-- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return
-    self.configure.viewForZoomingInScrollViewBlock ?
-    self.configure.viewForZoomingInScrollViewBlock(scrollView) : nil;
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    self.configure.scrollViewWillEndDraggingBlock ?
-    self.configure.scrollViewWillEndDraggingBlock(scrollView, velocity, *targetContentOffset) : nil;
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.configure.scrollViewDidEndDraggingBlock ?
-    self.configure.scrollViewDidEndDraggingBlock(scrollView, decelerate) : nil;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
-    self.configure.scrollViewWillBeginZoomingBlock ?
-    self.configure.scrollViewWillBeginZoomingBlock(scrollView, view) : nil;
-}
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
-    self.configure.scrollViewDidEndZoomingBlock ?
-    self.configure.scrollViewDidEndZoomingBlock(scrollView, view, scale) : nil;
-}
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    return
-    self.configure.scrollViewShouldScrollToTopBlock ?
-    self.configure.scrollViewShouldScrollToTopBlock(scrollView) : YES;
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidScrollToTopBlock ?:
-    self.configure.scrollViewDidScrollToTopBlock(scrollView);
-}
-
-- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidChangeAdjustedContentInsetBlock ?:
-    self.configure.scrollViewDidChangeAdjustedContentInsetBlock(scrollView);
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.canMoveRowAtIndexPath ?
-    self.configure.canMoveRowAtIndexPath(tableView, indexPath) : NO;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    return
-    self.configure.shouldIndentWhileEditingRowAtIndexPath ?
-    self.configure.shouldIndentWhileEditingRowAtIndexPath(tableView, indexPath) : YES;
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-       toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-    return
-    self.configure.targetIndexPathForMoveFromRowAtIndexPath ?
-    self.configure.targetIndexPathForMoveFromRowAtIndexPath
-    (tableView, sourceIndexPath, proposedDestinationIndexPath) : proposedDestinationIndexPath;
+- (void)initConfigure {
     
+    if (self.configure) {
+        self.dataSource = self.configure;
+        self.delegate = self.configure;
+    }
+    
+    self.delaysContentTouches = NO;
+    self.canCancelContentTouches = YES;
+    self.showsHorizontalScrollIndicator = NO;
+    self.showsVerticalScrollIndicator = NO;
+    self.panGestureRecognizer.cancelsTouchesInView = NO;
+    if (@available(iOS 11.0, *)){
+        self.estimatedRowHeight = 0;
+        self.estimatedSectionHeaderHeight = 0;
+        self.estimatedSectionFooterHeight = 0;
+        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    !self.configure.moveRowAtIndexPath ?:
-    self.configure.moveRowAtIndexPath(tableView, sourceIndexPath, destinationIndexPath);
-}
 @end
 
 

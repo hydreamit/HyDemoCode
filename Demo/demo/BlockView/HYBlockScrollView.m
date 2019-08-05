@@ -8,7 +8,7 @@
 
 #import "HYBlockScrollView.h"
 
-@interface HYBlockScrollViewConfigure ()
+@interface HYBlockScrollViewConfigure () <UIScrollViewDelegate>
 @property (nonatomic,copy) ScrollViewVoiBlock scrollViewDidScrollBlock;
 @property (nonatomic,copy) ScrollViewVoiBlock scrollViewDidZoomBlock;
 @property (nonatomic,copy) ScrollViewVoiBlock scrollViewWillBeginDraggingBlock;
@@ -83,108 +83,98 @@
     self.scrollViewDidEndDraggingBlock = [block copy];
     return self;
 }
+
+#pragma mark — UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    !self.scrollViewDidScrollBlock ?:
+    self.scrollViewDidScrollBlock(scrollView);
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView  {
+    !self.scrollViewDidZoomBlock ?:
+    self.scrollViewDidZoomBlock(scrollView);
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    !self.scrollViewWillBeginDraggingBlock ?:
+    self.scrollViewWillBeginDraggingBlock(scrollView);
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    !self.scrollViewWillBeginDeceleratingBlock ?:
+    self.scrollViewWillBeginDeceleratingBlock(scrollView);
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    !self.scrollViewDidEndDeceleratingBlock ?:
+    self.scrollViewDidEndDeceleratingBlock(scrollView);
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    !self.scrollViewDidEndScrollingAnimationBlock ?:
+    self.scrollViewDidEndScrollingAnimationBlock(scrollView);
+}
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return
+    self.viewForZoomingInScrollViewBlock ?
+    self.viewForZoomingInScrollViewBlock(scrollView) : nil;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    self.scrollViewWillEndDraggingBlock ?
+    self.scrollViewWillEndDraggingBlock(scrollView, velocity, *targetContentOffset) : nil;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.scrollViewDidEndDraggingBlock ?
+    self.scrollViewDidEndDraggingBlock(scrollView, decelerate) : nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
+    self.scrollViewWillBeginZoomingBlock ?
+    self.scrollViewWillBeginZoomingBlock(scrollView, view) : nil;
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+    self.scrollViewDidEndZoomingBlock ?
+    self.scrollViewDidEndZoomingBlock(scrollView, view, scale) : nil;
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    return
+    self.scrollViewShouldScrollToTopBlock ?
+    self.scrollViewShouldScrollToTopBlock(scrollView) : YES;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    !self.scrollViewDidScrollToTopBlock ?:
+    self.scrollViewDidScrollToTopBlock(scrollView);
+}
+
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
+    !self.scrollViewDidChangeAdjustedContentInsetBlock ?:
+    self.scrollViewDidChangeAdjustedContentInsetBlock(scrollView);
+}
+
 @end
 
 
 
-@interface HYBlockScrollView () <UIScrollViewDelegate>
+@interface HYBlockScrollView ()
 @property (nonatomic,strong) HYBlockScrollViewConfigure *configure;
 @end
 
 @implementation HYBlockScrollView
 
 + (instancetype)blockScrollViewWithFrame:(CGRect)frame
-                               configure:(HYBlockScrollViewConfigure *)configure {
-    HYBlockScrollView *scrollView = [[self alloc] init];
-    scrollView.configure = configure;
-    scrollView.delegate = scrollView;
-    return scrollView;
-}
-
-+ (instancetype)blockScrollViewWithFrame:(CGRect)frame
-                          configureBlock:(scrollViewConfigureBlock)configureBlock {
-    HYBlockScrollView *scrollView = [[self alloc] init];
+                          configureBlock:(ScrollViewConfigureBlock)configureBlock {
+    
+    HYBlockScrollView *scrollView = [[self alloc] initWithFrame:frame];
+    scrollView.configure = [[HYBlockScrollViewConfigure alloc] init];
     !configureBlock ?: configureBlock(scrollView.configure);
-     scrollView.delegate = scrollView;
+    scrollView.delegate = scrollView.configure;
     return scrollView;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidScrollBlock ?:
-     self.configure.scrollViewDidScrollBlock(scrollView);
-}
-
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView  {
-    !self.configure.scrollViewDidZoomBlock ?:
-     self.configure.scrollViewDidZoomBlock(scrollView);
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    !self.configure.scrollViewWillBeginDraggingBlock ?:
-     self.configure.scrollViewWillBeginDraggingBlock(scrollView);
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    !self.configure.scrollViewWillBeginDeceleratingBlock ?:
-    self.configure.scrollViewWillBeginDeceleratingBlock(scrollView);
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidEndDeceleratingBlock ?:
-     self.configure.scrollViewDidEndDeceleratingBlock(scrollView);
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidEndScrollingAnimationBlock ?:
-    self.configure.scrollViewDidEndScrollingAnimationBlock(scrollView);
-}
-
-- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return
-    self.configure.viewForZoomingInScrollViewBlock ?
-    self.configure.viewForZoomingInScrollViewBlock(scrollView) : nil;
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    self.configure.scrollViewWillEndDraggingBlock ?
-    self.configure.scrollViewWillEndDraggingBlock(scrollView, velocity, *targetContentOffset) : nil;
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.configure.scrollViewDidEndDraggingBlock ?
-    self.configure.scrollViewDidEndDraggingBlock(scrollView, decelerate) : nil;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
-    self.configure.scrollViewWillBeginZoomingBlock ?
-    self.configure.scrollViewWillBeginZoomingBlock(scrollView, view) : nil;
-}
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
-    self.configure.scrollViewDidEndZoomingBlock ?
-    self.configure.scrollViewDidEndZoomingBlock(scrollView, view, scale) : nil;
-}
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    return
-    self.configure.scrollViewShouldScrollToTopBlock ?
-    self.configure.scrollViewShouldScrollToTopBlock(scrollView) : YES;
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidScrollToTopBlock ?:
-    self.configure.scrollViewDidScrollToTopBlock(scrollView);
-}
-
-- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
-    !self.configure.scrollViewDidChangeAdjustedContentInsetBlock ?:
-    self.configure.scrollViewDidChangeAdjustedContentInsetBlock(scrollView);
-}
-
-- (HYBlockScrollViewConfigure *)configure {
-    return Hy_Lazy(_configure, ({
-        [[HYBlockScrollViewConfigure alloc] init];
-    }));
 }
 
 @end

@@ -48,6 +48,8 @@
 
 @interface HYBlockTableView : UITableView
 
+@property (nonatomic, strong, readonly) HYBlockTableViewConfigure *configure;
+
 + (instancetype)tableViewWithFrame:(CGRect)frame
                              style:(UITableViewStyle)style
                          configure:(HYBlockTableViewConfigure *)configure
@@ -59,9 +61,6 @@
                              style:(UITableViewStyle)style
                          configure:(HYBlockTableViewConfigure *)configure
                     refreshCommand:(RACCommand *(^)(BOOL isHeaderFresh))refreshCommand;
-
-
-- (void)refreshConfigure:(HYBlockTableViewConfigure *)configure;
 
 @end
 

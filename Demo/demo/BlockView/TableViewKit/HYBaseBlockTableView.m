@@ -114,6 +114,8 @@
 
 
 @implementation HYBaseBlockTableView
+@dynamic configure;
+
 + (instancetype)tableViewWithFrame:(CGRect)frame
                              style:(UITableViewStyle)style
                        refreshType:(HYRefreshType)refreshType

@@ -23,18 +23,10 @@
 @end
 
 
-typedef void(^textViewConfigureBlock)(HYBlockTextViewConfigure *configure);
+typedef void(^TextViewConfigureBlock)(HYBlockTextViewConfigure *configure);
 @interface HYBlockTextView : UITextView
 
-/**
- 创建方式
- 
- @param frame frame
- @param configure configure
- @return HYBlockTextField
- */
-+ (instancetype)blockTextViewWithFrame:(CGRect)frame
-                             configure:(HYBlockTextViewConfigure *)configure;
+@property (nonatomic,strong,readonly) HYBlockTextViewConfigure *configure;
 
 
 /**
@@ -45,7 +37,7 @@ typedef void(^textViewConfigureBlock)(HYBlockTextViewConfigure *configure);
  @return HYBlockTextField
  */
 + (instancetype)blockTextViewWithFrame:(CGRect)frame
-                        configureBlock:(textViewConfigureBlock)configureBlock;
+                        configureBlock:(TextViewConfigureBlock)configureBlock;
 
 
 @end

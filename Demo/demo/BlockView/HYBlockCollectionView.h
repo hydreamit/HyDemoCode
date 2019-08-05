@@ -34,6 +34,8 @@
 
 @interface HYBlockCollectionView : UICollectionView
 
+@property (nonatomic,strong, readonly) HYBlockCollectionViewConfigure *configure;
+
 + (instancetype)collectionViewWithFrame:(CGRect)frame
                                  layout:(UICollectionViewLayout *)layout
                               configure:(HYBlockCollectionViewConfigure *)configure
@@ -44,8 +46,6 @@
                                  layout:(UICollectionViewLayout *)layout
                               configure:(HYBlockCollectionViewConfigure *)configure
                          refreshCommand:(RACCommand *(^)(BOOL isHeaderFresh))refreshCommand;
-
-
 
 @end
 

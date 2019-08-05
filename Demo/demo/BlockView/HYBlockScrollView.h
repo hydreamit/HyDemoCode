@@ -54,19 +54,10 @@ typedef void (^ScrollViewVelocityBlock)(UIScrollView *scrollView,
 
 
 
-typedef void(^scrollViewConfigureBlock)(HYBlockScrollViewConfigure *configure);
+typedef void(^ScrollViewConfigureBlock)(HYBlockScrollViewConfigure *configure);
 @interface HYBlockScrollView : UIScrollView
 
-
-/**
- 创建方式
- 
- @param frame frame
- @param configure configure
- @return HYBlockTextField
- */
-+ (instancetype)blockScrollViewWithFrame:(CGRect)frame
-                               configure:(HYBlockScrollViewConfigure *)configure;
+@property (nonatomic,strong,readonly) HYBlockScrollViewConfigure *configure;
 
 
 /**
@@ -77,7 +68,7 @@ typedef void(^scrollViewConfigureBlock)(HYBlockScrollViewConfigure *configure);
  @return HYBlockTextField
  */
 + (instancetype)blockScrollViewWithFrame:(CGRect)frame
-                          configureBlock:(scrollViewConfigureBlock)configureBlock;
+                          configureBlock:(ScrollViewConfigureBlock)configureBlock;
 
 
 

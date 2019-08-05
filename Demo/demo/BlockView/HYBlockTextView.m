@@ -9,7 +9,7 @@
 #import "HYBlockTextView.h"
 
 
-@interface HYBlockTextViewConfigure ()
+@interface HYBlockTextViewConfigure () <UITextViewDelegate>
 @property (nonatomic,copy) BOOL(^textViewShouldBeginEditing)(UITextView *textView);
 @property (nonatomic,copy) BOOL(^textViewShouldEndEditing)(UITextView *textView);
 @property (nonatomic,copy) void(^textViewDidBeginEditing)(UITextView *textView);
@@ -48,74 +48,63 @@
     self.textViewShouldChangeTextInRange = [block copy];
     return self;
 }
-@end
 
-
-@interface HYBlockTextView () <UITextViewDelegate>
-@property (nonatomic,strong) HYBlockTextViewConfigure *configure;
-@end
-
-@implementation HYBlockTextView
-+ (instancetype)blockTextViewWithFrame:(CGRect)frame
-                             configure:(HYBlockTextViewConfigure *)configure {
-    HYBlockTextView *textView = [[self alloc] init];
-    textView.configure = configure;
-    textView.delegate = textView;
-    textView.frame = frame;
-    return textView;
-}
-
-+ (instancetype)blockTextViewWithFrame:(CGRect)frame
-                        configureBlock:(textViewConfigureBlock)configureBlock {
-    HYBlockTextView *textView = [[self alloc] init];
-    !configureBlock ?: configureBlock(textView.configure);
-    textView.delegate = textView;
-    textView.frame = frame;
-    return textView;
-}
-
+#pragma mark — UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     return
-    !self.configure.textViewShouldBeginEditing ?:
-    self.configure.textViewShouldBeginEditing(textView);
+    !self.textViewShouldBeginEditing ?:
+    self.textViewShouldBeginEditing(textView);
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
     return
-    !self.configure.textViewShouldEndEditing ?:
-    self.configure.textViewShouldEndEditing(textView);
+    !self.textViewShouldEndEditing ?:
+    self.textViewShouldEndEditing(textView);
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    !self.configure.textViewDidBeginEditing ?:
-    self.configure.textViewDidBeginEditing(textView);
+    !self.textViewDidBeginEditing ?:
+    self.textViewDidBeginEditing(textView);
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    !self.configure.textViewDidEndEditing ?:
-    self.configure.textViewDidEndEditing(textView);
+    !self.textViewDidEndEditing ?:
+    self.textViewDidEndEditing(textView);
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    !self.configure.textViewDidChange ?:
-    self.configure.textViewDidChange(textView);
+    !self.textViewDidChange ?:
+    self.textViewDidChange(textView);
 }
 
 - (void)textViewDidChangeSelection:(UITextView *)textView {
-    !self.configure.textViewDidChangeSelection ?:
-    self.configure.textViewDidChangeSelection(textView);
+    !self.textViewDidChangeSelection ?:
+    self.textViewDidChangeSelection(textView);
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-     return
-    !self.configure.textViewShouldChangeTextInRange ?:
-    self.configure.textViewShouldChangeTextInRange(textView, range, text);
+    return
+    !self.textViewShouldChangeTextInRange ?:
+    self.textViewShouldChangeTextInRange(textView, range, text);
 }
 
-- (HYBlockTextViewConfigure *)configure {
-    return Hy_Lazy(_configure, ({
-        [[HYBlockTextViewConfigure alloc] init];
-    }));
+@end
+
+
+@interface HYBlockTextView ()
+@property (nonatomic,strong) HYBlockTextViewConfigure *configure;
+@end
+
+@implementation HYBlockTextView
+
++ (instancetype)blockTextViewWithFrame:(CGRect)frame
+                        configureBlock:(TextViewConfigureBlock)configureBlock {
+    
+    HYBlockTextView *textView = [[self alloc] initWithFrame:frame];
+    textView.configure = [[HYBlockTextViewConfigure alloc] init];
+    !configureBlock ?: configureBlock(textView.configure);
+    textView.delegate = textView.configure;
+    return textView;
 }
 
 @end

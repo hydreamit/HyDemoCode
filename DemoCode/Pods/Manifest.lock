@@ -1,0 +1,103 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - HyCategoriess (1.0.0)
+  - KafkaRefresh (1.4.7):
+    - KafkaRefresh/Category (= 1.4.7)
+    - KafkaRefresh/Configuration (= 1.4.7)
+    - KafkaRefresh/Core (= 1.4.7)
+    - KafkaRefresh/Default (= 1.4.7)
+    - KafkaRefresh/Style (= 1.4.7)
+    - KafkaRefresh/UIKit (= 1.4.7)
+  - KafkaRefresh/Category (1.4.7)
+  - KafkaRefresh/Configuration (1.4.7):
+    - KafkaRefresh/UIKit/FootKit
+    - KafkaRefresh/UIKit/HeadKit
+  - KafkaRefresh/Core (1.4.7):
+    - KafkaRefresh/Category
+  - KafkaRefresh/Default (1.4.7):
+    - KafkaRefresh/Style
+  - KafkaRefresh/Style (1.4.7)
+  - KafkaRefresh/UIKit (1.4.7):
+    - KafkaRefresh/UIKit/FootKit (= 1.4.7)
+    - KafkaRefresh/UIKit/HeadKit (= 1.4.7)
+    - KafkaRefresh/UIKit/LayerKit (= 1.4.7)
+  - KafkaRefresh/UIKit/FootKit (1.4.7):
+    - KafkaRefresh/Category
+    - KafkaRefresh/Core
+    - KafkaRefresh/Default
+    - KafkaRefresh/Style
+    - KafkaRefresh/UIKit/LayerKit
+  - KafkaRefresh/UIKit/HeadKit (1.4.7):
+    - KafkaRefresh/Category
+    - KafkaRefresh/Core
+    - KafkaRefresh/Default
+    - KafkaRefresh/Style
+    - KafkaRefresh/UIKit/LayerKit
+  - KafkaRefresh/UIKit/LayerKit (1.4.7):
+    - KafkaRefresh/Category
+    - KafkaRefresh/Default
+  - Masonry (1.1.0)
+  - MJExtension (3.2.1)
+  - MJRefresh (3.2.2)
+  - ReactiveObjC (3.1.1)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
+
+DEPENDENCIES:
+  - AFNetworking
+  - HyCategoriess
+  - KafkaRefresh
+  - Masonry
+  - MJExtension
+  - MJRefresh
+  - ReactiveObjC
+  - YYCache
+  - YYWebImage
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - HyCategoriess
+    - KafkaRefresh
+    - Masonry
+    - MJExtension
+    - MJRefresh
+    - ReactiveObjC
+    - YYCache
+    - YYImage
+    - YYWebImage
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  HyCategoriess: f5d9ee6b5f58793e950a77a31b7ad9ddb1662928
+  KafkaRefresh: a7962ea8f03f384c1b545d8c27ac419aa0d5b055
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
+  MJRefresh: 72a46ecaa2a0feaf48fc5198dff95f25f8bb27c6
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+
+PODFILE CHECKSUM: c9b8d804a0669bd7744557b28c5a4eef2a6764ad
+
+COCOAPODS: 1.7.5

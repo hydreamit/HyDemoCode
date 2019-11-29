@@ -1,0 +1,96 @@
+//
+//  HyNewsViewController.m
+//  DemoCode
+//
+//  Created by Hy on 2017/11/22.
+//  Copyright © 2017 Hy. All rights reserved.
+//
+
+#import "HyNewsViewController.h"
+#import <HyCategoriess/HyCategories.h>
+#import "HyNewsViewModel.h"
+#import "HyNewsCell.h"
+#import "HyNewsImageCell.h"
+#import "HyTableView.h"
+#import <MJRefresh/MJRefresh.h>
+#import "HyRecommendViewController.h"
+
+
+@interface HyNewsViewController ()
+@property (nonatomic,strong) HyNewsViewModel *viewModel;
+@property (nonatomic,strong) HyTableView *tableView;
+@end
+
+
+@implementation HyNewsViewController
+@dynamic viewModel;
+- (void)hy_viewDidLoad {
+    [super hy_viewDidLoad];
+    
+
+    [self.view addSubview:self.tableView];
+}
+
+- (void)viewModelDidLoad {
+    
+    [self.tableView headerBeginRefreshing];
+//    [self.viewModel requestListDataWithInput:nil type:0];
+}
+
+- (void)scrollToTop {
+    
+    [self.tableView hy_scrollToTopAnimated:YES];
+}
+
+- (HyTableView *)tableView {
+    if (!_tableView){
+        @weakify(self);
+        _tableView = [HyTableView hy_tableViewWithFrame:self.view.bounds
+                                                  style:UITableViewStylePlain
+                                          tableViewData:self.viewModel
+                                            cellClasses:@[HyNewsCell.class, HyNewsImageCell.class]
+                                headerFooterViewClasses:nil
+                                      delegateConfigure:^(HyTableViewDelegateConfigure *configure) {
+            [[[[configure configCellClassForRow:^Class(id cellData, NSIndexPath *indexPath) {
+                return ((HyNewsModel *)cellData).cellClass;
+            }] configHeightForRowAtIndexPath:^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
+                @strongify(self);
+                return ((HyNewsModel *)self.viewModel.cellModel(indexPath)).cellHeight;
+            }] configDidSelectRowAtIndexPath:^(UITableView *tableView, NSIndexPath *indexPath) {
+                @strongify(self);
+                [self.class pushViewControllerWithName:@"HyRecommendViewController"
+                                         viewModelName:@"HyRecommendViewModel"
+                                             parameter:nil
+                                              animated:YES
+                                            completion:nil];
+            }] configEmtyView:^(UITableView *tableView, UIView *emtyContainerView) {
+                
+                UILabel *label = UILabel.new;
+                label.text = @"暂无数据";
+                label.frame = emtyContainerView.bounds;
+                label.textAlignment = NSTextAlignmentCenter;
+                label.textColor = UIColor.darkTextColor;
+                [emtyContainerView addSubview:label];
+            }];
+        }];
+        [_tableView configRefreshFramework:nil
+                               refreshType:HyListViewRefreshTypePullDownAndUp
+                       refreshRequestInput:nil
+                       refreshCustomAction:nil];
+        if (@available(iOS 11.0, *)){
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+        }
+    }
+    return _tableView;
+}
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
+@end
+
+
+
+
+
+

@@ -1,0 +1,1064 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */; };
+		5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */; };
+		51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343502238E1B64007600EA /* UITableView+HySignalExtension.m */; };
+		51343506238E20A7007600EA /* UICollectionView+HySignalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343505238E20A7007600EA /* UICollectionView+HySignalExtension.m */; };
+		5134352F238E877D007600EA /* KafkaRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134351E238E877D007600EA /* KafkaRefreshFooter.m */; };
+		51343530238E877D007600EA /* KafkaRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134351F238E877D007600EA /* KafkaRefreshHeader.m */; };
+		51343531238E877D007600EA /* KafkaRefreshFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343521238E877D007600EA /* KafkaRefreshFactory.m */; };
+		51343532238E877D007600EA /* MJRefreshViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343529238E877D007600EA /* MJRefreshViewHeader.m */; };
+		51343533238E877D007600EA /* MJRefreshViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134352A238E877D007600EA /* MJRefreshViewFooter.m */; };
+		51343534238E877D007600EA /* MJRefreshViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134352B238E877D007600EA /* MJRefreshViewFactory.m */; };
+		51343535238E877D007600EA /* HyRefreshViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134352D238E877D007600EA /* HyRefreshViewManager.m */; };
+		51343545238FAD48007600EA /* HyNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343544238FAD48007600EA /* HyNetworkManager.m */; };
+		51343549238FB6C7007600EA /* AFNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343548238FB6C7007600EA /* AFNetwork.m */; };
+		5134354C238FC0EE007600EA /* AFNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134354B238FC0EE007600EA /* AFNetworkTask.m */; };
+		5134354F238FC0FC007600EA /* AFNetworkTaskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134354E238FC0FC007600EA /* AFNetworkTaskInfo.m */; };
+		513435542390B68D007600EA /* RACCommand+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 513435512390B68D007600EA /* RACCommand+Network.m */; };
+		513435552390B68D007600EA /* RACSignal+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 513435522390B68D007600EA /* RACSignal+Network.m */; };
+		5134355B2390BD15007600EA /* AFMultipartFormDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134355A2390BD15007600EA /* AFMultipartFormDataObject.m */; };
+		513435652390C689007600EA /* YYNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 513435632390C689007600EA /* YYNetworkCache.m */; };
+		51559EC923827A59007904C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559EC823827A59007904C8 /* AppDelegate.m */; };
+		51559ECC23827A59007904C8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559ECB23827A59007904C8 /* SceneDelegate.m */; };
+		51559ECF23827A59007904C8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559ECE23827A59007904C8 /* ViewController.m */; };
+		51559ED223827A59007904C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51559ED023827A59007904C8 /* Main.storyboard */; };
+		51559ED423827A59007904C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51559ED323827A59007904C8 /* Assets.xcassets */; };
+		51559ED723827A59007904C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51559ED523827A59007904C8 /* LaunchScreen.storyboard */; };
+		51559EDA23827A59007904C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559ED923827A59007904C8 /* main.m */; };
+		51559EE423827A5A007904C8 /* DemoCodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559EE323827A5A007904C8 /* DemoCodeTests.m */; };
+		51559EEF23827A5A007904C8 /* DemoCodeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559EEE23827A5A007904C8 /* DemoCodeUITests.m */; };
+		51559F192382806C007904C8 /* RACSignal+HyExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F182382806C007904C8 /* RACSignal+HyExtension.m */; };
+		51559F1C2382807F007904C8 /* RACCommand+HyExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F1B2382807F007904C8 /* RACCommand+HyExtension.m */; };
+		51559F1F2382808E007904C8 /* RACSubject+HyExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F1E2382808E007904C8 /* RACSubject+HyExtension.m */; };
+		51559F5D23838ECD007904C8 /* HyMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F5C23838ECD007904C8 /* HyMeViewController.m */; };
+		51559F602383913F007904C8 /* HyMeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F5F2383913F007904C8 /* HyMeViewModel.m */; };
+		51559F6323839153007904C8 /* HyMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F6223839153007904C8 /* HyMeModel.m */; };
+		51559F6623839161007904C8 /* HyMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F6523839161007904C8 /* HyMeView.m */; };
+		51559F7C2383F9E0007904C8 /* HyTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F7B2383F9E0007904C8 /* HyTextFieldView.m */; };
+		51784F202387FE0C00EB2F14 /* HyRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F1F2387FE0C00EB2F14 /* HyRecommendViewController.m */; };
+		51784F232387FE1E00EB2F14 /* HyRecommendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F222387FE1E00EB2F14 /* HyRecommendViewModel.m */; };
+		51784F262387FE3400EB2F14 /* HyRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F252387FE3400EB2F14 /* HyRecommendCell.m */; };
+		51784F29238CCB9000EB2F14 /* HyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F28238CCB9000EB2F14 /* HyTabBarController.m */; };
+		51784F59238CF47500EB2F14 /* HyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F48238CF47500EB2F14 /* HyTableView.m */; };
+		51784F5A238CF47500EB2F14 /* HyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F49238CF47500EB2F14 /* HyModel.m */; };
+		51784F5B238CF47500EB2F14 /* HyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4A238CF47500EB2F14 /* HyListViewModel.m */; };
+		51784F5C238CF47500EB2F14 /* HyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4B238CF47500EB2F14 /* HyView.m */; };
+		51784F5D238CF47500EB2F14 /* HyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4C238CF47500EB2F14 /* HyListModel.m */; };
+		51784F5E238CF47500EB2F14 /* HyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4D238CF47500EB2F14 /* HyViewModel.m */; };
+		51784F5F238CF47500EB2F14 /* NSObject+HyProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4E238CF47500EB2F14 /* NSObject+HyProtocol.m */; };
+		51784F60238CF47500EB2F14 /* HyCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4F238CF47500EB2F14 /* HyCollectionView.m */; };
+		51784F61238CF47500EB2F14 /* HyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F53238CF47500EB2F14 /* HyViewController.m */; };
+		51CF98EE2387C5CD00207DB3 /* HyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98ED2387C5CD00207DB3 /* HyNewsViewController.m */; };
+		51CF98F12387C5EA00207DB3 /* HyNewsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F02387C5EA00207DB3 /* HyNewsViewModel.m */; };
+		51CF98F42387C63300207DB3 /* HyNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F32387C63300207DB3 /* HyNewsModel.m */; };
+		51CF98F72387C76C00207DB3 /* HyNewsImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F62387C76C00207DB3 /* HyNewsImageCell.m */; };
+		51CF98FA2387C77C00207DB3 /* HyNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F92387C77C00207DB3 /* HyNewsCell.m */; };
+		7C9D82519AEA4A94F910CAEE /* Pods_DemoCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4370958740260EABFA1F4A /* Pods_DemoCode.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		51559EE023827A5A007904C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51559EBC23827A59007904C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51559EC323827A59007904C8;
+			remoteInfo = DemoCode;
+		};
+		51559EEB23827A5A007904C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51559EBC23827A59007904C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51559EC323827A59007904C8;
+			remoteInfo = DemoCode;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A4370958740260EABFA1F4A /* Pods_DemoCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4692DDED328B7273CF5A20E9 /* Pods-DemoCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoCode.debug.xcconfig"; path = "Target Support Files/Pods-DemoCode/Pods-DemoCode.debug.xcconfig"; sourceTree = "<group>"; };
+		5120D98223851193002B3A1C /* RACSignal+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSignal+HyViewControllerJump.h"; sourceTree = "<group>"; };
+		5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+HyViewControllerJump.m"; sourceTree = "<group>"; };
+		5120D985238511A4002B3A1C /* RACCommand+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACCommand+HyViewControllerJump.h"; sourceTree = "<group>"; };
+		5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACCommand+HyViewControllerJump.m"; sourceTree = "<group>"; };
+		51343501238E1B64007600EA /* UITableView+HySignalExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+HySignalExtension.h"; sourceTree = "<group>"; };
+		51343502238E1B64007600EA /* UITableView+HySignalExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+HySignalExtension.m"; sourceTree = "<group>"; };
+		51343504238E20A7007600EA /* UICollectionView+HySignalExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+HySignalExtension.h"; sourceTree = "<group>"; };
+		51343505238E20A7007600EA /* UICollectionView+HySignalExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+HySignalExtension.m"; sourceTree = "<group>"; };
+		5134351E238E877D007600EA /* KafkaRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KafkaRefreshFooter.m; sourceTree = "<group>"; };
+		5134351F238E877D007600EA /* KafkaRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KafkaRefreshHeader.m; sourceTree = "<group>"; };
+		51343520238E877D007600EA /* KafkaRefreshFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KafkaRefreshFactory.h; sourceTree = "<group>"; };
+		51343521238E877D007600EA /* KafkaRefreshFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KafkaRefreshFactory.m; sourceTree = "<group>"; };
+		51343522238E877D007600EA /* KafkaRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KafkaRefreshHeader.h; sourceTree = "<group>"; };
+		51343523238E877D007600EA /* KafkaRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KafkaRefreshFooter.h; sourceTree = "<group>"; };
+		51343524238E877D007600EA /* HyRefreshViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyRefreshViewProtocol.h; sourceTree = "<group>"; };
+		51343526238E877D007600EA /* MJRefreshViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshViewFooter.h; sourceTree = "<group>"; };
+		51343527238E877D007600EA /* MJRefreshViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshViewHeader.h; sourceTree = "<group>"; };
+		51343528238E877D007600EA /* MJRefreshViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshViewFactory.h; sourceTree = "<group>"; };
+		51343529238E877D007600EA /* MJRefreshViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshViewHeader.m; sourceTree = "<group>"; };
+		5134352A238E877D007600EA /* MJRefreshViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshViewFooter.m; sourceTree = "<group>"; };
+		5134352B238E877D007600EA /* MJRefreshViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshViewFactory.m; sourceTree = "<group>"; };
+		5134352C238E877D007600EA /* HyRefreshViewFactoryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyRefreshViewFactoryProtocol.h; sourceTree = "<group>"; };
+		5134352D238E877D007600EA /* HyRefreshViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyRefreshViewManager.m; sourceTree = "<group>"; };
+		5134352E238E877D007600EA /* HyRefreshViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyRefreshViewManager.h; sourceTree = "<group>"; };
+		51343537238F99E2007600EA /* HyNetworkProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkProtocol.h; sourceTree = "<group>"; };
+		51343538238F99F8007600EA /* HyNetworkTaskProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkTaskProtocol.h; sourceTree = "<group>"; };
+		51343540238FA588007600EA /* HyNetworkTaskInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkTaskInfoProtocol.h; sourceTree = "<group>"; };
+		51343543238FAD48007600EA /* HyNetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkManager.h; sourceTree = "<group>"; };
+		51343544238FAD48007600EA /* HyNetworkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNetworkManager.m; sourceTree = "<group>"; };
+		51343547238FB6C7007600EA /* AFNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetwork.h; sourceTree = "<group>"; };
+		51343548238FB6C7007600EA /* AFNetwork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetwork.m; sourceTree = "<group>"; };
+		5134354A238FC0EE007600EA /* AFNetworkTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkTask.h; sourceTree = "<group>"; };
+		5134354B238FC0EE007600EA /* AFNetworkTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetworkTask.m; sourceTree = "<group>"; };
+		5134354D238FC0FC007600EA /* AFNetworkTaskInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkTaskInfo.h; sourceTree = "<group>"; };
+		5134354E238FC0FC007600EA /* AFNetworkTaskInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetworkTaskInfo.m; sourceTree = "<group>"; };
+		513435502390B68D007600EA /* RACCommand+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACCommand+Network.h"; sourceTree = "<group>"; };
+		513435512390B68D007600EA /* RACCommand+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACCommand+Network.m"; sourceTree = "<group>"; };
+		513435522390B68D007600EA /* RACSignal+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+Network.m"; sourceTree = "<group>"; };
+		513435532390B68D007600EA /* RACSignal+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+Network.h"; sourceTree = "<group>"; };
+		513435562390BC83007600EA /* HyMultipartFormDataProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMultipartFormDataProtocol.h; sourceTree = "<group>"; };
+		513435592390BD15007600EA /* AFMultipartFormDataObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFMultipartFormDataObject.h; sourceTree = "<group>"; };
+		5134355A2390BD15007600EA /* AFMultipartFormDataObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFMultipartFormDataObject.m; sourceTree = "<group>"; };
+		513435632390C689007600EA /* YYNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYNetworkCache.m; sourceTree = "<group>"; };
+		513435642390C689007600EA /* YYNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYNetworkCache.h; sourceTree = "<group>"; };
+		513435692390ED13007600EA /* HyNetworkCacheProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkCacheProtocol.h; sourceTree = "<group>"; };
+		51559EC423827A59007904C8 /* DemoCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		51559EC723827A59007904C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		51559EC823827A59007904C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		51559ECA23827A59007904C8 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		51559ECB23827A59007904C8 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		51559ECD23827A59007904C8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		51559ECE23827A59007904C8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		51559ED123827A59007904C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		51559ED323827A59007904C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		51559ED623827A59007904C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		51559ED823827A59007904C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51559ED923827A59007904C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		51559EDF23827A5A007904C8 /* DemoCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		51559EE323827A5A007904C8 /* DemoCodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoCodeTests.m; sourceTree = "<group>"; };
+		51559EE523827A5A007904C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51559EEA23827A5A007904C8 /* DemoCodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoCodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		51559EEE23827A5A007904C8 /* DemoCodeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoCodeUITests.m; sourceTree = "<group>"; };
+		51559EF023827A5A007904C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51559F172382806C007904C8 /* RACSignal+HyExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSignal+HyExtension.h"; sourceTree = "<group>"; };
+		51559F182382806C007904C8 /* RACSignal+HyExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+HyExtension.m"; sourceTree = "<group>"; };
+		51559F1A2382807F007904C8 /* RACCommand+HyExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACCommand+HyExtension.h"; sourceTree = "<group>"; };
+		51559F1B2382807F007904C8 /* RACCommand+HyExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACCommand+HyExtension.m"; sourceTree = "<group>"; };
+		51559F1D2382808E007904C8 /* RACSubject+HyExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSubject+HyExtension.h"; sourceTree = "<group>"; };
+		51559F1E2382808E007904C8 /* RACSubject+HyExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACSubject+HyExtension.m"; sourceTree = "<group>"; };
+		51559F5B23838ECD007904C8 /* HyMeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMeViewController.h; sourceTree = "<group>"; };
+		51559F5C23838ECD007904C8 /* HyMeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyMeViewController.m; sourceTree = "<group>"; };
+		51559F5E2383913F007904C8 /* HyMeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMeViewModel.h; sourceTree = "<group>"; };
+		51559F5F2383913F007904C8 /* HyMeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyMeViewModel.m; sourceTree = "<group>"; };
+		51559F6123839153007904C8 /* HyMeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMeModel.h; sourceTree = "<group>"; };
+		51559F6223839153007904C8 /* HyMeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyMeModel.m; sourceTree = "<group>"; };
+		51559F6423839161007904C8 /* HyMeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMeView.h; sourceTree = "<group>"; };
+		51559F6523839161007904C8 /* HyMeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyMeView.m; sourceTree = "<group>"; };
+		51559F792383C520007904C8 /* HyMVVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMVVM.h; sourceTree = "<group>"; };
+		51559F7A2383F9E0007904C8 /* HyTextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyTextFieldView.h; sourceTree = "<group>"; };
+		51559F7B2383F9E0007904C8 /* HyTextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTextFieldView.m; sourceTree = "<group>"; };
+		51784F1E2387FE0C00EB2F14 /* HyRecommendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyRecommendViewController.h; sourceTree = "<group>"; };
+		51784F1F2387FE0C00EB2F14 /* HyRecommendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyRecommendViewController.m; sourceTree = "<group>"; };
+		51784F212387FE1E00EB2F14 /* HyRecommendViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyRecommendViewModel.h; sourceTree = "<group>"; };
+		51784F222387FE1E00EB2F14 /* HyRecommendViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyRecommendViewModel.m; sourceTree = "<group>"; };
+		51784F242387FE3400EB2F14 /* HyRecommendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyRecommendCell.h; sourceTree = "<group>"; };
+		51784F252387FE3400EB2F14 /* HyRecommendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyRecommendCell.m; sourceTree = "<group>"; };
+		51784F27238CCB9000EB2F14 /* HyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyTabBarController.h; sourceTree = "<group>"; };
+		51784F28238CCB9000EB2F14 /* HyTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTabBarController.m; sourceTree = "<group>"; };
+		51784F47238CF47500EB2F14 /* HyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewController.h; sourceTree = "<group>"; };
+		51784F48238CF47500EB2F14 /* HyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyTableView.m; sourceTree = "<group>"; };
+		51784F49238CF47500EB2F14 /* HyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyModel.m; sourceTree = "<group>"; };
+		51784F4A238CF47500EB2F14 /* HyListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyListViewModel.m; sourceTree = "<group>"; };
+		51784F4B238CF47500EB2F14 /* HyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyView.m; sourceTree = "<group>"; };
+		51784F4C238CF47500EB2F14 /* HyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyListModel.m; sourceTree = "<group>"; };
+		51784F4D238CF47500EB2F14 /* HyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyViewModel.m; sourceTree = "<group>"; };
+		51784F4E238CF47500EB2F14 /* NSObject+HyProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyProtocol.m"; sourceTree = "<group>"; };
+		51784F4F238CF47500EB2F14 /* HyCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyCollectionView.m; sourceTree = "<group>"; };
+		51784F50238CF47500EB2F14 /* HyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListViewModel.h; sourceTree = "<group>"; };
+		51784F51238CF47500EB2F14 /* HyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyModel.h; sourceTree = "<group>"; };
+		51784F52238CF47500EB2F14 /* HyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyTableView.h; sourceTree = "<group>"; };
+		51784F53238CF47500EB2F14 /* HyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyViewController.m; sourceTree = "<group>"; };
+		51784F54238CF47500EB2F14 /* HyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListModel.h; sourceTree = "<group>"; };
+		51784F55238CF47500EB2F14 /* HyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyView.h; sourceTree = "<group>"; };
+		51784F56238CF47500EB2F14 /* HyCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyCollectionView.h; sourceTree = "<group>"; };
+		51784F57238CF47500EB2F14 /* NSObject+HyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyProtocol.h"; sourceTree = "<group>"; };
+		51784F58238CF47500EB2F14 /* HyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewModel.h; sourceTree = "<group>"; };
+		51784F62238CF81A00EB2F14 /* HyListViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListViewProtocol.h; sourceTree = "<group>"; };
+		51784F63238CF81A00EB2F14 /* HyViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewModelProtocol.h; sourceTree = "<group>"; };
+		51784F64238CF81A00EB2F14 /* HyViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewControllerProtocol.h; sourceTree = "<group>"; };
+		51784F65238CF81A00EB2F14 /* HyViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewProtocol.h; sourceTree = "<group>"; };
+		51784F66238CF81A00EB2F14 /* HyListModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListModelProtocol.h; sourceTree = "<group>"; };
+		51784F67238CF81A00EB2F14 /* HyViewControllerJumpProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewControllerJumpProtocol.h; sourceTree = "<group>"; };
+		51784F68238CF81A00EB2F14 /* HyListViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListViewModelProtocol.h; sourceTree = "<group>"; };
+		51784F69238CF81B00EB2F14 /* HyModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyModelProtocol.h; sourceTree = "<group>"; };
+		51CF98EC2387C5CD00207DB3 /* HyNewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsViewController.h; sourceTree = "<group>"; };
+		51CF98ED2387C5CD00207DB3 /* HyNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsViewController.m; sourceTree = "<group>"; };
+		51CF98EF2387C5EA00207DB3 /* HyNewsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsViewModel.h; sourceTree = "<group>"; };
+		51CF98F02387C5EA00207DB3 /* HyNewsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsViewModel.m; sourceTree = "<group>"; };
+		51CF98F22387C63300207DB3 /* HyNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsModel.h; sourceTree = "<group>"; };
+		51CF98F32387C63300207DB3 /* HyNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsModel.m; sourceTree = "<group>"; };
+		51CF98F52387C76C00207DB3 /* HyNewsImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsImageCell.h; sourceTree = "<group>"; };
+		51CF98F62387C76C00207DB3 /* HyNewsImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsImageCell.m; sourceTree = "<group>"; };
+		51CF98F82387C77C00207DB3 /* HyNewsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsCell.h; sourceTree = "<group>"; };
+		51CF98F92387C77C00207DB3 /* HyNewsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsCell.m; sourceTree = "<group>"; };
+		940EB0552BB229DC24EA24A2 /* Pods-DemoCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoCode.release.xcconfig"; path = "Target Support Files/Pods-DemoCode/Pods-DemoCode.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		51559EC123827A59007904C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C9D82519AEA4A94F910CAEE /* Pods_DemoCode.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51559EDC23827A5A007904C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51559EE723827A5A007904C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5134351C238E877D007600EA /* RefreshView */ = {
+			isa = PBXGroup;
+			children = (
+				51343525238E877D007600EA /* MJRefresh */,
+				5134351D238E877D007600EA /* KafkaRefresh */,
+				51343524238E877D007600EA /* HyRefreshViewProtocol.h */,
+				5134352C238E877D007600EA /* HyRefreshViewFactoryProtocol.h */,
+				5134352D238E877D007600EA /* HyRefreshViewManager.m */,
+				5134352E238E877D007600EA /* HyRefreshViewManager.h */,
+			);
+			path = RefreshView;
+			sourceTree = "<group>";
+		};
+		5134351D238E877D007600EA /* KafkaRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				51343520238E877D007600EA /* KafkaRefreshFactory.h */,
+				51343521238E877D007600EA /* KafkaRefreshFactory.m */,
+				51343522238E877D007600EA /* KafkaRefreshHeader.h */,
+				5134351F238E877D007600EA /* KafkaRefreshHeader.m */,
+				51343523238E877D007600EA /* KafkaRefreshFooter.h */,
+				5134351E238E877D007600EA /* KafkaRefreshFooter.m */,
+			);
+			path = KafkaRefresh;
+			sourceTree = "<group>";
+		};
+		51343525238E877D007600EA /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				51343528238E877D007600EA /* MJRefreshViewFactory.h */,
+				5134352B238E877D007600EA /* MJRefreshViewFactory.m */,
+				51343527238E877D007600EA /* MJRefreshViewHeader.h */,
+				51343529238E877D007600EA /* MJRefreshViewHeader.m */,
+				51343526238E877D007600EA /* MJRefreshViewFooter.h */,
+				5134352A238E877D007600EA /* MJRefreshViewFooter.m */,
+			);
+			path = MJRefresh;
+			sourceTree = "<group>";
+		};
+		51343546238FB697007600EA /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				51343547238FB6C7007600EA /* AFNetwork.h */,
+				51343548238FB6C7007600EA /* AFNetwork.m */,
+				5134354A238FC0EE007600EA /* AFNetworkTask.h */,
+				5134354B238FC0EE007600EA /* AFNetworkTask.m */,
+				5134354D238FC0FC007600EA /* AFNetworkTaskInfo.h */,
+				5134354E238FC0FC007600EA /* AFNetworkTaskInfo.m */,
+				513435592390BD15007600EA /* AFMultipartFormDataObject.h */,
+				5134355A2390BD15007600EA /* AFMultipartFormDataObject.m */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		513435622390C66D007600EA /* YYCache */ = {
+			isa = PBXGroup;
+			children = (
+				513435642390C689007600EA /* YYNetworkCache.h */,
+				513435632390C689007600EA /* YYNetworkCache.m */,
+			);
+			path = YYCache;
+			sourceTree = "<group>";
+		};
+		51559EBB23827A59007904C8 = {
+			isa = PBXGroup;
+			children = (
+				51559EC623827A59007904C8 /* DemoCode */,
+				51559EE223827A5A007904C8 /* DemoCodeTests */,
+				51559EED23827A5A007904C8 /* DemoCodeUITests */,
+				51559EC523827A59007904C8 /* Products */,
+				BD1DF956C0DB9EE5688DE864 /* Pods */,
+				C9DAF13C1B32ECB90B69B75B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		51559EC523827A59007904C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				51559EC423827A59007904C8 /* DemoCode.app */,
+				51559EDF23827A5A007904C8 /* DemoCodeTests.xctest */,
+				51559EEA23827A5A007904C8 /* DemoCodeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		51559EC623827A59007904C8 /* DemoCode */ = {
+			isa = PBXGroup;
+			children = (
+				51559F5923838E82007904C8 /* Demo */,
+				51559F2B23828B2C007904C8 /* MVVM */,
+				51CF98CF23867DC100207DB3 /* Network */,
+				5134351C238E877D007600EA /* RefreshView */,
+				51559F0823827E8F007904C8 /* Category_RAC */,
+				51559EC723827A59007904C8 /* AppDelegate.h */,
+				51559EC823827A59007904C8 /* AppDelegate.m */,
+				51559ECA23827A59007904C8 /* SceneDelegate.h */,
+				51559ECB23827A59007904C8 /* SceneDelegate.m */,
+				51559ECD23827A59007904C8 /* ViewController.h */,
+				51559ECE23827A59007904C8 /* ViewController.m */,
+				51559ED023827A59007904C8 /* Main.storyboard */,
+				51559ED323827A59007904C8 /* Assets.xcassets */,
+				51559ED523827A59007904C8 /* LaunchScreen.storyboard */,
+				51559ED823827A59007904C8 /* Info.plist */,
+				51559ED923827A59007904C8 /* main.m */,
+			);
+			path = DemoCode;
+			sourceTree = "<group>";
+		};
+		51559EE223827A5A007904C8 /* DemoCodeTests */ = {
+			isa = PBXGroup;
+			children = (
+				51559EE323827A5A007904C8 /* DemoCodeTests.m */,
+				51559EE523827A5A007904C8 /* Info.plist */,
+			);
+			path = DemoCodeTests;
+			sourceTree = "<group>";
+		};
+		51559EED23827A5A007904C8 /* DemoCodeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				51559EEE23827A5A007904C8 /* DemoCodeUITests.m */,
+				51559EF023827A5A007904C8 /* Info.plist */,
+			);
+			path = DemoCodeUITests;
+			sourceTree = "<group>";
+		};
+		51559F0823827E8F007904C8 /* Category_RAC */ = {
+			isa = PBXGroup;
+			children = (
+				513435502390B68D007600EA /* RACCommand+Network.h */,
+				513435512390B68D007600EA /* RACCommand+Network.m */,
+				513435532390B68D007600EA /* RACSignal+Network.h */,
+				513435522390B68D007600EA /* RACSignal+Network.m */,
+				51559F172382806C007904C8 /* RACSignal+HyExtension.h */,
+				51559F182382806C007904C8 /* RACSignal+HyExtension.m */,
+				51559F1A2382807F007904C8 /* RACCommand+HyExtension.h */,
+				51559F1B2382807F007904C8 /* RACCommand+HyExtension.m */,
+				51559F1D2382808E007904C8 /* RACSubject+HyExtension.h */,
+				51559F1E2382808E007904C8 /* RACSubject+HyExtension.m */,
+				5120D98223851193002B3A1C /* RACSignal+HyViewControllerJump.h */,
+				5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */,
+				5120D985238511A4002B3A1C /* RACCommand+HyViewControllerJump.h */,
+				5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */,
+				51343501238E1B64007600EA /* UITableView+HySignalExtension.h */,
+				51343502238E1B64007600EA /* UITableView+HySignalExtension.m */,
+				51343504238E20A7007600EA /* UICollectionView+HySignalExtension.h */,
+				51343505238E20A7007600EA /* UICollectionView+HySignalExtension.m */,
+			);
+			path = Category_RAC;
+			sourceTree = "<group>";
+		};
+		51559F2B23828B2C007904C8 /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				51559F792383C520007904C8 /* HyMVVM.h */,
+				51784F65238CF81A00EB2F14 /* HyViewProtocol.h */,
+				51784F69238CF81B00EB2F14 /* HyModelProtocol.h */,
+				51784F63238CF81A00EB2F14 /* HyViewModelProtocol.h */,
+				51784F64238CF81A00EB2F14 /* HyViewControllerProtocol.h */,
+				51784F62238CF81A00EB2F14 /* HyListViewProtocol.h */,
+				51784F66238CF81A00EB2F14 /* HyListModelProtocol.h */,
+				51784F68238CF81A00EB2F14 /* HyListViewModelProtocol.h */,
+				51784F67238CF81A00EB2F14 /* HyViewControllerJumpProtocol.h */,
+				51784F46238CF47500EB2F14 /* Base */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		51559F5923838E82007904C8 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				51784F1D2387FDF900EB2F14 /* Recommend */,
+				51CF98EB2387C5BC00207DB3 /* News */,
+				51559F5A23838EAC007904C8 /* Me */,
+				51784F27238CCB9000EB2F14 /* HyTabBarController.h */,
+				51784F28238CCB9000EB2F14 /* HyTabBarController.m */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		51559F5A23838EAC007904C8 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				51559F5B23838ECD007904C8 /* HyMeViewController.h */,
+				51559F5C23838ECD007904C8 /* HyMeViewController.m */,
+				51559F5E2383913F007904C8 /* HyMeViewModel.h */,
+				51559F5F2383913F007904C8 /* HyMeViewModel.m */,
+				51559F6123839153007904C8 /* HyMeModel.h */,
+				51559F6223839153007904C8 /* HyMeModel.m */,
+				51559F6423839161007904C8 /* HyMeView.h */,
+				51559F6523839161007904C8 /* HyMeView.m */,
+				51559F7A2383F9E0007904C8 /* HyTextFieldView.h */,
+				51559F7B2383F9E0007904C8 /* HyTextFieldView.m */,
+			);
+			path = Me;
+			sourceTree = "<group>";
+		};
+		51784F1D2387FDF900EB2F14 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				51784F1E2387FE0C00EB2F14 /* HyRecommendViewController.h */,
+				51784F1F2387FE0C00EB2F14 /* HyRecommendViewController.m */,
+				51784F212387FE1E00EB2F14 /* HyRecommendViewModel.h */,
+				51784F222387FE1E00EB2F14 /* HyRecommendViewModel.m */,
+				51784F242387FE3400EB2F14 /* HyRecommendCell.h */,
+				51784F252387FE3400EB2F14 /* HyRecommendCell.m */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		51784F46238CF47500EB2F14 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				51784F55238CF47500EB2F14 /* HyView.h */,
+				51784F4B238CF47500EB2F14 /* HyView.m */,
+				51784F51238CF47500EB2F14 /* HyModel.h */,
+				51784F49238CF47500EB2F14 /* HyModel.m */,
+				51784F58238CF47500EB2F14 /* HyViewModel.h */,
+				51784F4D238CF47500EB2F14 /* HyViewModel.m */,
+				51784F47238CF47500EB2F14 /* HyViewController.h */,
+				51784F53238CF47500EB2F14 /* HyViewController.m */,
+				51784F54238CF47500EB2F14 /* HyListModel.h */,
+				51784F4C238CF47500EB2F14 /* HyListModel.m */,
+				51784F50238CF47500EB2F14 /* HyListViewModel.h */,
+				51784F4A238CF47500EB2F14 /* HyListViewModel.m */,
+				51784F52238CF47500EB2F14 /* HyTableView.h */,
+				51784F48238CF47500EB2F14 /* HyTableView.m */,
+				51784F56238CF47500EB2F14 /* HyCollectionView.h */,
+				51784F4F238CF47500EB2F14 /* HyCollectionView.m */,
+				51784F57238CF47500EB2F14 /* NSObject+HyProtocol.h */,
+				51784F4E238CF47500EB2F14 /* NSObject+HyProtocol.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		51CF98CF23867DC100207DB3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				51343543238FAD48007600EA /* HyNetworkManager.h */,
+				51343544238FAD48007600EA /* HyNetworkManager.m */,
+				51343537238F99E2007600EA /* HyNetworkProtocol.h */,
+				51343538238F99F8007600EA /* HyNetworkTaskProtocol.h */,
+				51343540238FA588007600EA /* HyNetworkTaskInfoProtocol.h */,
+				513435562390BC83007600EA /* HyMultipartFormDataProtocol.h */,
+				513435692390ED13007600EA /* HyNetworkCacheProtocol.h */,
+				513435622390C66D007600EA /* YYCache */,
+				51343546238FB697007600EA /* AFNetworking */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		51CF98EB2387C5BC00207DB3 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				51CF98EC2387C5CD00207DB3 /* HyNewsViewController.h */,
+				51CF98ED2387C5CD00207DB3 /* HyNewsViewController.m */,
+				51CF98EF2387C5EA00207DB3 /* HyNewsViewModel.h */,
+				51CF98F02387C5EA00207DB3 /* HyNewsViewModel.m */,
+				51CF98F22387C63300207DB3 /* HyNewsModel.h */,
+				51CF98F32387C63300207DB3 /* HyNewsModel.m */,
+				51CF98F82387C77C00207DB3 /* HyNewsCell.h */,
+				51CF98F92387C77C00207DB3 /* HyNewsCell.m */,
+				51CF98F52387C76C00207DB3 /* HyNewsImageCell.h */,
+				51CF98F62387C76C00207DB3 /* HyNewsImageCell.m */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		BD1DF956C0DB9EE5688DE864 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4692DDED328B7273CF5A20E9 /* Pods-DemoCode.debug.xcconfig */,
+				940EB0552BB229DC24EA24A2 /* Pods-DemoCode.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C9DAF13C1B32ECB90B69B75B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A4370958740260EABFA1F4A /* Pods_DemoCode.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		51559EC323827A59007904C8 /* DemoCode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51559EF323827A5A007904C8 /* Build configuration list for PBXNativeTarget "DemoCode" */;
+			buildPhases = (
+				F86B5A33FA645EBD5D07310A /* [CP] Check Pods Manifest.lock */,
+				51559EC023827A59007904C8 /* Sources */,
+				51559EC123827A59007904C8 /* Frameworks */,
+				51559EC223827A59007904C8 /* Resources */,
+				8EED8E92D7D8CB31005F7523 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DemoCode;
+			productName = DemoCode;
+			productReference = 51559EC423827A59007904C8 /* DemoCode.app */;
+			productType = "com.apple.product-type.application";
+		};
+		51559EDE23827A5A007904C8 /* DemoCodeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51559EF623827A5A007904C8 /* Build configuration list for PBXNativeTarget "DemoCodeTests" */;
+			buildPhases = (
+				51559EDB23827A5A007904C8 /* Sources */,
+				51559EDC23827A5A007904C8 /* Frameworks */,
+				51559EDD23827A5A007904C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51559EE123827A5A007904C8 /* PBXTargetDependency */,
+			);
+			name = DemoCodeTests;
+			productName = DemoCodeTests;
+			productReference = 51559EDF23827A5A007904C8 /* DemoCodeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		51559EE923827A5A007904C8 /* DemoCodeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51559EF923827A5A007904C8 /* Build configuration list for PBXNativeTarget "DemoCodeUITests" */;
+			buildPhases = (
+				51559EE623827A5A007904C8 /* Sources */,
+				51559EE723827A5A007904C8 /* Frameworks */,
+				51559EE823827A5A007904C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51559EEC23827A5A007904C8 /* PBXTargetDependency */,
+			);
+			name = DemoCodeUITests;
+			productName = DemoCodeUITests;
+			productReference = 51559EEA23827A5A007904C8 /* DemoCodeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		51559EBC23827A59007904C8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1110;
+				ORGANIZATIONNAME = Hy;
+				TargetAttributes = {
+					51559EC323827A59007904C8 = {
+						CreatedOnToolsVersion = 11.1;
+					};
+					51559EDE23827A5A007904C8 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = 51559EC323827A59007904C8;
+					};
+					51559EE923827A5A007904C8 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = 51559EC323827A59007904C8;
+					};
+				};
+			};
+			buildConfigurationList = 51559EBF23827A59007904C8 /* Build configuration list for PBXProject "DemoCode" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 51559EBB23827A59007904C8;
+			productRefGroup = 51559EC523827A59007904C8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				51559EC323827A59007904C8 /* DemoCode */,
+				51559EDE23827A5A007904C8 /* DemoCodeTests */,
+				51559EE923827A5A007904C8 /* DemoCodeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		51559EC223827A59007904C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51559ED723827A59007904C8 /* LaunchScreen.storyboard in Resources */,
+				51559ED423827A59007904C8 /* Assets.xcassets in Resources */,
+				51559ED223827A59007904C8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51559EDD23827A5A007904C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51559EE823827A5A007904C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8EED8E92D7D8CB31005F7523 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DemoCode/Pods-DemoCode-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DemoCode/Pods-DemoCode-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoCode/Pods-DemoCode-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F86B5A33FA645EBD5D07310A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DemoCode-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		51559EC023827A59007904C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51343534238E877D007600EA /* MJRefreshViewFactory.m in Sources */,
+				51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */,
+				513435652390C689007600EA /* YYNetworkCache.m in Sources */,
+				51784F5D238CF47500EB2F14 /* HyListModel.m in Sources */,
+				51559ECF23827A59007904C8 /* ViewController.m in Sources */,
+				513435552390B68D007600EA /* RACSignal+Network.m in Sources */,
+				51784F5C238CF47500EB2F14 /* HyView.m in Sources */,
+				51343532238E877D007600EA /* MJRefreshViewHeader.m in Sources */,
+				51343545238FAD48007600EA /* HyNetworkManager.m in Sources */,
+				51559F5D23838ECD007904C8 /* HyMeViewController.m in Sources */,
+				51784F59238CF47500EB2F14 /* HyTableView.m in Sources */,
+				51784F60238CF47500EB2F14 /* HyCollectionView.m in Sources */,
+				5134354C238FC0EE007600EA /* AFNetworkTask.m in Sources */,
+				51784F232387FE1E00EB2F14 /* HyRecommendViewModel.m in Sources */,
+				51343506238E20A7007600EA /* UICollectionView+HySignalExtension.m in Sources */,
+				51CF98FA2387C77C00207DB3 /* HyNewsCell.m in Sources */,
+				51559EC923827A59007904C8 /* AppDelegate.m in Sources */,
+				51CF98F72387C76C00207DB3 /* HyNewsImageCell.m in Sources */,
+				51343533238E877D007600EA /* MJRefreshViewFooter.m in Sources */,
+				51784F5B238CF47500EB2F14 /* HyListViewModel.m in Sources */,
+				51784F202387FE0C00EB2F14 /* HyRecommendViewController.m in Sources */,
+				51559F192382806C007904C8 /* RACSignal+HyExtension.m in Sources */,
+				51343535238E877D007600EA /* HyRefreshViewManager.m in Sources */,
+				51559F7C2383F9E0007904C8 /* HyTextFieldView.m in Sources */,
+				5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */,
+				51784F5E238CF47500EB2F14 /* HyViewModel.m in Sources */,
+				51CF98F12387C5EA00207DB3 /* HyNewsViewModel.m in Sources */,
+				51343530238E877D007600EA /* KafkaRefreshHeader.m in Sources */,
+				5134355B2390BD15007600EA /* AFMultipartFormDataObject.m in Sources */,
+				51559F1C2382807F007904C8 /* RACCommand+HyExtension.m in Sources */,
+				51559F6623839161007904C8 /* HyMeView.m in Sources */,
+				51559F602383913F007904C8 /* HyMeViewModel.m in Sources */,
+				5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */,
+				51784F262387FE3400EB2F14 /* HyRecommendCell.m in Sources */,
+				51559F6323839153007904C8 /* HyMeModel.m in Sources */,
+				51559F1F2382808E007904C8 /* RACSubject+HyExtension.m in Sources */,
+				51784F61238CF47500EB2F14 /* HyViewController.m in Sources */,
+				51559EDA23827A59007904C8 /* main.m in Sources */,
+				51CF98F42387C63300207DB3 /* HyNewsModel.m in Sources */,
+				5134352F238E877D007600EA /* KafkaRefreshFooter.m in Sources */,
+				51784F5F238CF47500EB2F14 /* NSObject+HyProtocol.m in Sources */,
+				51559ECC23827A59007904C8 /* SceneDelegate.m in Sources */,
+				513435542390B68D007600EA /* RACCommand+Network.m in Sources */,
+				51343549238FB6C7007600EA /* AFNetwork.m in Sources */,
+				51784F29238CCB9000EB2F14 /* HyTabBarController.m in Sources */,
+				51343531238E877D007600EA /* KafkaRefreshFactory.m in Sources */,
+				5134354F238FC0FC007600EA /* AFNetworkTaskInfo.m in Sources */,
+				51784F5A238CF47500EB2F14 /* HyModel.m in Sources */,
+				51CF98EE2387C5CD00207DB3 /* HyNewsViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51559EDB23827A5A007904C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51559EE423827A5A007904C8 /* DemoCodeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51559EE623827A5A007904C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51559EEF23827A5A007904C8 /* DemoCodeUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		51559EE123827A5A007904C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51559EC323827A59007904C8 /* DemoCode */;
+			targetProxy = 51559EE023827A5A007904C8 /* PBXContainerItemProxy */;
+		};
+		51559EEC23827A5A007904C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51559EC323827A59007904C8 /* DemoCode */;
+			targetProxy = 51559EEB23827A5A007904C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		51559ED023827A59007904C8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51559ED123827A59007904C8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		51559ED523827A59007904C8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51559ED623827A59007904C8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		51559EF123827A5A007904C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		51559EF223827A5A007904C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		51559EF423827A5A007904C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4692DDED328B7273CF5A20E9 /* Pods-DemoCode.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L5TRHD689W;
+				INFOPLIST_FILE = DemoCode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.DemoCode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		51559EF523827A5A007904C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 940EB0552BB229DC24EA24A2 /* Pods-DemoCode.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L5TRHD689W;
+				INFOPLIST_FILE = DemoCode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.DemoCode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		51559EF723827A5A007904C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DemoCodeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.DemoCodeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoCode.app/DemoCode";
+			};
+			name = Debug;
+		};
+		51559EF823827A5A007904C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DemoCodeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.DemoCodeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoCode.app/DemoCode";
+			};
+			name = Release;
+		};
+		51559EFA23827A5A007904C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DemoCodeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.DemoCodeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DemoCode;
+			};
+			name = Debug;
+		};
+		51559EFB23827A5A007904C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DemoCodeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = hydreamit.DemoCodeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DemoCode;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		51559EBF23827A59007904C8 /* Build configuration list for PBXProject "DemoCode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51559EF123827A5A007904C8 /* Debug */,
+				51559EF223827A5A007904C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		51559EF323827A5A007904C8 /* Build configuration list for PBXNativeTarget "DemoCode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51559EF423827A5A007904C8 /* Debug */,
+				51559EF523827A5A007904C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		51559EF623827A5A007904C8 /* Build configuration list for PBXNativeTarget "DemoCodeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51559EF723827A5A007904C8 /* Debug */,
+				51559EF823827A5A007904C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		51559EF923827A5A007904C8 /* Build configuration list for PBXNativeTarget "DemoCodeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51559EFA23827A5A007904C8 /* Debug */,
+				51559EFB23827A5A007904C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 51559EBC23827A59007904C8 /* Project object */;
+}

@@ -53,7 +53,7 @@ SOFTWARE.
 
 MIT License
 
-Copyright (c) 2018 K
+Copyright (c) 2017 K
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

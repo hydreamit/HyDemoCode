@@ -2,8 +2,8 @@
 //  RACSignal+Network.h
 //  demo
 //
-//  Created by Hy on 2018/11/10.
-//  Copyright © 2018年 Hy. All rights reserved.
+//  Created by Hy on 2017/11/10.
+//  Copyright © 2017年 Hy. All rights reserved.
 //
 
 #import <ReactiveObjC/ReactiveObjC.h>

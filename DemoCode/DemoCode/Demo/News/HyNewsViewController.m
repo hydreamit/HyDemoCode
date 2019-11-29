@@ -12,8 +12,7 @@
 #import "HyNewsCell.h"
 #import "HyNewsImageCell.h"
 #import "HyTableView.h"
-#import <MJRefresh/MJRefresh.h>
-#import "HyRecommendViewController.h"
+#import "HyNetworkManager.h"
 
 
 @interface HyNewsViewController ()
@@ -27,8 +26,16 @@
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     
-
     [self.view addSubview:self.tableView];
+    
+    @weakify(self);
+    [HyNetworkManager.network addNetworkStatusChangeBlock:^(HyNetworStatus currentStatus, HyNetworStatus lastStatus) {
+        @strongify(self);
+        if ((lastStatus == HyNetworStatusUnKnown || lastStatus == HyNetworStatusNotReachable) &&
+            (currentStatus == HyNetworStatusReachableViaWWAN || currentStatus == HyNetworStatusReachbleViaWiFi)) {
+            [self.tableView headerBeginRefreshing];
+        }
+    } key:NSStringFromClass(self.class)];
 }
 
 - (void)viewModelDidLoad {
@@ -85,6 +92,9 @@
 }
 
 - (void)dealloc {
+    
+    [HyNetworkManager.network removeNetworkStatusChangeBlockWithKey:NSStringFromClass(self.class)];
+    
     NSLog(@"%s", __func__);
 }
 @end

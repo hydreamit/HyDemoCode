@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "HyMeViewController.h"
-#import "HyViewController.h"
+
 
 @interface ViewController ()
 
@@ -22,17 +21,6 @@
     self.view.backgroundColor = UIColor.grayColor;
     
 }
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-   
-    [self.class pushViewControllerWithName:@"HyNewsViewController"
-                             viewModelName:@"HyNewsViewModel"
-                                 parameter:nil
-                                  animated:YES
-                                completion:nil];
-    
-}
-
 
 
 @end

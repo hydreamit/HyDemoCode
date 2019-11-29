@@ -174,14 +174,14 @@
              }
          }
     
-        AFNetworkTaskInfo *taskInfo =[AFNetworkTaskInfo taskInfoWithRequestType:type
-                                                                              showHUD:showHUD
-                                                                                cache:cache
-                                                                                  url:url
-                                                                            parameter:parameter
-                                                                        formDataBlock:formDataBlock
-                                                                         successBlock:successBlock
-                                                                         failureBlock:failureBlock];
+      AFNetworkTaskInfo *taskInfo =[AFNetworkTaskInfo taskInfoWithRequestType:type
+                                                                      showHUD:showHUD
+                                                                        cache:cache
+                                                                          url:url
+                                                                    parameter:parameter
+                                                                formDataBlock:formDataBlock
+                                                                 successBlock:successBlock
+                                                                 failureBlock:failureBlock];
        AFNetworkTask *task = [AFNetworkTask taskWithNetwork:self taskInfo:taskInfo];
            
         NSString *cacheKey  = @"";
@@ -200,7 +200,7 @@
                 isCacheAndHaveCacheDate = (BOOL)cacheDate;
                 !cacheDate ?: (!successBlock ?: successBlock(cacheDate, task));
             }
-            isCacheAndHaveCacheDate ?: (!failureBlock ?: failureBlock(nil, task)); 
+            isCacheAndHaveCacheDate ?: (!failureBlock ?: failureBlock(nil, task));
 
             return task;
         }
@@ -364,6 +364,8 @@
 - (void)networkStatusStartMonitoring {
     AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
     [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        HyNetworStatus lastStatus = self.currentNetworkStatus;
         if (status == AFNetworkReachabilityStatusNotReachable){
             self.currentNetworkStatus = HyNetworStatusNotReachable;
         }else if (status == AFNetworkReachabilityStatusUnknown){
@@ -375,7 +377,7 @@
         }
                 
         for (HyNetworkStatusBlock block in self.networkStatusBlockDict.allValues) {
-            block(self.currentNetworkStatus);
+            block(self.currentNetworkStatus, lastStatus);
         }
     }];
     [reachabilityManager startMonitoring];

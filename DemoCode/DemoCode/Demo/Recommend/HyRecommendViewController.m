@@ -11,8 +11,6 @@
 #import "HyRecommendViewModel.h"
 #import "HyRecommendCell.h"
 #import "HyCollectionView.h"
-#import "RACCommand+Network.h"
-#import "RACSignal+Network.h"
 #import "HyNetworkManager.h"
 
 
@@ -28,6 +26,15 @@
     [super hy_viewDidLoad];
     
     [self.view addSubview:self.collectionView];
+    
+    @weakify(self);
+    [HyNetworkManager.network addNetworkStatusChangeBlock:^(HyNetworStatus currentStatus, HyNetworStatus lastStatus) {
+        @strongify(self);
+        if ((lastStatus == HyNetworStatusUnKnown || lastStatus == HyNetworStatusNotReachable) &&
+            (currentStatus == HyNetworStatusReachableViaWWAN || currentStatus == HyNetworStatusReachbleViaWiFi)) {
+            [self.collectionView headerBeginRefreshing];
+        }
+    } key:NSStringFromClass(self.class)];
 }
 
 - (void)viewModelDidLoad {
@@ -89,6 +96,9 @@
 }
 
 - (void)dealloc {
-    NSLog(@"=========%s", __func__);
+    
+    [HyNetworkManager.network removeNetworkStatusChangeBlockWithKey:NSStringFromClass(self.class)];
+    
+    NSLog(@"%s", __func__);
 }
 @end

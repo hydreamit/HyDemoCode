@@ -27,7 +27,7 @@
     [super hy_viewDidLoad];
     
     HyMeView<HyViewProtocol> *meView =
-    [HyMeView viewWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 200)
+    (HyMeView *)[HyMeView viewWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 200)
                               viewModel:self.viewModel
                               parameter:nil];
     

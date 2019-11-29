@@ -240,12 +240,12 @@
 		5134351C238E877D007600EA /* RefreshView */ = {
 			isa = PBXGroup;
 			children = (
-				51343525238E877D007600EA /* MJRefresh */,
-				5134351D238E877D007600EA /* KafkaRefresh */,
+				5134352E238E877D007600EA /* HyRefreshViewManager.h */,
+				5134352D238E877D007600EA /* HyRefreshViewManager.m */,
 				51343524238E877D007600EA /* HyRefreshViewProtocol.h */,
 				5134352C238E877D007600EA /* HyRefreshViewFactoryProtocol.h */,
-				5134352D238E877D007600EA /* HyRefreshViewManager.m */,
-				5134352E238E877D007600EA /* HyRefreshViewManager.h */,
+				51343525238E877D007600EA /* MJRefresh */,
+				5134351D238E877D007600EA /* KafkaRefresh */,
 			);
 			path = RefreshView;
 			sourceTree = "<group>";

@@ -2,8 +2,8 @@
 //  KafkaAnimatableProtocol.h
 //  KafkaExample
 //
-//  Created by 向小辉 on 2018/1/3.
-//  Copyright © 2018年 Kinx. All rights reserved.
+//  Created by 向小辉 on 2017/1/3.
+//  Copyright © 2017年 Kinx. All rights reserved.
 //
 
 #ifndef KafkaAnimatableProtocol_h

@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, HyNetworStatus) {
     HyNetworStatusNotReachable
 };
 
-typedef void (^_Nullable HyNetworkStatusBlock)(HyNetworStatus status);
+typedef void (^_Nullable HyNetworkStatusBlock)(HyNetworStatus currentStatus, HyNetworStatus lastStatus);
 typedef void (^_Nullable HyNetworkFormDataBlock)(id<HyMultipartFormDataProtocol> formData);
 typedef void (^_Nullable HyNetworkSuccessBlock)(id _Nullable response, id<HyNetworkTaskProtocol> task);
 typedef void (^_Nullable HyNetworkFailureBlock)(NSError *_Nullable error, id<HyNetworkTaskProtocol> task);

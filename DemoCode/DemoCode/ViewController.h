@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HyViewControllerJumpProtocol.h"
 
-@interface ViewController : UIViewController <HyViewControllerJumpProtocol>
+@interface ViewController : UIViewController 
 
 
 @end

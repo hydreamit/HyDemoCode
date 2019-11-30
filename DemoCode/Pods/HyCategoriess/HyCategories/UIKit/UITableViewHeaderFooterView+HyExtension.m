@@ -30,9 +30,11 @@
     headerFooterView.hy_section = section;
     headerFooterView.hy_seactionViewKinds = seactionViewKinds;
     headerFooterView.hy_sectionData = sectionData;
+    [headerFooterView hy_headerFooterViewLoad];
     return headerFooterView;
 }
 
+- (void)hy_headerFooterViewLoad {}
 - (void)hy_reloadHeaderFooterViewData {}
 
 - (id)hy_tableViewData {

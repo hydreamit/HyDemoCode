@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, HyCollectionSeactionViewKinds) {
                                             indexPath:(NSIndexPath *)indexPath
                                     seactionViewKinds:(HyCollectionSeactionViewKinds)seactionViewKinds
                                           sectionData:(id)sectionData;
-
+- (void)hy_headerFooterViewLoad;
 - (void)hy_reloadHeaderFooterViewData;
 
 @end

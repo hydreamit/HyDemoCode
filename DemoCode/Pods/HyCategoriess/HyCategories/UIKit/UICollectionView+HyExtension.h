@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
                          footerViewClasses:(NSArray<Class> *_Nullable)footerViewClasses
                         delegateConfigure:(void (^_Nullable)(HyCollectionViewDelegateConfigure *configure))delegateConfigure;
 
-
+- (void)hy_colletionViewLoad;
 - (id)hy_sectionDataAtSection:(NSInteger)section;
 - (id)hy_cellDataAtIndexPath:(NSIndexPath *)indexPath;
 - (void)hy_reloadDataWithSectionDataKey:(NSString *_Nullable)sectionDataKey

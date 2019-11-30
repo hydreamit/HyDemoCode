@@ -20,26 +20,22 @@
 
 @implementation HyNewsCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style
-              reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.opaque = YES;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        [self.contentView addSubview:self.newsImageView];
-        [self.contentView addSubview:self.newsTitleLabel];
-        [self.contentView addSubview:self.lineView];
-    }
-    return self;
+- (void)hy_cellLoad {
+    self.opaque = YES;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self.contentView addSubview:self.newsImageView];
+    [self.contentView addSubview:self.newsTitleLabel];
+    [self.contentView addSubview:self.lineView];
 }
 
 - (void)hy_reloadCellData {
     self.newsTitleLabel.attributedText = ((HyNewsModel *)self.hy_cellData).titleAttr;
-[self.newsImageView yy_setImageWithURL:[NSURL URLWithString:((HyNewsModel *)self.hy_cellData).imageUrlStr]
-                  placeholder:nil
-                      options:YYWebImageOptionSetImageWithFadeAnimation |
+    [self.newsImageView yy_setImageWithURL:[NSURL URLWithString:((HyNewsModel *)self.hy_cellData).imageUrlStr]
+                               placeholder:nil
+                                   options:YYWebImageOptionSetImageWithFadeAnimation |
                    YYWebImageOptionProgressiveBlur           |
                    YYWebImageOptionShowNetworkActivity
-                   completion:nil];
+                                completion:nil];
 }
 
 - (UIImageView *)newsImageView {
@@ -80,6 +76,5 @@
     }
     return _lineView;
 }
-
 
 @end

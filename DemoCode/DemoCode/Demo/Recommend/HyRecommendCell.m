@@ -20,13 +20,10 @@
 
 @implementation HyRecommendCell
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:self.icon];
-        [self.contentView addSubview:self.titleL];
-    }
-    return  self;
+- (void)hy_cellLoad {
+    self.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:self.icon];
+    [self.contentView addSubview:self.titleL];
 }
 
 - (void)hy_reloadCellData {

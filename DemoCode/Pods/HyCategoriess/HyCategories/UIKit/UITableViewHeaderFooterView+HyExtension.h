@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, HyTableSeactionViewKinds) {
                                seactionViewKinds:(HyTableSeactionViewKinds)seactionViewKinds
                                      sectionData:(id)sectionData;
 
+- (void)hy_headerFooterViewLoad;
 - (void)hy_reloadHeaderFooterViewData;
 
 @end

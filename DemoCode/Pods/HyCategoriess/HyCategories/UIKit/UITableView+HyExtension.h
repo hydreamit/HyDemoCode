@@ -83,7 +83,7 @@
               headerFooterViewClasses:(NSArray<Class> *)headerFooterViewClasses
                     delegateConfigure:(void (^)(HyTableViewDelegateConfigure *configure))delegateConfigure;
 
-
+- (void)hy_tableViewLoad;
 - (id)hy_sectionDataAtSection:(NSInteger)section;
 - (id)hy_cellDataAtIndexPath:(NSIndexPath *)indexPath;
 - (void)hy_reloadDataWithSectionDataKey:(NSString *)sectionDataKey

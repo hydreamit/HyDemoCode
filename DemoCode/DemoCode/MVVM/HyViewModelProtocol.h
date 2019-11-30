@@ -35,9 +35,9 @@ typedef void (^ReloadViewBlock)(id _Nullable parameter);
 
 - (void)requestDataWithInput:(id _Nullable)input;
 
-- (void)requestSuccessHandler:(void (^)(id input,
+- (void)requestSuccessHandler:(void (^_Nullable)(id input,
                                         NSObject<HyModelProtocol> *model))successHandler
-               failureHandler:(void (^)(id input,
+               failureHandler:(void (^_Nullable)(id input,
                                         NSError *error))failureHandler;
 @end
 

@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
                                 indexPath:(NSIndexPath *)indexPath
                                  cellData:(id)cellData;
 
+- (void)hy_cellLoad;
 - (void)hy_reloadCellData;
 
 @end

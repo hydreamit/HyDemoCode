@@ -19,51 +19,11 @@
 
 @implementation HyTableView
 
-- (void)didMoveToSuperview{
-    [super didMoveToSuperview];
-
-    if (self.superview) {
-        __weak typeof(self) _self = self;
-        [self.listViewModel requestListSuccessHandler:^(id  _Nonnull input,
-                                                    NSObject<HyListModelProtocol> * _Nonnull listData,
-                                                    HyListViewRequestDataType type,
-                                                    BOOL noMore) {
-            
-            __strong typeof(_self) self = _self;
-            [self reloadData];
-            if (type == HyListViewRequestDataTypeNew) {
-                [self.refreshViewFactory.getHeaderRefreshView endRefreshing];
-            } else {
-                [self.refreshViewFactory.getFooterRefreshView  endRefreshing];
-            }
-            [self.refreshViewFactory.getFooterRefreshView setHidden:noMore];
-            
-        } failureHandler:^(id  _Nonnull input,
-                           NSError * _Nonnull error,
-                           HyListViewRequestDataType type) {
-
-                __strong typeof(_self) self = _self;
-                if (type == HyListViewRequestDataTypeNew) {
-                    [self.refreshViewFactory.getHeaderRefreshView endRefreshing];
-                } else {
-                    [self.refreshViewFactory.getFooterRefreshView  endRefreshing];
-                }
-                if (self.listViewModel.listModel.listModelArray.count <= 0) {
-                    [self reloadData];
-                    [self.refreshViewFactory.getFooterRefreshView setHidden:YES];
-                }
+- (void)hy_tableViewLoad {
+    if (self.listViewModel) {
+        [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
+            return @[@"listModel.listModelArray", @"listModelArray"];
         }];
-        
-        if (self.listViewModel) {
-            [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
-                return @[@"listModel.listModelArray", @"listModelArray"];
-            }];
-            
-            self.listViewModel.reloadListViewBlock = ^(id  _Nonnull parameter) {
-                __strong typeof(_self) self = _self;
-                [self reloadData];
-            };
-        }
     }
 }
 
@@ -110,11 +70,64 @@
     return self.refreshViewFactory;
 }
 
-- (NSObject<HyListViewModelProtocol> *)listViewModel {
-    if ([self.hy_tableViewData conformsToProtocol:@protocol(HyListViewModelProtocol)]) {
-        return self.hy_tableViewData;
+- (void)setHy_tableViewData:(id)hy_tableViewData {
+    [super setHy_tableViewData:hy_tableViewData];
+    
+    if ([hy_tableViewData conformsToProtocol:@protocol(HyListViewModelProtocol)]) {
+        self.listViewModel = hy_tableViewData;
     }
-    return nil;
+}
+
+- (void)setListViewModel:(NSObject<HyListViewModelProtocol> *)listViewModel {
+    
+    if (listViewModel != _listViewModel) {
+        
+        if (_listViewModel) {
+            [_listViewModel requestListSuccessHandler:nil failureHandler:nil];
+            listViewModel.reloadListViewBlock = nil;
+        }
+        
+        __weak typeof(self) _self = self;
+       [listViewModel requestListSuccessHandler:^(id  _Nonnull input,
+                                                   NSObject<HyListModelProtocol> * _Nonnull listData,
+                                                   HyListViewRequestDataType type,
+                                                   BOOL noMore) {
+           
+           __strong typeof(_self) self = _self;
+           [self reloadData];
+           if (type == HyListViewRequestDataTypeNew) {
+               [self.refreshViewFactory.getHeaderRefreshView endRefreshing];
+           } else {
+               [self.refreshViewFactory.getFooterRefreshView  endRefreshing];
+           }
+           [self.refreshViewFactory.getFooterRefreshView setHidden:noMore];
+           
+       } failureHandler:^(id  _Nonnull input,
+                          NSError * _Nonnull error,
+                          HyListViewRequestDataType type) {
+
+               __strong typeof(_self) self = _self;
+               if (type == HyListViewRequestDataTypeNew) {
+                   [self.refreshViewFactory.getHeaderRefreshView endRefreshing];
+               } else {
+                   [self.refreshViewFactory.getFooterRefreshView  endRefreshing];
+               }
+               if (self.listViewModel.listModel.listModelArray.count <= 0) {
+                   [self reloadData];
+                   [self.refreshViewFactory.getFooterRefreshView setHidden:YES];
+               }
+       }];
+       
+       [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
+           return @[@"listModel.listModelArray", @"listModelArray"];
+       }];
+       
+       listViewModel.reloadListViewBlock = ^(id  _Nonnull parameter) {
+           __strong typeof(_self) self = _self;
+           [self reloadData];
+       };
+    }
+    _listViewModel = listViewModel;
 }
 
 @end

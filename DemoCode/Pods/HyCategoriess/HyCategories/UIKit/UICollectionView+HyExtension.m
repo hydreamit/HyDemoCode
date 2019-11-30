@@ -512,6 +512,7 @@ willDisplaySupplementaryView:(UICollectionReusableView *)view
     [colletionView hy_registerFooterWithViewClasses:footerViewClasses];
     colletionView.dataSource = dataSource;
     colletionView.delegate = delegate;
+    [colletionView hy_colletionViewLoad];
     return colletionView;
 }
 
@@ -543,9 +544,11 @@ willDisplaySupplementaryView:(UICollectionReusableView *)view
     colletionView.hy_delegateConfigure.footerViewClasses = footerViewClasses;
     colletionView.dataSource = colletionView.hy_delegateConfigure;
     colletionView.delegate = colletionView.hy_delegateConfigure;
+    [colletionView hy_colletionViewLoad];
     return colletionView;
 }
 
+- (void)hy_colletionViewLoad {}
 - (void)hy_reloadDataWithSectionDataKey:(NSString *)sectionDataKey
                             cellDataKey:(NSString *)cellDataKey {
     

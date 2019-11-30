@@ -76,10 +76,9 @@
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [btn setTitleColor:[UIColor hy_colorWithHexString:@"#3C8FF9"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+        btn.rac_command = self.viewModel.codeCommand;
         
         _codeTextFieldView.rightView = btn;
-        
-        btn.rac_command = self.viewModel.codeCommand;
     }
     return _codeTextFieldView;
 }

@@ -100,7 +100,6 @@
     return controller;
 }
 
-
 + (nullable UIViewController<HyViewControllerProtocol> *)popViewControllerWithParameter:(NSDictionary *_Nullable)parameter
                                                                                animated:(BOOL)flag
                                                                              completion:(void(^_Nullable)(void))completion {
@@ -163,7 +162,6 @@
     UIViewController<HyViewControllerProtocol> *popController = (UIViewController<HyViewControllerProtocol> *)[currentController.navigationController hy_viewControllerToIndex:toIndex];
     return [self popViewController:popController parameter:parameter animated:flag completion:completion];
 }
-
 
 + (void)dismissViewControllerWithParameter:(NSDictionary *)parameter
                                   animated:(BOOL)flag

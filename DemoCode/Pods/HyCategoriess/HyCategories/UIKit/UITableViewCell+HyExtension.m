@@ -26,8 +26,12 @@
                                                             forIndexPath:indexPath];
     cell.hy_cellData = cellData;
     cell.hy_indexPath = indexPath;
+    [cell hy_cellLoad];
     return cell;
 }
+
+- (void)hy_cellLoad {}
+- (void)hy_reloadCellData {}
 
 - (id)hy_sectionData {
     if (self.hy_tableView) {
@@ -59,8 +63,6 @@
     
     return nil;
 }
-
-- (void)hy_reloadCellData {}
 
 - (void)setHy_cellData:(id)hy_cellData {
     objc_setAssociatedObject(self,

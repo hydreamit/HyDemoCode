@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, HyListViewRequestDataType) {
 @optional
 
 @property (nonatomic,strong) NSObject<HyListModelProtocol> *listModel;
-@property (nonatomic,copy) void(^reloadListViewBlock)(id _Nullable parameter);
+@property (nonatomic,copy) void(^_Nullable reloadListViewBlock)(id _Nullable parameter);
 
 - (NSInteger)getPageSize;
 - (NSInteger(^)(HyListViewRequestDataType type))getRequestDataPageNumber;
@@ -43,11 +43,11 @@ typedef NS_ENUM(NSUInteger, HyListViewRequestDataType) {
 
 - (void)requestListDataWithInput:(id _Nullable)input type:(HyListViewRequestDataType)type;
 
-- (void)requestListSuccessHandler:(void (^)(id input,
+- (void)requestListSuccessHandler:(void (^_Nullable)(id input,
                                         NSObject<HyListModelProtocol> *listModel,
                                         HyListViewRequestDataType type,
                                         BOOL noMore))successHandler
-                   failureHandler:(void (^)(id input,
+                   failureHandler:(void (^_Nullable)(id input,
                                             NSError *error,
                                             HyListViewRequestDataType type))failureHandler;
 

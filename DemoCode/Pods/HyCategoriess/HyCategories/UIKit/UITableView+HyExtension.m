@@ -577,6 +577,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     tableView.dataSource = dataSource;
     tableView.delegate = delegate;
+    [tableView hy_tableViewLoad];
     return tableView;
 }
 
@@ -606,9 +607,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     tableView.hy_delegateConfigure.headerFooterViewClasses = headerFooterViewClasses;
     tableView.dataSource = tableView.hy_delegateConfigure;
     tableView.delegate = tableView.hy_delegateConfigure;
+    [tableView hy_tableViewLoad];
     return tableView;
 }
 
+- (void)hy_tableViewLoad {};
 - (void)hy_reloadDataWithSectionDataKey:(NSString *)sectionDataKey
                             cellDataKey:(NSString *)cellDataKey {
     

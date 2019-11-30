@@ -192,6 +192,9 @@
             
             NSLog(@" 当前网络不可用 \n 请检查网络设置 ");
             
+            if (self.willResumeTasksArray.count > 20) {
+                [self.willResumeTasksArray removeObjectAtIndex:0];
+            }
             [self.willResumeTasksArray addObject:task];
             
             BOOL isCacheAndHaveCacheDate = NO;

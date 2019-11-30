@@ -20,16 +20,12 @@
 
 @implementation HyNewsImageCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style
-              reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.opaque = YES;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        [self.contentView addSubview:self.newsTitleLabel];
-        [self.contentView addSubview:self.newsImageView];
-        [self.contentView addSubview:self.lineView];
-    }
-    return self;
+- (void)hy_cellLoad {
+    self.opaque = YES;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self.contentView addSubview:self.newsTitleLabel];
+    [self.contentView addSubview:self.newsImageView];
+    [self.contentView addSubview:self.lineView];
 }
 
 - (void)hy_reloadCellData {

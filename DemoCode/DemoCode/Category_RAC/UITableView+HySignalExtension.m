@@ -18,6 +18,7 @@
                                  hy_tableViewData,
                                  OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         @weakify(self);
+        [self hy_tableViewDataSignalDisposable:
         [[(RACSignal *)hy_tableViewData deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
             @strongify(self);
             objc_setAssociatedObject(self,
@@ -25,7 +26,7 @@
                                      x,
                                      OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self reloadData];
-        }];
+        }]];
     } else {
         objc_setAssociatedObject(self,
                                  @selector(hy_tableViewData),
@@ -38,4 +39,14 @@
     return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void)hy_tableViewDataSignalDisposable:(RACDisposable *)disp {
+    RACDisposable *disposable = objc_getAssociatedObject(self, _cmd);
+    if (disposable != NULL) {
+        [disposable dispose];
+    }
+    objc_setAssociatedObject(self,
+                             _cmd,
+                             disp,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 @end

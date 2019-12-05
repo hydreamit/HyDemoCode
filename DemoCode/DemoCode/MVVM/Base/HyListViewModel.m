@@ -81,14 +81,15 @@
     
     NSString *url = self.urlBlock ? self.urlBlock(input,type) : @"";
     NSDictionary *parameter = self.parameterBlock ? self.parameterBlock(input,type) : input;
+    BOOL showHUD = type == HyListViewRequestDataTypeFirst;
     if (self.isGet) {
-        [HyNetworkManager.network getShowHUD:YES cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
+        [HyNetworkManager.network getShowHUD:showHUD cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
             [self _handleResponse:response input:input type:type];
         } failureBlock:^(NSError * _Nullable error, id<HyNetworkTaskProtocol>  _Nonnull task) {
             !self.failureHandler ?: self.failureHandler(input, error, type);
         }];
     } else {
-        [HyNetworkManager.network postShowHUD:YES cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
+        [HyNetworkManager.network postShowHUD:showHUD cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
             [self _handleResponse:response input:input type:type];
         } failureBlock:^(NSError * _Nullable error, id<HyNetworkTaskProtocol>  _Nonnull task) {
             !self.failureHandler ?: self.failureHandler(input, error, type);
@@ -173,7 +174,8 @@
                }
            }
 
-           if (type == HyListViewRequestDataTypeNew) {
+           if (type == HyListViewRequestDataTypeNew ||
+               type == HyListViewRequestDataTypeFirst) {
                
                if (self.sectionDataHandler) {
                   [self.listModel.listModelArray removeAllObjects];
@@ -219,7 +221,7 @@
     __weak typeof(self) _self = self;
     return ^NSInteger(HyListViewRequestDataType type){
         __strong typeof(_self) self = _self;
-        return type == HyListViewRequestDataTypeNew ? self.startPage : self.pageNumber;
+        return type == HyListViewRequestDataTypeMore ? self.pageNumber : self.startPage;
     };
 }
 

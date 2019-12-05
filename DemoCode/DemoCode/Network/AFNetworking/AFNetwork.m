@@ -12,6 +12,8 @@
 #import "AFNetworkTask.h"
 #import "AFMultipartFormDataObject.h"
 #import "HyNetworkCacheProtocol.h"
+#import <HyCategoriess/HyCategories.h>
+#import "HyHUD.h"
 
 
 @interface AFNetwork ()
@@ -161,6 +163,10 @@
                              successBlock:(HyNetworkSuccessBlock)successBlock
                              failureBlock:(HyNetworkFailureBlock)failureBlock {
     
+        if (showHUD) {
+            ShowHUD(UIViewController.hy_currentViewController.view);
+        }
+    
          NSString *currentUrl = @"https://www.baidu.com";
          if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
              currentUrl = url;
@@ -204,6 +210,8 @@
                 !cacheDate ?: (!successBlock ?: successBlock(cacheDate, task));
             }
             isCacheAndHaveCacheDate ?: (!failureBlock ?: failureBlock(nil, task));
+            
+            DismissHUD;
 
             return task;
         }
@@ -213,6 +221,7 @@
     
     void (^success)(NSURLSessionDataTask *, id) =
     ^(NSURLSessionDataTask * _Nonnull sessionDataTask, id  _Nullable responseObject){
+        DismissHUD;
         task.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
         !cache ?: [self.networkCache setCache:responseObject forKey:cacheKey];
         !successBlock ?: successBlock(responseObject, task);
@@ -225,6 +234,7 @@
     
     void (^failure)(NSURLSessionDataTask *, NSError *) =
     ^(NSURLSessionDataTask * _Nonnull sessionDataTask, NSError * _Nonnull error){
+        DismissHUD;
         task.taskInfo.taskStatus = HyNetworkTaskStatusFailure;
         if (cache) {
             id cacheDate = [self.networkCache getCacheForKey:cacheKey];

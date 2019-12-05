@@ -30,7 +30,7 @@
 }
 
 - (void)handleImageUrlStr {
-    self.imageUrlStr = [NSString stringWithFormat:@"%@?w=750&h=20000&quality=75",self.imgsrc.firstObject];
+    self.imageUrlStr = [NSString stringWithFormat:@"%@?w=750&h=20000&quality=75", self.imgsrc.firstObject];
 }
 
 - (void)handleCellHeight {

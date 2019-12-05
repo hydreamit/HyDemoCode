@@ -12,7 +12,8 @@
 #import "HyRecommendCell.h"
 #import "HyCollectionView.h"
 #import "HyNetworkManager.h"
-
+#import "HyHUD.h"
+#import "HyTopTip.h"
 
 @interface HyRecommendViewController ()
 @property (nonatomic,strong) HyCollectionView *collectionView;
@@ -26,7 +27,7 @@
     [super hy_viewDidLoad];
     
     [self.view addSubview:self.collectionView];
-    
+
     @weakify(self);
     [HyNetworkManager.network addNetworkStatusChangeBlock:^(HyNetworStatus currentStatus, HyNetworStatus lastStatus) {
         @strongify(self);
@@ -38,9 +39,7 @@
 }
 
 - (void)viewModelDidLoad {
-    
-    [self.collectionView headerBeginRefreshing];
-//    [self.viewModel requestListDataWithInput:nil type:0];
+    [self.viewModel requestListDataWithInput:nil type:0];
 }
 
 - (void)scrollToTop {
@@ -56,16 +55,7 @@
                                                            cellClasses:@[HyRecommendCell.class]
                                                      headerViewClasses:nil
                                                      footerViewClasses:nil
-                                                     delegateConfigure:^(HyCollectionViewDelegateConfigure * _Nonnull configure) {
-            [configure configEmtyView:^(UICollectionView *collectionView, UIView *emtyContainerView) {
-                UILabel *label = UILabel.new;
-                label.text = @"暂无数据";
-                label.frame = emtyContainerView.bounds;
-                label.textAlignment = NSTextAlignmentCenter;
-                label.textColor = UIColor.darkTextColor;
-                [emtyContainerView addSubview:label];
-            }];
-        }];
+                                                     delegateConfigure:nil];
         [_collectionView configRefreshFramework:KEY_KafkaRefresh
                                     refreshType:HyListViewRefreshTypePullDown
                             refreshRequestInput:nil

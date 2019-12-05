@@ -30,7 +30,6 @@
 
 - (void)hy_reloadCellData {
     self.newsTitleLabel.attributedText = ((HyNewsModel *)self.hy_cellData).titleAttr;
-    
     [self.newsImageView yy_setImageWithURL:[NSURL URLWithString:((HyNewsModel *)self.hy_cellData).imageUrlStr]
                     placeholder:nil
                         options:YYWebImageOptionSetImageWithFadeAnimation |

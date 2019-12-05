@@ -1,0 +1,44 @@
+//
+//  HyTipViewAnimationDismissScale.m
+//  DemoCode
+//
+//  Created by huangyi on 2017/12/4.
+//  Copyright © 2017 Hy. All rights reserved.
+//
+
+#import "HyTipViewAnimationDismissScale.h"
+#import "HyTipViewProtocol.h"
+
+
+@implementation HyTipViewAnimationDismissScale
+
+- (void (^)(UIView<HyTipViewProtocol> *tipView))animation {
+    __weak typeof(self) _self = self;
+    return ^(UIView<HyTipViewProtocol> *tipView){
+        __strong typeof(_self) self = _self;
+        
+        CGFloat x = 1.0;
+        CGFloat y = 1.0;
+        if ([self.parameter isKindOfClass:NSString.class]) {
+             NSString *type = ((NSString *)self.parameter).lowercaseString;
+            if ([type isEqualToString:@"x"]) {
+                x = 0.1;
+            } else if ([type isEqualToString:@"y"]) {
+                y = 0.1;
+            } else if ([type isEqualToString:@"xy"]) {
+                x = 0.2;
+                y = 0.2;
+            }
+        }
+        
+        [UIView animateWithDuration:.35 animations:^{
+            tipView.alpha = 0.0;
+            tipView.contentView.layer.transform = CATransform3DMakeScale(x, y, 1);
+        } completion:^(BOOL finished) {
+            [tipView removeFromSuperview];
+            !self.completion ?: self.completion();
+        }];
+    };
+}
+
+@end

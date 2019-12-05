@@ -26,10 +26,10 @@
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     
-    HyMeView<HyViewProtocol> *meView =
-    (HyMeView *)[HyMeView viewWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 200)
-                              viewModel:self.viewModel
-                              parameter:nil];
+    UIView<HyViewProtocol> *meView =
+    [HyMeView viewWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 200)
+                  viewModel:self.viewModel
+                  parameter:nil];
     
     [self.view addSubview:meView];
     [self.view addSubview:self.pushButton];
@@ -61,7 +61,6 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
-
 }
 
 - (UIButton *)pushButton {

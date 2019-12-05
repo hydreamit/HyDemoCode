@@ -359,8 +359,8 @@
 			isa = PBXGroup;
 			children = (
 				513435912397666A007600EA /* Base */,
-				5134358523966F3F007600EA /* TopTip */,
 				5134357A2394F414007600EA /* HUD */,
+				5134358523966F3F007600EA /* TopTip */,
 			);
 			path = TipView;
 			sourceTree = "<group>";

@@ -6,15 +6,15 @@
 //  Copyright © 2017 Hy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "HyTipProtocol.h"
+#import "HyTip.h"
 
-#define ShowTopTip(view) [HyTopTip showToView:view parameter:nil completion:nil];
-#define DismissTopTip [HyTopTip dismissWithCompletion:nil];
+
+#define ShowTopTip(view) HyTopTip.show(view, nil, nil);
+#define DismissTopTip HyTopTip.dismiss(view, nil);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyTopTip : NSObject <HyTipProtocol>
+@interface HyTopTip : HyTip
 
 @end
 

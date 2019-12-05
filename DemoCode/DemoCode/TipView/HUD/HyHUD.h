@@ -6,15 +6,14 @@
 //  Copyright © 2017 Hy. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "HyTipProtocol.h"
+#import "HyTip.h"
 
-#define ShowHUD(view) [HyHUD showToView:view parameter:nil completion:nil];
-#define DismissHUD [HyHUD dismissWithCompletion:nil];
+#define ShowHUD(view) HyHUD.show(view, nil, nil);
+#define DismissHUD(view) HyHUD.dismiss(view, nil);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyHUD : NSObject <HyTipProtocol>
+@interface HyHUD : HyTip
 
 
 @end

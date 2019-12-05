@@ -15,15 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HyTipViewProtocol;
 @protocol HyTipProtocol <NSObject>
 
-+ (void)showToView:(UIView *)view
-         parameter:(nullable id)parameter
-        completion:(void(^_Nullable)(void))completion;
++ (void (^)(UIView *forView, id _Nullable parameter, void(^_Nullable completion)(void)))show;
 
-+ (void)dismissWithCompletion:(void(^_Nullable)(void))completion;
++ (void (^)(UIView *forView, void(^_Nullable completion)(void)))dismiss;
 
-+ (BOOL)showing;
++ (nullable UIView<HyTipViewProtocol> *(^)(UIView *forView))tipView;
 
-+ (nullable UIView<HyTipViewProtocol> *)tipView;
++ (BOOL (^)(UIView *forView))showing;
 
 @end
 

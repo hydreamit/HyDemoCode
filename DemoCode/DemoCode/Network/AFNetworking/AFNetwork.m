@@ -163,8 +163,10 @@
                              successBlock:(HyNetworkSuccessBlock)successBlock
                              failureBlock:(HyNetworkFailureBlock)failureBlock {
     
+        
+        UIView *hudForView = UIViewController.hy_currentViewController.view;
         if (showHUD) {
-            ShowHUD(UIViewController.hy_currentViewController.view);
+            ShowHUD(hudForView);
         }
     
          NSString *currentUrl = @"https://www.baidu.com";
@@ -211,7 +213,7 @@
             }
             isCacheAndHaveCacheDate ?: (!failureBlock ?: failureBlock(nil, task));
             
-            DismissHUD;
+            DismissHUD(hudForView);
 
             return task;
         }
@@ -221,7 +223,7 @@
     
     void (^success)(NSURLSessionDataTask *, id) =
     ^(NSURLSessionDataTask * _Nonnull sessionDataTask, id  _Nullable responseObject){
-        DismissHUD;
+        DismissHUD(hudForView);
         task.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
         !cache ?: [self.networkCache setCache:responseObject forKey:cacheKey];
         !successBlock ?: successBlock(responseObject, task);
@@ -234,7 +236,7 @@
     
     void (^failure)(NSURLSessionDataTask *, NSError *) =
     ^(NSURLSessionDataTask * _Nonnull sessionDataTask, NSError * _Nonnull error){
-        DismissHUD;
+        DismissHUD(hudForView);
         task.taskInfo.taskStatus = HyNetworkTaskStatusFailure;
         if (cache) {
             id cacheDate = [self.networkCache getCacheForKey:cacheKey];

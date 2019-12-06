@@ -12,11 +12,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         view.color = UIColor.orangeColor;
-        CGSize initialSize = view.bounds.size;
-        CGFloat scale = frame.size.width / initialSize.width;
-        view.transform = CGAffineTransformMakeScale(scale, scale);
+//        CGFloat scale = frame.size.width / view.bounds.size.width;
+//        view.transform = CGAffineTransformMakeScale(scale, scale);
         [self addSubview:view];
         view.frame = self.bounds;
         [view startAnimating];

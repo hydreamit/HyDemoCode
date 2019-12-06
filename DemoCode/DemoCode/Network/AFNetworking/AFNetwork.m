@@ -13,7 +13,9 @@
 #import "AFMultipartFormDataObject.h"
 #import "HyNetworkCacheProtocol.h"
 #import <HyCategoriess/HyCategories.h>
+#import "HyTipText.h"
 #import "HyHUD.h"
+#import "HyTipStatus.h"
 
 
 @interface AFNetwork ()
@@ -197,9 +199,9 @@
         
         if (self.currentNetworkStatus == HyNetworStatusNotReachable ||
             self.currentNetworkStatus == HyNetworStatusUnKnown) {
-            
-            NSLog(@" 当前网络不可用 \n 请检查网络设置 ");
-            
+                        
+            ShowTipText(@"当前网络不可用\n请检查网络设置");
+                        
             if (self.willResumeTasksArray.count > 20) {
                 [self.willResumeTasksArray removeObjectAtIndex:0];
             }
@@ -340,7 +342,7 @@
         break;
     }
 
-    NSLog(@"error======%@", error.description);
+    ShowTipText(errorTitle);
 }
 
 - (NSArray<id<HyNetworkTaskProtocol>> *)resumingTasks {

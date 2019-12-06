@@ -31,9 +31,6 @@
             return ;
         }
         
-//        CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//        opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
-        
         CABasicAnimation *translationAnimation;
         CABasicAnimation *scaleAnimation;
         
@@ -83,7 +80,14 @@
         animGroup.fillMode = kCAFillModeForwards;
         animGroup.duration = .35;
         animGroup.removedOnCompletion = YES;
-        [tipView.layer addAnimation:animGroup forKey:@"showStretch"];
+        [tipView.contentView.layer addAnimation:animGroup forKey:@"showStretch"];
+        
+        CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+       opacityAnimation.fromValue  = [NSNumber numberWithFloat:0.0f];
+       opacityAnimation.toValue  = [NSNumber numberWithFloat:1.0f];
+       opacityAnimation.repeatCount = 1;
+       opacityAnimation.duration = .35;
+       [tipView.layer addAnimation:opacityAnimation forKey:nil];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                       (int64_t)(.35 * NSEC_PER_SEC)),

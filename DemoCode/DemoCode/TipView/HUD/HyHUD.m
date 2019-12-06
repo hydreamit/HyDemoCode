@@ -19,7 +19,7 @@
 + (void (^)(UIView *forView, id parameter, void(^_Nullable completion)(void)))show {
     return ^(UIView *forView, id parameter, void(^_Nullable completion)(void)) {
         
-        if (self.tipView(forView)) { return ; }
+        if (self.showing(forView)) { return ; }
         
         HyHUDView *hudView = [[HyHUDView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
         UIView<HyTipViewProtocol> *tipView = HyTipView.tipView(hudView, 0.0);
@@ -27,21 +27,25 @@
         id<HyTipViewAnimationProtocol> animation =
         [HyTipViewAnimationShowNone animationWithParameter:nil completion:completion];
 
-        tipView.show(forView, postion, animation);
+        tipView.show(self.forView(forView), postion, animation);
     };
 }
 
 + (void (^)(UIView *forView, void(^_Nullable completion)(void)))dismiss {
     return ^(UIView *forView, void(^_Nullable completion)(void)){
         
-        UIView<HyTipViewProtocol> *tipView = self.tipView(forView);
-        
-        if (!tipView) { return ; }
-        
+        if (!self.showing(forView)) { return ; }
+
         id<HyTipViewAnimationProtocol> animation =
         [HyTipViewAnimationDismissNone animationWithParameter:nil completion:completion];
-        tipView.dismiss(animation);
+        [self.tipView(forView) enumerateObjectsUsingBlock:^(UIView<HyTipViewProtocol> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.dismiss(animation);
+        }];
     };
+}
+
++ (NSArray<Class> *)tipViewOfContentViewClass {
+    return @[HyHUDView.class];
 }
 
 @end

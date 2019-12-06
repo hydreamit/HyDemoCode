@@ -1,5 +1,5 @@
 //
-//  HyTopTip.h
+//  HyTipStatus.h
 //  DemoCode
 //
 //  Created by huangyi on 2017/12/3.
@@ -8,13 +8,11 @@
 
 #import "HyTip.h"
 
-
-#define ShowTopTip(view) HyTopTip.show(view, nil, nil);
-#define DismissTopTip HyTopTip.dismiss(view, nil);
+#define ShowTopTip(text) HyTipStatus.show(nil, text, nil);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyTopTip : HyTip
+@interface HyTipStatus : HyTip
 
 @end
 

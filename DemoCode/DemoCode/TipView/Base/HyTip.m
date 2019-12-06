@@ -8,6 +8,7 @@
 
 #import "HyTip.h"
 #import "HyTipView.h"
+#import "NSObject+HyProtocol.h"
 
 @implementation HyTip
 
@@ -19,14 +20,17 @@
     return ^(UIView *forView, void(^_Nullable completion)(void)){};
 }
 
-+ (nullable UIView<HyTipViewProtocol> *(^)(UIView *forView))tipView {
-    return ^UIView<HyTipViewProtocol> *(UIView *forView){
-        for (UIView *subview in [forView.subviews reverseObjectEnumerator]) {
-            if ([subview isKindOfClass:HyTipView.class]) {
-                return (UIView<HyTipViewProtocol> *)subview;
++ (nullable NSArray<UIView<HyTipViewProtocol> *> *(^)(UIView *forView))tipView {
+    return ^NSArray<UIView<HyTipViewProtocol> *> *(UIView *forView) {
+        NSMutableArray<UIView<HyTipViewProtocol> *> *array = @[].mutableCopy;
+        for (UIView *subview in [self.forView(forView).subviews reverseObjectEnumerator]) {
+            if (Hy_ProtocolAndSelector(subview, @protocol(HyTipViewProtocol), @selector(contentView))) {
+                if ([self.tipViewOfContentViewClass containsObject:((UIView<HyTipViewProtocol> *)subview).contentView.class]) {
+                    [array addObject:(UIView<HyTipViewProtocol> *)subview];
+                }
             }
         }
-        return nil;
+        return array.count ? [NSArray arrayWithArray:array] : nil;
     };
 }
 
@@ -34,6 +38,27 @@
     return ^BOOL(UIView *forView){
        return self.tipView(forView) ? YES : NO;
     };
+}
+
++ (UIView *(^)(UIView *_Nullable view))forView {
+    return ^UIView *(UIView *_Nullable view){
+        return view ?: self.keyWindow;
+    };
+}
+
++ (NSArray<Class> *)tipViewOfContentViewClass {
+    return @[UIView.class];
+}
+
++ (UIWindow *)keyWindow {
+    UIWindow *keyWindow;
+    id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate respondsToSelector:@selector(window)]){
+        keyWindow = [delegate performSelector:@selector(window)];
+    }else{
+        keyWindow = [[UIApplication sharedApplication] keyWindow];
+    }
+    return keyWindow;
 }
 
 @end

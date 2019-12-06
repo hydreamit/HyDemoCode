@@ -8,20 +8,21 @@
 
 
 #import <Foundation/Foundation.h>
+#import "HyTipViewProtocol.h"
 #import <UIKit/UIKit.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol HyTipViewProtocol;
 @protocol HyTipProtocol <NSObject>
 
-+ (void (^)(UIView *forView, id _Nullable parameter, void(^_Nullable completion)(void)))show;
++ (void (^)(UIView *_Nullable forView, id _Nullable parameter, void(^_Nullable completion)(void)))show;
 
-+ (void (^)(UIView *forView, void(^_Nullable completion)(void)))dismiss;
++ (void (^)(UIView *_Nullable forView, void(^_Nullable completion)(void)))dismiss;
 
-+ (nullable UIView<HyTipViewProtocol> *(^)(UIView *forView))tipView;
++ (nullable NSArray<UIView<HyTipViewProtocol> *> *(^)(UIView *_Nullable forView))tipView;
 
-+ (BOOL (^)(UIView *forView))showing;
++ (BOOL (^)(UIView *_Nullable forView))showing;
 
 @end
 

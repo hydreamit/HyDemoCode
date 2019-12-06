@@ -12,8 +12,7 @@
 #import "HyRecommendCell.h"
 #import "HyCollectionView.h"
 #import "HyNetworkManager.h"
-#import "HyHUD.h"
-#import "HyTopTip.h"
+
 
 @interface HyRecommendViewController ()
 @property (nonatomic,strong) HyCollectionView *collectionView;
@@ -43,7 +42,6 @@
 }
 
 - (void)scrollToTop {
-    
     [self.collectionView hy_scrollToTopAnimated:YES];
 }
 

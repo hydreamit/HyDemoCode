@@ -19,6 +19,7 @@
         
         CGFloat x = 1.0;
         CGFloat y = 1.0;
+        NSTimeInterval duration = .35;
         if ([self.parameter isKindOfClass:NSString.class]) {
              NSString *type = ((NSString *)self.parameter).lowercaseString;
             if ([type isEqualToString:@"x"]) {
@@ -26,12 +27,13 @@
             } else if ([type isEqualToString:@"y"]) {
                 y = 0.1;
             } else if ([type isEqualToString:@"xy"]) {
-                x = 0.2;
-                y = 0.2;
+                x = 0.7;
+                y = 0.7;
+                duration = .25;
             }
         }
         
-        [UIView animateWithDuration:.35 animations:^{
+        [UIView animateWithDuration:duration animations:^{
             tipView.alpha = 0.0;
             tipView.contentView.layer.transform = CATransform3DMakeScale(x, y, 1);
         } completion:^(BOOL finished) {

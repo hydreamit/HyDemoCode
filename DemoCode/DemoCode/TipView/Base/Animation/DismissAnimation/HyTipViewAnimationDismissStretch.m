@@ -17,8 +17,6 @@
     return ^(UIView<HyTipViewProtocol> *tipView){
         __strong typeof(_self) self = _self;
         
-//        CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//        opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
         
         if (![self.parameter isKindOfClass:NSString.class]) {
             [tipView removeFromSuperview];
@@ -76,7 +74,13 @@
         animGroup.fillMode = kCAFillModeForwards;
         animGroup.duration = .35;
         animGroup.removedOnCompletion = YES;
-        [tipView.layer addAnimation:animGroup forKey:@"dismissStretch"];
+        [tipView.contentView.layer addAnimation:animGroup forKey:@"dismissStretch"];
+        
+        CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+        opacityAnimation.repeatCount = 1;
+        opacityAnimation.duration = .35;
+        [tipView.layer addAnimation:opacityAnimation forKey:nil];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                       (int64_t)(.3 * NSEC_PER_SEC)),

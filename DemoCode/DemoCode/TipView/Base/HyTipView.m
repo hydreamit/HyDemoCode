@@ -21,7 +21,7 @@
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents {
     [super addTarget:self action:@selector(btnAction) forControlEvents:controlEvents];
 }
-- (void)actionBlock:(void(^)(void))block {
+- (void)addActionBlock:(void(^)(void))block {
     self.block = [block copy];
 }
 - (void)btnAction {
@@ -31,7 +31,6 @@
 
 
 @interface HyTipView ()
-@property (nonatomic,assign) CGFloat backAlpha;
 @property (nonatomic,weak) UIView *toView;
 @property (nonatomic,weak) UIView *contentV;
 @property (nonatomic,strong) HyTipViewBackgroundView *backgroundV;
@@ -50,9 +49,12 @@
         }
 
         HyTipView *tipView = [[self alloc] initWithFrame:CGRectZero];
-        tipView.backAlpha = backViewAlpha;
         tipView.contentV = contentView;
-
+        
+        if (backViewAlpha > 0.01) {
+            tipView.backgroundV.backgroundColor = UIColor.blackColor;
+            tipView.backgroundV.alpha = backViewAlpha;
+        }
         [tipView addSubview:tipView.backgroundV];
         [tipView addSubview:contentView];
         
@@ -188,8 +190,6 @@
     if (!_backgroundV){
         _backgroundV = [HyTipViewBackgroundView buttonWithType:UIButtonTypeCustom];
         [_backgroundV addTarget:self action:@selector(action) forControlEvents:UIControlEventTouchUpInside];
-        _backgroundV.backgroundColor = UIColor.blackColor;
-        _backgroundV.alpha = self.backAlpha;
     }
     return _backgroundV;
 }- (void)action{}

@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HyTip : NSObject <HyTipProtocol>
 
++ (NSArray<Class> *)tipViewOfContentViewClass;
+
++ (UIView *(^)(UIView *_Nullable view))forView;
+
 @end
 
 NS_ASSUME_NONNULL_END

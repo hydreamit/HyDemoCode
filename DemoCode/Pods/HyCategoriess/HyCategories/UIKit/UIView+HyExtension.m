@@ -253,7 +253,7 @@
                             radius:(CGFloat)radius
                            opacity:(CGFloat)opacity {
     
-    self.layer.shadowColor = [[UIColor blackColor]CGColor];
+    self.layer.shadowColor = [color CGColor];
     self.layer.shadowOffset = offset;
     self.layer.shadowRadius = radius;
     self.layer.shadowOpacity = opacity;

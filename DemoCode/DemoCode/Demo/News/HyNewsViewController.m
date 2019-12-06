@@ -43,7 +43,6 @@
 }
 
 - (void)scrollToTop {
-    
     [self.tableView hy_scrollToTopAnimated:YES];
 }
 

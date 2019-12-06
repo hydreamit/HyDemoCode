@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @protocol HyTipViewBackgroundViewProtocol <NSObject>
-- (void)actionBlock:(void(^_Nullable)(void))block;
+- (void)addActionBlock:(void(^_Nullable)(void))block;
 @end
 
 

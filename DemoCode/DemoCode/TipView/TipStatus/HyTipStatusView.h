@@ -1,5 +1,5 @@
 //
-//  HyTopTipView.h
+//  HyTipStatusView.h
 //  DemoCode
 //
 //  Created by huangyi on 2017/12/3.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyTopTipView : UIView
+@interface HyTipStatusView : UIView
 
-+ (instancetype)topTipViewWithFrame:(CGRect)frame text:(NSString *)text;
++ (instancetype)tipStatusViewWithFrame:(CGRect)frame text:(NSString *)text;
 
 @end
 

@@ -11,6 +11,7 @@
 #import "HyTipView.h"
 #import "HyTipViewPosition.h"
 #import "HyTipViewAnimationShowScale.h"
+#import "HyTipViewAnimationShowFade.h"
 #import "HyTipViewAnimationDismissScale.h"
 
 
@@ -27,7 +28,7 @@
         UIView<HyTipViewProtocol> *tipView = HyTipView.tipView(tipTextView, 0.0);
         tipView.userInteractionEnabled = NO;
         id<HyTipViewPositionProtocol> postion = HyTipViewPosition.position(@"center");
-        id<HyTipViewAnimationProtocol> animation = [HyTipViewAnimationShowScale animationWithParameter:@"xy" completion:completion];
+        id<HyTipViewAnimationProtocol> animation = [HyTipViewAnimationShowFade animationWithParameter:nil completion:completion];
           
         tipView.show(self.forView(nil), postion, animation);
         

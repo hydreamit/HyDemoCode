@@ -11,7 +11,7 @@
 #import "HyTipView.h"
 #import "HyTipViewPosition.h"
 #import "HyTipViewAnimationShowNone.h"
-#import "HyTipViewAnimationDismissNone.h"
+#import "HyTipViewAnimationDismissFade.h"
 
 
 @implementation HyHUD
@@ -21,7 +21,7 @@
         
         if (self.showing(forView)) { return ; }
         
-        HyHUDView *hudView = [[HyHUDView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        HyHUDView *hudView = [[HyHUDView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
         UIView<HyTipViewProtocol> *tipView = HyTipView.tipView(hudView, 0.0);
         id<HyTipViewPositionProtocol> postion = HyTipViewPosition.position(@"center");
         id<HyTipViewAnimationProtocol> animation =
@@ -37,9 +37,13 @@
         if (!self.showing(forView)) { return ; }
 
         id<HyTipViewAnimationProtocol> animation =
-        [HyTipViewAnimationDismissNone animationWithParameter:nil completion:completion];
+        [HyTipViewAnimationDismissFade animationWithParameter:nil completion:completion];
         [self.tipView(forView) enumerateObjectsUsingBlock:^(UIView<HyTipViewProtocol> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            HyHUDView *hudView = (HyHUDView *)obj.contentView;
+            [hudView stop];
             obj.dismiss(animation);
+
         }];
     };
 }

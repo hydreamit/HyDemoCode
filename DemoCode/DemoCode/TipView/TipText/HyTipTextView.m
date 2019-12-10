@@ -10,7 +10,7 @@
 
 
 @interface HyTipTextView ()
-@property (nonatomic,strong) UIView *backV;
+@property (nonatomic,strong) UIVisualEffectView *backV;
 @property (nonatomic,strong) UILabel *label;
 @end
 
@@ -22,9 +22,9 @@
     HyTipTextView *view = [[self alloc] init];
     view.frame = CGRectMake(0, 0, 200, 200);
     
-    UIView *backV = UIView.new;
+    UIVisualEffectView *backV = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     backV.backgroundColor = UIColor.blackColor;
-    backV.alpha = .75;
+//    backV.alpha = .8;
     backV.layer.cornerRadius = 8.0;
     backV.layer.masksToBounds = YES;
     [view addSubview:backV];

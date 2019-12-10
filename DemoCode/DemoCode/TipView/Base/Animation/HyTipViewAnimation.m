@@ -10,6 +10,7 @@
 #import "HyTipViewProtocol.h"
 
 @interface HyTipViewAnimation ()
+@property (nonatomic,copy) void(^animationBlock)(UIView<HyTipViewProtocol> *);
 @property (nonatomic,copy) void(^completion)(void);
 @property (nonatomic,strong) id parameter;
 @end
@@ -25,11 +26,18 @@
     return animation;
 }
 
++ (id<HyTipViewAnimationProtocol>)animationWithBlock:(void(^)(UIView<HyTipViewProtocol> *tipView))block {
+    HyTipViewAnimation *animation = [[self alloc] init];
+    animation.animationBlock = [block copy];
+    return animation;
+}
+
 - (void (^)(UIView<HyTipViewProtocol> *tipView))animation {
     __weak typeof(self) _self = self;
     return ^(UIView<HyTipViewProtocol> *tipView){
         __strong typeof(_self) self = _self;
         
+        self.animationBlock ? self.animationBlock(tipView) :
         !self.completion ?: self.completion();
     };
 }

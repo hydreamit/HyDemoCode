@@ -79,6 +79,7 @@
 		51A247B4239A44CB002497BB /* HyTipTopTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A247B3239A44CB002497BB /* HyTipTopTool.m */; };
 		51A247B7239A4A3B002497BB /* HyTipCenterTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A247B6239A4A3B002497BB /* HyTipCenterTool.m */; };
 		51A247BA239A4AF4002497BB /* HyTipBottomTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A247B9239A4AF4002497BB /* HyTipBottomTool.m */; };
+		51A2483A239F5345002497BB /* HyRefreshAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A24839239F5345002497BB /* HyRefreshAnimationView.m */; };
 		51CF98EE2387C5CD00207DB3 /* HyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98ED2387C5CD00207DB3 /* HyNewsViewController.m */; };
 		51CF98F12387C5EA00207DB3 /* HyNewsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F02387C5EA00207DB3 /* HyNewsViewModel.m */; };
 		51CF98F42387C63300207DB3 /* HyNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F32387C63300207DB3 /* HyNewsModel.m */; };
@@ -271,6 +272,8 @@
 		51A247B6239A4A3B002497BB /* HyTipCenterTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTipCenterTool.m; sourceTree = "<group>"; };
 		51A247B8239A4AF4002497BB /* HyTipBottomTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyTipBottomTool.h; sourceTree = "<group>"; };
 		51A247B9239A4AF4002497BB /* HyTipBottomTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTipBottomTool.m; sourceTree = "<group>"; };
+		51A24838239F5345002497BB /* HyRefreshAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyRefreshAnimationView.h; sourceTree = "<group>"; };
+		51A24839239F5345002497BB /* HyRefreshAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyRefreshAnimationView.m; sourceTree = "<group>"; };
 		51CF98EC2387C5CD00207DB3 /* HyNewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsViewController.h; sourceTree = "<group>"; };
 		51CF98ED2387C5CD00207DB3 /* HyNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsViewController.m; sourceTree = "<group>"; };
 		51CF98EF2387C5EA00207DB3 /* HyNewsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsViewModel.h; sourceTree = "<group>"; };
@@ -345,6 +348,8 @@
 				51343529238E877D007600EA /* MJRefreshViewHeader.m */,
 				51343526238E877D007600EA /* MJRefreshViewFooter.h */,
 				5134352A238E877D007600EA /* MJRefreshViewFooter.m */,
+				51A24838239F5345002497BB /* HyRefreshAnimationView.h */,
+				51A24839239F5345002497BB /* HyRefreshAnimationView.m */,
 			);
 			path = MJRefresh;
 			sourceTree = "<group>";
@@ -959,6 +964,7 @@
 				513435F223978F68007600EA /* HyTipViewAnimationDismissFade.m in Sources */,
 				513436182397A6FB007600EA /* HyTipViewPosition.m in Sources */,
 				51784F5F238CF47500EB2F14 /* NSObject+HyProtocol.m in Sources */,
+				51A2483A239F5345002497BB /* HyRefreshAnimationView.m in Sources */,
 				51559ECC23827A59007904C8 /* SceneDelegate.m in Sources */,
 				513435542390B68D007600EA /* RACCommand+Network.m in Sources */,
 				513436212397B3FE007600EA /* HyTipViewAnimationShowScale.m in Sources */,

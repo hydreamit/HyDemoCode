@@ -8,6 +8,37 @@
 
 #import "MJRefreshViewHeader.h"
 #import <MJRefresh/MJRefresh.h>
+#import "HyRefreshAnimationView.h"
+
+@interface MJRefreshViewCustomHeader : MJRefreshHeader
+@property (nonatomic,strong) HyRefreshAnimationView *animationView;
+@end
+@implementation MJRefreshViewCustomHeader
+- (void)placeSubviews {
+    [super placeSubviews];
+    self.animationView.frame = CGRectMake((self.mj_w - 30)/ 2, (self.mj_h - 28) / 2, 30, 28);
+}
+- (void)setState:(MJRefreshState)state {
+    MJRefreshCheckState
+    if (state == MJRefreshStateIdle ||
+        state == MJRefreshStatePulling) {
+        [self.animationView stopAnimating];
+    }  else if (state == MJRefreshStateRefreshing) {
+        [self.animationView startAnimating];
+    }
+}
+- (void)setPullingPercent:(CGFloat)pullingPercent {
+    [super setPullingPercent:pullingPercent];
+    [self.animationView changeWithPercent:pullingPercent];
+}
+- (HyRefreshAnimationView *)animationView {
+    if (!_animationView){
+        _animationView = [[HyRefreshAnimationView alloc] initWithFrame:CGRectMake(0, 0, 30, 28)];
+        [self addSubview:_animationView];
+    }
+    return _animationView;
+}
+@end
 
 
 @interface MJRefreshViewHeader ()
@@ -22,7 +53,7 @@
     
     MJRefreshViewHeader *header = [[MJRefreshViewHeader alloc] init];
     header.scrollView = scrollView;
-    scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:refreshAction];
+    scrollView.mj_header = [MJRefreshViewCustomHeader headerWithRefreshingBlock:refreshAction];
     return header;
 }
 

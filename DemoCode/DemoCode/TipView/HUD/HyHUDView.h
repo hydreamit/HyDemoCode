@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HyHUDView : UIView
 
+- (void)stop;
+
 @end
 
 NS_ASSUME_NONNULL_END

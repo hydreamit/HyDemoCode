@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (id<HyTipViewAnimationProtocol>)animationWithParameter:(nullable id)parameter
                                               completion:(void(^_Nullable)(void))completion;
 
++ (id<HyTipViewAnimationProtocol>)animationWithBlock:(void(^)(UIView<HyTipViewProtocol> *tipView))block;
+
 @required
 - (void(^)(UIView<HyTipViewProtocol> *))animation;
 

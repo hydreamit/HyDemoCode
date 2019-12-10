@@ -2,8 +2,8 @@
 //  HyRefreshAnimationView.h
 //  DemoCode
 //
-//  Created by huangyi on 2019/12/10.
-//  Copyright © 2019 Hy. All rights reserved.
+//  Created by huangyi on 2017/12/10.
+//  Copyright © 2017 Hy. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

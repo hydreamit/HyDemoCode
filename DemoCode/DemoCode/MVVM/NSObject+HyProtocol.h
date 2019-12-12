@@ -8,6 +8,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
 #import <UIKit/UIKit.h>
 
 
@@ -16,6 +17,8 @@
 [_object conformsToProtocol:_Protocol] && \
 [_object respondsToSelector:_Selector] \
 )
+
+Class getObjcectPropertyClass(Class cls, const char *name);
 
 NS_ASSUME_NONNULL_BEGIN
 

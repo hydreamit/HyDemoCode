@@ -17,8 +17,6 @@
 - (void)viewModelLoad {
     [super viewModelLoad];
     
-    self.model = (HyMeModel *)[HyMeModel modelWithParameter:self.parameter];
-    
     #pragma mark — 倒计时信号
     RACSignal *(^timerCountSignal)(UIButton *, NSNumber *, NSString *) =
     ^RACSignal *(UIButton *btn, NSNumber *count, NSString *title) {

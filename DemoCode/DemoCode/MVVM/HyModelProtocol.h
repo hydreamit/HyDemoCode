@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HyModelFactoryProtocol <NSObject>
 @optional
-+ (NSObject<HyModelProtocol> *)modelWithParameter:(nullable NSDictionary *)parameter;
++ (id<HyModelProtocol>)modelWithParameter:(nullable NSDictionary *)parameter;
 @end
 
 NS_ASSUME_NONNULL_END

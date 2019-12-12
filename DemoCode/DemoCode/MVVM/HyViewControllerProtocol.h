@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HyViewControllerProtocol <NSObject>
 @optional
 @property (nonatomic,strong) NSDictionary *parameter;
-@property (nonatomic,strong) NSObject<HyViewModelProtocol> *viewModel;
+@property (nonatomic,strong) id<HyViewModelProtocol> viewModel;
 - (void)viewModelWillLoad;
 - (void)viewModelDidLoad;
 - (void)popFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;

@@ -17,12 +17,10 @@
 @interface HyMeViewController ()
 @property (nonatomic,strong) UIButton *popButton;
 @property (nonatomic,strong) UIButton *pushButton;
-@property (nonatomic,strong) HyMeViewModel *viewModel;
 @end
 
 
 @implementation HyMeViewController
-@dynamic viewModel;
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     

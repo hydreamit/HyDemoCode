@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HyViewController.h"
-#import "HyListViewModelProtocol.h"
+#import "HyMeViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyMeViewController : HyViewController
+@interface HyMeViewController : HyViewController<HyMeViewModel *>
 
 @end
 

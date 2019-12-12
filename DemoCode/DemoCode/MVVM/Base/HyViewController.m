@@ -12,9 +12,8 @@
 #import <objc/message.h>
 
 
-
 @implementation HyViewController
-@synthesize parameter = _parameter, viewModel = _viewModel;
+@synthesize parameter = _parameter;
 
 + (UIViewController<HyViewControllerProtocol> *)viewControllerWithViewModelName:(NSString *)viewModelName
                                                                       parameter:(NSDictionary *)parameter {
@@ -28,7 +27,7 @@
         
         if (Hy_ProtocolAndSelector(viewModelClass, @protocol(HyViewModelFactoryProtocol), @selector(viewModelWithParameter:))) {
             
-            NSObject<HyViewModelProtocol> *viewModel = [viewModelClass viewModelWithParameter:parameter];
+            id<HyViewModelProtocol> viewModel = [viewModelClass viewModelWithParameter:parameter];
             controller.viewModel = viewModel;
             viewModel.viewModelController = controller;
 

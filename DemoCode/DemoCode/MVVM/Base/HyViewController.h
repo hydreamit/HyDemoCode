@@ -14,7 +14,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyViewController : UIViewController <HyViewControllerJumpProtocol, HyViewControllerFactoryProtocol, HyViewControllerProtocol>
+@protocol HyViewModelFactoryProtocol, HyViewModelProtocol;
+@interface HyViewController<__covariant viewModelType: id<HyViewModelFactoryProtocol, HyViewModelProtocol>> : UIViewController <HyViewControllerJumpProtocol, HyViewControllerFactoryProtocol, HyViewControllerProtocol>
+
+@property (nonatomic,strong) viewModelType viewModel;
 
 @end
 

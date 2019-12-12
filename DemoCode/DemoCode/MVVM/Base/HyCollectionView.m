@@ -12,7 +12,7 @@
 
 
 @interface HyCollectionView ()
-@property (nonatomic,strong) NSObject<HyListViewModelProtocol> *listViewModel;
+@property (nonatomic,strong) id<HyListViewModelProtocol> listViewModel;
 @property (nonatomic,strong) id<HyRefreshViewFactoryProtocol> refreshViewFactory;
 @end
 
@@ -78,7 +78,7 @@
     }
 }
 
-- (void)setListViewModel:(NSObject<HyListViewModelProtocol> *)listViewModel {
+- (void)setListViewModel:(id<HyListViewModelProtocol>)listViewModel {
     
     if (listViewModel != _listViewModel) {
         
@@ -89,7 +89,7 @@
         
         __weak typeof(self) _self = self;
        [listViewModel requestListSuccessHandler:^(id  _Nonnull input,
-                                                   NSObject<HyListModelProtocol> * _Nonnull listData,
+                                                   id<HyListModelProtocol> _Nonnull listData,
                                                    HyListViewRequestDataType type,
                                                    BOOL noMore) {
            

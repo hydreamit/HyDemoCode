@@ -12,7 +12,7 @@
 @implementation HyListModel
 @synthesize listModelArray = _listModelArray;
 
-- (NSMutableArray<NSObject<HyListModelProtocol> *> *)listModelArray {
+- (NSMutableArray<id<HyListModelProtocol>> *)listModelArray {
     if (!_listModelArray) {
         _listModelArray = @[].mutableCopy;
     }

@@ -7,10 +7,11 @@
 //
 
 #import "HyViewController.h"
+#import "HyRecommendViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyRecommendViewController : HyViewController
+@interface HyRecommendViewController : HyViewController<HyRecommendViewModel *>
 
 @end
 

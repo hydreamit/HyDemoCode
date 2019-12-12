@@ -10,6 +10,7 @@
 #import <MJExtension/MJExtension.h>
 #import "NSObject+HyProtocol.h"
 #import "HyNetworkManager.h"
+#import "NSObject+HyProtocol.h"
 #import <HyCategoriess/HyCategories.h>
 
 
@@ -19,7 +20,7 @@
 @property (nonatomic,copy) NSDictionary *(^parameterBlock)(id);
 @property (nonatomic,copy) NSArray<id> *(^dataHandler)(id);
 @property (nonatomic,copy) void(^successHandler)(id,
-NSObject<HyModelProtocol> *);
+id<HyModelProtocol>);
 @property (nonatomic,copy) void(^failureHandler)(id,
 NSError *);
 @property (nonatomic,strong) NSMutableArray<ReloadViewBlock> *reloadViewBlockArray;
@@ -29,11 +30,11 @@ NSError *);
 @implementation HyViewModel
 @synthesize parameter = _parameter, model = _model;
 
-+ (NSObject<HyViewModelProtocol> *)viewModelWithParameter:(NSDictionary *)parameter {
++ (id<HyViewModelProtocol>)viewModelWithParameter:(NSDictionary *)parameter {
     
-    NSObject<HyViewModelProtocol> *viewModel = [[self alloc] init];
+    id<HyViewModelProtocol> viewModel = [[self alloc] init];
     viewModel.parameter = parameter;
-    viewModel = [viewModel mj_setKeyValues:parameter];
+    viewModel = [((NSObject<HyViewModelProtocol> *)viewModel) mj_setKeyValues:parameter];
     return viewModel;
 }
 
@@ -53,7 +54,7 @@ NSError *);
 }
 
 - (void)requestSuccessHandler:(void (^)(id input,
-                       NSObject<HyModelProtocol> *model))successHandler
+                       id<HyModelProtocol> model))successHandler
                failureHandler:(void (^)(id input,
                          NSError *error))failureHandler {
  
@@ -107,9 +108,15 @@ NSError *);
     });
 }
 
-- (NSObject<HyModelProtocol> *)model {
+- (id<HyModelProtocol>)model {
     if (!_model) {
-        _model = (NSObject<HyModelProtocol> *)[HyModel modelWithParameter:self.parameter];
+        Class<HyModelFactoryProtocol> cls = getObjcectPropertyClass([self class], "model");
+        if (cls == NULL) {
+            cls = HyModel.class;
+        }
+        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+            _model = (id<HyModelProtocol>)[cls modelWithParameter:self.parameter];
+        }
     }
     return _model;
 }

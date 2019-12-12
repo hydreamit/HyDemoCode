@@ -8,7 +8,6 @@
 
 #import "HyRecommendViewController.h"
 #import <HyCategoriess/HyCategories.h>
-#import "HyRecommendViewModel.h"
 #import "HyRecommendCell.h"
 #import "HyCollectionView.h"
 #import "HyNetworkManager.h"
@@ -16,12 +15,10 @@
 
 @interface HyRecommendViewController ()
 @property (nonatomic,strong) HyCollectionView *collectionView;
-@property (nonatomic,strong) HyRecommendViewModel *viewModel;
 @end
 
 
 @implementation HyRecommendViewController
-@dynamic viewModel;
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     

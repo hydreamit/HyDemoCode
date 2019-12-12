@@ -7,10 +7,11 @@
 //
 
 #import "HyViewController.h"
+#import "HyNewsViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyNewsViewController : HyViewController
+@interface HyNewsViewController : HyViewController<HyNewsViewModel *>
 
 
 @end

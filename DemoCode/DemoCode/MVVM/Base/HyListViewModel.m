@@ -25,7 +25,7 @@
 @property (nonatomic,copy) NSArray *(^sectionDataHandler)(id, NSDictionary *, HyListViewRequestDataType);
 @property (nonatomic,copy) NSArray *(^cellDataHandler)(id, NSDictionary *, NSInteger, HyListViewRequestDataType);
 @property (nonatomic,copy) void(^successHandler)(id input,
-                                                    NSObject<HyListModelProtocol> *listModel,
+                                                    id<HyListModelProtocol> listModel,
                                                     HyListViewRequestDataType type,
                                                     BOOL noMore);
 @property (nonatomic,copy) void(^failureHandler)(id input,
@@ -66,7 +66,7 @@
 }
 
 - (void)requestListSuccessHandler:(void (^)(id input,
-                                            NSObject<HyListModelProtocol> *listModel,
+                                            id<HyListModelProtocol> listModel,
                                             HyListViewRequestDataType type,
                                             BOOL noMore))successHandler
                    failureHandler:(void (^)(id input,
@@ -136,11 +136,11 @@
            if (self.cellDataHandler) {
                
                if (!sectionModelArray.count) {
-                   NSObject<HyListModelProtocol> *listModel = (NSObject<HyListModelProtocol> *)[HyListModel modelWithParameter:response];
+                   id<HyListModelProtocol> listModel = (id<HyListModelProtocol>)[HyListModel modelWithParameter:response];
                    [sectionModelArray addObject:listModel];
                }
                
-               for (NSObject<HyListModelProtocol> *sectionModel in sectionModelArray) {
+               for (id<HyListModelProtocol> sectionModel in sectionModelArray) {
                    
                    NSInteger index = [sectionModelArray indexOfObject:sectionModel];
                    NSDictionary *sectionDict = sectionModel.parameter;
@@ -180,7 +180,7 @@
                if (self.sectionDataHandler) {
                   [self.listModel.listModelArray removeAllObjects];
                } else {
-                   [((NSObject<HyListModelProtocol> *)self.listModel.listModelArray.firstObject).listModelArray removeAllObjects];
+                   [((id<HyListModelProtocol>)self.listModel.listModelArray.firstObject).listModelArray removeAllObjects];
                }
                self.pageNumber = self.startPage + 1;
            } else {
@@ -194,12 +194,12 @@
            } else {
                
                if (!self.listModel.listModelArray.count) {
-                   NSObject<HyListModelProtocol> *listModel = (NSObject<HyListModelProtocol> *)[HyListModel modelWithParameter:nil];
+                   id<HyListModelProtocol> listModel = (id<HyListModelProtocol> )[HyListModel modelWithParameter:nil];
                    [self.listModel.listModelArray addObject:listModel];
                }
                
-               NSArray<NSObject<HyModelProtocol> *> *cellModels = ((NSObject<HyListModelProtocol> *)sectionModelArray.firstObject).listModelArray;
-               [((NSObject<HyListModelProtocol> *)self.listModel.listModelArray.firstObject).listModelArray addObjectsFromArray:cellModels];
+               NSArray<id<HyModelProtocol>> *cellModels = ((id<HyListModelProtocol> )sectionModelArray.firstObject).listModelArray;
+               [((id<HyListModelProtocol>)self.listModel.listModelArray.firstObject).listModelArray addObjectsFromArray:cellModels];
                
                 noMore = cellModels.count < self.pageSize;
            }
@@ -225,9 +225,9 @@
     };
 }
 
-- (NSObject<HyListModelProtocol> *(^)(NSUInteger section))sectionModel {
+- (id<HyListModelProtocol> (^)(NSUInteger section))sectionModel {
      __weak typeof(self) _self = self;
-    return ^ NSObject<HyListModelProtocol> *(NSUInteger section){
+    return ^ id<HyListModelProtocol> (NSUInteger section){
         __strong typeof(_self) self = _self;
         
         if (!self.listModel) { return nil; }
@@ -236,14 +236,14 @@
     };
 }
 
-- (NSObject<HyModelProtocol> *(^)(NSIndexPath *indexPath))cellModel {
+- (id<HyModelProtocol> (^)(NSIndexPath *indexPath))cellModel {
     __weak typeof(self) _self = self;
-    return ^ NSObject<HyModelProtocol> *(NSIndexPath *indexPath){
+    return ^ id<HyModelProtocol> (NSIndexPath *indexPath){
         __strong typeof(_self) self = _self;
         
         if (!self.listModel || !indexPath) { return nil; }
         
-        NSObject<HyListModelProtocol> *sectionData = self.sectionModel(indexPath.section);
+        id<HyListModelProtocol> sectionData = self.sectionModel(indexPath.section);
         if (!sectionData) { return nil; }
         if (indexPath.row >= sectionData.listModelArray.count) {
             return nil;
@@ -252,9 +252,15 @@
     };
 }
 
-- (NSObject<HyListModelProtocol> *)listModel {
+- (id<HyListModelProtocol>)listModel {
     if (!_listModel) {
-        _listModel = (NSObject<HyListModelProtocol> *)[HyListModel modelWithParameter:self.parameter];
+        Class<HyModelFactoryProtocol> cls = getObjcectPropertyClass([self class], "listModel");
+        if (cls == NULL) {
+            cls = HyListModel.class;
+        }
+        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+            _listModel = (id<HyListModelProtocol>)[cls modelWithParameter:self.parameter];
+        }
     }
     return _listModel;
 }

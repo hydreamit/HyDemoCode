@@ -16,13 +16,10 @@
 
 
 @interface HyNewsViewController ()
-@property (nonatomic,strong) HyNewsViewModel *viewModel;
 @property (nonatomic,strong) HyTableView *tableView;
 @end
 
-
 @implementation HyNewsViewController
-@dynamic viewModel;
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     

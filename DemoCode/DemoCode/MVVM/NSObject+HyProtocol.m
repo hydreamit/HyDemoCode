@@ -6,14 +6,27 @@
 //  Copyright © 2017 Hy. All rights reserved.
 //
 
-#import <HyCategoriess/UINavigationController+HyExtension.h>
-#import <HyCategoriess/HyRunTimeMethods.h>
+#import <HyCategoriess/HyCategories.h>
 #import "HyViewControllerProtocol.h"
 #import "HyViewModelProtocol.h"
 #import "NSObject+HyProtocol.h"
 #import "HyViewController.h"
 #import "HyViewModel.h"
 
+Class getObjcectPropertyClass(Class cls, const char *name) {
+    Class cla = NULL;
+    unsigned int count = 0;
+    objc_property_t *propertys = class_copyPropertyList(cls, &count);
+    for (int i = 0; i<count; i++) {
+        objc_property_t property = propertys[i];
+        if (name == property_getName(property)) {
+            cla = (*rac_copyPropertyAttributes(property)).objectClass;
+            break;
+        }
+    }
+    free(propertys);
+    return cla;
+}
 
 @implementation NSObject (HyProtocol)
 

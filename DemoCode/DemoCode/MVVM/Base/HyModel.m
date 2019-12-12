@@ -12,11 +12,11 @@
 @implementation HyModel
 @synthesize parameter = _parameter;
 
-+ (NSObject<HyModelProtocol> *)modelWithParameter:(NSDictionary *)parameter {
++ (id<HyModelProtocol>)modelWithParameter:(NSDictionary *)parameter {
     
-    NSObject<HyModelProtocol> *model = [[self alloc] init];
+    id<HyModelProtocol> model = [[self alloc] init];
     model.parameter = parameter;
-    model = [model mj_setKeyValues:parameter];
+    model = [((NSObject<HyModelProtocol> *)model) mj_setKeyValues:parameter];
     [model modelLoad];
     return model;
 }

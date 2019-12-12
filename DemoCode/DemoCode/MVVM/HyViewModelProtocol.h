@@ -19,7 +19,7 @@ typedef void (^ReloadViewBlock)(id _Nullable parameter);
 @protocol HyViewModelProtocol <NSObject>
 @optional
 @property (nonatomic,strong) NSDictionary *parameter;
-@property (nonatomic,strong) NSObject<HyModelProtocol> *model;
+@property (nonatomic,strong) id<HyModelProtocol> model;
 @property (nonatomic,readonly) UINavigationController *viewModelNavigationController;
 @property (nonatomic,weak) UIViewController<HyViewControllerProtocol> *viewModelController;
 
@@ -36,7 +36,7 @@ typedef void (^ReloadViewBlock)(id _Nullable parameter);
 - (void)requestDataWithInput:(id _Nullable)input;
 
 - (void)requestSuccessHandler:(void (^_Nullable)(id input,
-                                        NSObject<HyModelProtocol> *model))successHandler
+                                        id<HyModelProtocol> model))successHandler
                failureHandler:(void (^_Nullable)(id input,
                                         NSError *error))failureHandler;
 @end
@@ -44,7 +44,7 @@ typedef void (^ReloadViewBlock)(id _Nullable parameter);
 
 @protocol HyViewModelFactoryProtocol <NSObject>
 @optional
-+ (NSObject<HyViewModelProtocol> *)viewModelWithParameter:(nullable NSDictionary *)parameter;
++ (id<HyViewModelProtocol>)viewModelWithParameter:(nullable NSDictionary *)parameter;
 @end
 
 NS_ASSUME_NONNULL_END

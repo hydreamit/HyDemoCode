@@ -28,7 +28,7 @@
 
 - (void)hy_reloadCellData {
     
-    NSObject<HyModelProtocol> *model = self.hy_cellData;
+    id<HyModelProtocol> model = self.hy_cellData;
     self.titleL.text = model.parameter[@"topicName"];
     [self.icon yy_setImageWithURL:[NSURL URLWithString:model.parameter[@"iconUrl"]]
                    placeholder:nil

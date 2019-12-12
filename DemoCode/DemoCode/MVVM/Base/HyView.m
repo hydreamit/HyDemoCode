@@ -12,7 +12,7 @@
 @synthesize parameter = _parameter, viewModel = _viewModel;
 
 + (UIView<HyViewProtocol> *)viewWithFrame:(CGRect)frame
-                                viewModel:(NSObject<HyViewModelProtocol> *)viewModel
+                                viewModel:(id<HyViewModelProtocol> )viewModel
                                 parameter:(id)parameter {
     
     UIView<HyViewProtocol> *view = [[self alloc] initWithFrame:frame];

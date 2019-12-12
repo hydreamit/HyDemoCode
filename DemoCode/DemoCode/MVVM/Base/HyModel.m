@@ -10,6 +10,7 @@
 #import <MJExtension/MJExtension.h>
 
 @implementation HyModel
+@synthesize parameter = _parameter;
 
 + (NSObject<HyModelProtocol> *)modelWithParameter:(NSDictionary *)parameter {
     

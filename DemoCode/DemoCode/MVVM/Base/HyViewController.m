@@ -14,6 +14,7 @@
 
 
 @implementation HyViewController
+@synthesize parameter = _parameter, viewModel = _viewModel;
 
 + (UIViewController<HyViewControllerProtocol> *)viewControllerWithViewModelName:(NSString *)viewModelName
                                                                       parameter:(NSDictionary *)parameter {
@@ -40,12 +41,9 @@
                 [viewModel viewModelLoad];
                 
                 controller.hy_viewWillAppearBlock = ^(UIViewController * _Nonnull _self, BOOL animated, BOOL firstLoad) {
-                    
                     if (firstLoad) {
                         if (Hy_ProtocolAndSelector(_self, @protocol(HyViewControllerProtocol), @selector(viewModelDidLoad))) {
-                            
                             [(UIViewController<HyViewControllerProtocol> *)_self viewModelDidLoad];
-                            
                         }
                     }
                 };

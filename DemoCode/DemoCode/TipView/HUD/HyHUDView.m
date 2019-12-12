@@ -54,24 +54,21 @@ static CGFloat ballScale = 1.35f;
 
 -(void)startPathAnimate{
     
-    //-------第一个球的动画
+  
     CGFloat width = self.bounds.size.width;
-    //小圆半径
     CGFloat r = (_ballOne.bounds.size.width)*ballScale/2.0f;
-    //大圆半径
     CGFloat R = (width/2 + r)/2.0;
     
     UIBezierPath *path1 = [UIBezierPath bezierPath];
     [path1 moveToPoint:_ballOne.center];
-    //画大圆
     [path1 addArcWithCenter:CGPointMake(R + r, width/2) radius:R startAngle:M_PI endAngle:M_PI*2 clockwise:NO];
-    //画小圆
+  
     UIBezierPath *path1_1 = [UIBezierPath bezierPath];
     [path1_1 addArcWithCenter:CGPointMake(width/2, width/2) radius:r*2 startAngle:M_PI*2 endAngle:M_PI clockwise:NO];
     [path1 appendPath:path1_1];
-    //回到原处
+ 
     [path1 addLineToPoint:_ballOne.center];
-    //执行动画
+  
     CAKeyframeAnimation *animation1 = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     animation1.path = path1.CGPath;
     animation1.removedOnCompletion = YES;
@@ -80,18 +77,15 @@ static CGFloat ballScale = 1.35f;
     [_ballOne.layer addAnimation:animation1 forKey:@"animation1"];
     
     
-    //-------第三个球的动画
     UIBezierPath *path3 = [UIBezierPath bezierPath];
     [path3 moveToPoint:_ballThree.center];
-    //画大圆
     [path3 addArcWithCenter:CGPointMake(width - (R + r), width/2) radius:R startAngle:2*M_PI endAngle:M_PI clockwise:NO];
-    //画小圆
+ 
     UIBezierPath *path3_1 = [UIBezierPath bezierPath];
     [path3_1 addArcWithCenter:CGPointMake(width/2, width/2) radius:r*2 startAngle:M_PI endAngle:M_PI*2 clockwise:NO];
     [path3 appendPath:path3_1];
-    //回到原处
     [path3 addLineToPoint:_ballThree.center];
-    //执行动画
+
     CAKeyframeAnimation *animation3 = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     animation3.path = path3.CGPath;
     animation3.removedOnCompletion = YES;
@@ -101,9 +95,7 @@ static CGFloat ballScale = 1.35f;
     [_ballThree.layer addAnimation:animation3 forKey:@"animation3"];
 }
 
-
-//放大缩小动画
--(void)animationDidStart:(CAAnimation *)anim{
+- (void)animationDidStart:(CAAnimation *)anim {
     
     CGFloat delay = 0.3f;
     CGFloat duration = [self animationDuration]/2 - delay;

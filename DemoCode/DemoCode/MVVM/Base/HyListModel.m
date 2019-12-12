@@ -10,25 +10,13 @@
 #import <objc/runtime.h>
 
 @implementation HyListModel
-
-- (void)setListDataArray:(NSMutableArray *)listModelArray {
-    objc_setAssociatedObject(self,
-                             @selector(listModelArray),
-                             listModelArray,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+@synthesize listModelArray = _listModelArray;
 
 - (NSMutableArray<NSObject<HyListModelProtocol> *> *)listModelArray {
-    
-    id array = objc_getAssociatedObject(self, _cmd);
-    if (array == NULL) {
-        array = @[].mutableCopy;
-        objc_setAssociatedObject(self,
-                                 _cmd,
-                                 array,
-                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (!_listModelArray) {
+        _listModelArray = @[].mutableCopy;
     }
-    return array;
+    return _listModelArray;
 }
 
 @end

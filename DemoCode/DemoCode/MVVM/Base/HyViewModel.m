@@ -27,6 +27,7 @@ NSError *);
 
 
 @implementation HyViewModel
+@synthesize parameter = _parameter, model = _model;
 
 + (NSObject<HyViewModelProtocol> *)viewModelWithParameter:(NSDictionary *)parameter {
     
@@ -106,23 +107,11 @@ NSError *);
     });
 }
 
-- (void)setModel:(NSObject<HyModelProtocol> *)model {
-    objc_setAssociatedObject(self,
-                             @selector(model),
-                             model,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (NSObject<HyModelProtocol> *)model {
-    NSObject<HyModelProtocol> *data = objc_getAssociatedObject(self, _cmd);
-    if (data == NULL) {
-        data = (NSObject<HyModelProtocol> *)[HyModel modelWithParameter:self.parameter];
-        objc_setAssociatedObject(self,
-                                 _cmd,
-                                 data,
-                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (!_model) {
+        _model = (NSObject<HyModelProtocol> *)[HyModel modelWithParameter:self.parameter];
     }
-    return data;
+    return _model;
 }
 
 - (void)setViewModelController:(UIViewController<HyViewControllerProtocol> *)viewModelController {
@@ -139,7 +128,6 @@ NSError *);
 - (UINavigationController *)viewModelNavigationController {
     return self.viewModelController.navigationController;
 }
-
 
 - (void)addReloadViewBlock:(ReloadViewBlock)block {
     if (!block && ![self.reloadViewBlockArray containsObject:block]) {

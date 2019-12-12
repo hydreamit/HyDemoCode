@@ -35,7 +35,7 @@
 
 
 @implementation HyListViewModel
-
+@synthesize listModel = _listModel, reloadListViewBlock = _reloadListViewBlock;
 - (void)viewModelLoad {
     [super viewModelLoad];
     
@@ -252,34 +252,11 @@
     };
 }
 
-- (void)setListModel:(NSObject<HyListModelProtocol> *)listModel {
-    objc_setAssociatedObject(self,
-                             @selector(listModel),
-                             listModel,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (NSObject<HyListModelProtocol> *)listModel {
-    NSObject<HyListModelProtocol> *data = objc_getAssociatedObject(self, _cmd);
-    if (data == NULL) {
-        data = (NSObject<HyListModelProtocol> *)[HyListModel modelWithParameter:self.parameter];
-        objc_setAssociatedObject(self,
-                                _cmd,
-                                data,
-                                OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (!_listModel) {
+        _listModel = (NSObject<HyListModelProtocol> *)[HyListModel modelWithParameter:self.parameter];
     }
-    return data;
-}
-
-- (void)setReloadListViewBlock:(void (^)(id _Nonnull))reloadListViewBlock {
-    objc_setAssociatedObject(self,
-                             @selector(reloadListViewBlock),
-                             reloadListViewBlock,
-                             OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (void (^)(id _Nonnull))reloadListViewBlock {
-    return objc_getAssociatedObject(self, _cmd);
+    return _listModel;
 }
 
 @end

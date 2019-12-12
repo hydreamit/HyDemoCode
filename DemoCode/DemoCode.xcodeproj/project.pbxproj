@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		510BB17123A1EFA800A97F0A /* NSObject+HyProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB16F23A1EFA800A97F0A /* NSObject+HyProtocol.m */; };
 		5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */; };
 		5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */; };
 		51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343502238E1B64007600EA /* UITableView+HySignalExtension.m */; };
@@ -70,7 +71,6 @@
 		51784F5C238CF47500EB2F14 /* HyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4B238CF47500EB2F14 /* HyView.m */; };
 		51784F5D238CF47500EB2F14 /* HyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4C238CF47500EB2F14 /* HyListModel.m */; };
 		51784F5E238CF47500EB2F14 /* HyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4D238CF47500EB2F14 /* HyViewModel.m */; };
-		51784F5F238CF47500EB2F14 /* NSObject+HyProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4E238CF47500EB2F14 /* NSObject+HyProtocol.m */; };
 		51784F60238CF47500EB2F14 /* HyCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F4F238CF47500EB2F14 /* HyCollectionView.m */; };
 		51784F61238CF47500EB2F14 /* HyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F53238CF47500EB2F14 /* HyViewController.m */; };
 		51A247912399155B002497BB /* HyTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A247902399155B002497BB /* HyTip.m */; };
@@ -108,6 +108,8 @@
 /* Begin PBXFileReference section */
 		0A4370958740260EABFA1F4A /* Pods_DemoCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4692DDED328B7273CF5A20E9 /* Pods-DemoCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoCode.debug.xcconfig"; path = "Target Support Files/Pods-DemoCode/Pods-DemoCode.debug.xcconfig"; sourceTree = "<group>"; };
+		510BB16F23A1EFA800A97F0A /* NSObject+HyProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyProtocol.m"; sourceTree = "<group>"; };
+		510BB17023A1EFA800A97F0A /* NSObject+HyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyProtocol.h"; sourceTree = "<group>"; };
 		5120D98223851193002B3A1C /* RACSignal+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSignal+HyViewControllerJump.h"; sourceTree = "<group>"; };
 		5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+HyViewControllerJump.m"; sourceTree = "<group>"; };
 		5120D985238511A4002B3A1C /* RACCommand+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACCommand+HyViewControllerJump.h"; sourceTree = "<group>"; };
@@ -241,7 +243,6 @@
 		51784F4B238CF47500EB2F14 /* HyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyView.m; sourceTree = "<group>"; };
 		51784F4C238CF47500EB2F14 /* HyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyListModel.m; sourceTree = "<group>"; };
 		51784F4D238CF47500EB2F14 /* HyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyViewModel.m; sourceTree = "<group>"; };
-		51784F4E238CF47500EB2F14 /* NSObject+HyProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyProtocol.m"; sourceTree = "<group>"; };
 		51784F4F238CF47500EB2F14 /* HyCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyCollectionView.m; sourceTree = "<group>"; };
 		51784F50238CF47500EB2F14 /* HyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListViewModel.h; sourceTree = "<group>"; };
 		51784F51238CF47500EB2F14 /* HyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyModel.h; sourceTree = "<group>"; };
@@ -250,7 +251,6 @@
 		51784F54238CF47500EB2F14 /* HyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListModel.h; sourceTree = "<group>"; };
 		51784F55238CF47500EB2F14 /* HyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyView.h; sourceTree = "<group>"; };
 		51784F56238CF47500EB2F14 /* HyCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyCollectionView.h; sourceTree = "<group>"; };
-		51784F57238CF47500EB2F14 /* NSObject+HyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyProtocol.h"; sourceTree = "<group>"; };
 		51784F58238CF47500EB2F14 /* HyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewModel.h; sourceTree = "<group>"; };
 		51784F62238CF81A00EB2F14 /* HyListViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyListViewProtocol.h; sourceTree = "<group>"; };
 		51784F63238CF81A00EB2F14 /* HyViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyViewModelProtocol.h; sourceTree = "<group>"; };
@@ -584,6 +584,8 @@
 				51784F66238CF81A00EB2F14 /* HyListModelProtocol.h */,
 				51784F68238CF81A00EB2F14 /* HyListViewModelProtocol.h */,
 				51784F67238CF81A00EB2F14 /* HyViewControllerJumpProtocol.h */,
+				510BB17023A1EFA800A97F0A /* NSObject+HyProtocol.h */,
+				510BB16F23A1EFA800A97F0A /* NSObject+HyProtocol.m */,
 				51784F46238CF47500EB2F14 /* Base */,
 			);
 			path = MVVM;
@@ -650,8 +652,6 @@
 				51784F48238CF47500EB2F14 /* HyTableView.m */,
 				51784F56238CF47500EB2F14 /* HyCollectionView.h */,
 				51784F4F238CF47500EB2F14 /* HyCollectionView.m */,
-				51784F57238CF47500EB2F14 /* NSObject+HyProtocol.h */,
-				51784F4E238CF47500EB2F14 /* NSObject+HyProtocol.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -942,6 +942,7 @@
 				5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */,
 				51784F5E238CF47500EB2F14 /* HyViewModel.m in Sources */,
 				51CF98F12387C5EA00207DB3 /* HyNewsViewModel.m in Sources */,
+				510BB17123A1EFA800A97F0A /* NSObject+HyProtocol.m in Sources */,
 				513436242397B410007600EA /* HyTipViewAnimationShowTranslation.m in Sources */,
 				51343530238E877D007600EA /* KafkaRefreshHeader.m in Sources */,
 				5134361023979F92007600EA /* HyTipViewAnimationDismissTranslation.m in Sources */,
@@ -963,7 +964,6 @@
 				5134361E2397B3F3007600EA /* HyTipViewAnimationShowFade.m in Sources */,
 				513435F223978F68007600EA /* HyTipViewAnimationDismissFade.m in Sources */,
 				513436182397A6FB007600EA /* HyTipViewPosition.m in Sources */,
-				51784F5F238CF47500EB2F14 /* NSObject+HyProtocol.m in Sources */,
 				51A2483A239F5345002497BB /* HyRefreshAnimationView.m in Sources */,
 				51559ECC23827A59007904C8 /* SceneDelegate.m in Sources */,
 				513435542390B68D007600EA /* RACCommand+Network.m in Sources */,

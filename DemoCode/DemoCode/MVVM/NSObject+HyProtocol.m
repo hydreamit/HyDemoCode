@@ -12,34 +12,10 @@
 #import "HyViewModelProtocol.h"
 #import "NSObject+HyProtocol.h"
 #import "HyViewController.h"
-#import <objc/message.h>
 #import "HyViewModel.h"
 
 
 @implementation NSObject (HyProtocol)
-
-- (void)setViewModel:(NSObject<HyViewModelProtocol> *)viewModel {
-    objc_setAssociatedObject(self,
-                             @selector(viewModel),
-                             viewModel,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSObject<HyViewModelProtocol> *)viewModel {
-    NSObject<HyViewModelProtocol> *viewModel = objc_getAssociatedObject(self, _cmd);
-    return viewModel;
-}
-
-- (void)setParameter:(id)parameter {
-    objc_setAssociatedObject(self,
-                            @selector(parameter),
-                            parameter,
-                            OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (id)parameter {
-    return objc_getAssociatedObject(self, _cmd);
-}
 
 + (UIViewController<HyViewControllerProtocol> *)pushViewControllerWithName:(NSString *_Nullable)controllerName
                                                              viewModelName:(NSString *_Nullable)viewModelName

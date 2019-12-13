@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HyViewProtocol.h"
+#import "HyViewModelProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyView : UIView <HyViewControllerJumpProtocol, HyViewFactoryProtocol, HyViewProtocol>
+@interface HyView<__covariant viewModelType: id<HyViewModelFactoryProtocol, HyViewModelProtocol>> : UIView <HyViewControllerJumpProtocol, HyViewFactoryProtocol, HyViewProtocol>
+
+@property (nonatomic,strong) viewModelType viewModel;
 
 @end
 

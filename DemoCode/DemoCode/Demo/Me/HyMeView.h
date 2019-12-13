@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HyMeViewModel.h"
 #import "HyView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyMeView : HyView
+@interface HyMeView : HyView<HyMeViewModel *>
 
 @end
 

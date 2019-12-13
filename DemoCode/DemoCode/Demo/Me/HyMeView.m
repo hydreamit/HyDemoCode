@@ -7,7 +7,7 @@
 //
 
 #import "HyMeView.h"
-#import "HyMeViewModel.h"
+
 #import "HyTextFieldView.h"
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <Masonry/Masonry.h>
@@ -15,15 +15,12 @@
 
 
 @interface HyMeView ()
-@property (nonatomic,strong) HyMeViewModel *viewModel;
 @property (nonatomic,strong) HyTextFieldView *accountTextFieldView;
 @property (nonatomic,strong) HyTextFieldView *codeTextFieldView;
 @end
 
 
 @implementation HyMeView
-@dynamic viewModel;
-
 - (void)viewLoad {
         
     [self configUI];

@@ -63,19 +63,11 @@
     return _collectionView;
 }
 
-#define kRecommendPagerHeight 113
-#define kRecommendItemWidth (Hy_ScreenW > 320 ? 98 : 86)
-#define kRecommendItemHeight 102
-#define kRecommendItemHorEdge (Hy_ScreenW > 320 ? 16 : 10)
-#define kRecommendItemVerEdge 20
 - (UICollectionViewFlowLayout *)layout {
     UICollectionViewFlowLayout *layout = UICollectionViewFlowLayout.new;
-    layout.sectionInset =  UIEdgeInsetsMake(kRecommendItemVerEdge,
-                            kRecommendItemHorEdge,
-                            kRecommendItemVerEdge,
-                            kRecommendItemHorEdge);
-    layout.itemSize = CGSizeMake(kRecommendItemWidth, kRecommendItemHeight);
-    layout.minimumInteritemSpacing = floor((Hy_ScreenW - 3*kRecommendItemWidth - 2*kRecommendItemHorEdge)/2);
+    layout.sectionInset =  UIEdgeInsetsMake(20, 20, 20, 20);
+    layout.itemSize = CGSizeMake(100, 100);
+    layout.minimumInteritemSpacing = floor((Hy_ScreenW - 3*100 - 2*20) / 2);
     layout.minimumLineSpacing = 35;
     return layout;
 }

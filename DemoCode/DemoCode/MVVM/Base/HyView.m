@@ -9,7 +9,7 @@
 #import "HyView.h"
 
 @implementation HyView
-@synthesize parameter = _parameter, viewModel = _viewModel;
+@synthesize parameter = _parameter;
 
 + (UIView<HyViewProtocol> *)viewWithFrame:(CGRect)frame
                                 viewModel:(id<HyViewModelProtocol> )viewModel

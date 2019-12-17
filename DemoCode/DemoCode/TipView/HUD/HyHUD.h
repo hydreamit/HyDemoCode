@@ -2,7 +2,7 @@
 //  HyHUD.h
 //  DemoCode
 //
-//  Created by huangyi on 2017/12/2.
+//  Created by Hy on 2017/12/2.
 //  Copyright © 2017 Hy. All rights reserved.
 //
 

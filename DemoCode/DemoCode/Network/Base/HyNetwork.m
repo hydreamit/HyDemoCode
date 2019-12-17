@@ -2,8 +2,8 @@
 //  HyNetwork.m
 //  DemoCode
 //
-//  Created by huangyi on 2019/12/13.
-//  Copyright © 2019 Hy. All rights reserved.
+//  Created by Hy on 2017/12/13.
+//  Copyright © 2017 Hy. All rights reserved.
 //
 
 #import "HyNetwork.h"

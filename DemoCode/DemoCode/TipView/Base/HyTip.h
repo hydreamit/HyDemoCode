@@ -2,7 +2,7 @@
 //  HyTip.h
 //  DemoCode
 //
-//  Created by huangyi on 2017/12/5.
+//  Created by Hy on 2017/12/5.
 //  Copyright © 2017 Hy. All rights reserved.
 //
 

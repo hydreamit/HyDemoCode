@@ -2,8 +2,8 @@
 //  HyNetworkSignleTaskInfo.h
 //  DemoCode
 //
-//  Created by huangyi on 2019/12/16.
-//  Copyright © 2019 Hy. All rights reserved.
+//  Created by Hy on 2017/12/16.
+//  Copyright © 2017 Hy. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

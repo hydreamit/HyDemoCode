@@ -2,7 +2,7 @@
 //  HyRefreshAnimationView.m
 //  DemoCode
 //
-//  Created by huangyi on 2017/12/10.
+//  Created by Hy on 2017/12/10.
 //  Copyright © 2017 Hy. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  HyCategories.h
 //  HyCategoriesDemo
 //
-//  Created by huangyi on 2017/11/21.
+//  Created by Hy on 2017/11/21.
 //  Copyright © 2017 Hy. All rights reserved.
 //
 

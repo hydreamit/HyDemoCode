@@ -10,15 +10,15 @@
 
 
 HyNetworkSuccessBlock subscribSuccesss(id<RACSubscriber> subscriber,  RequestSignalBlock signalBlock) {
-    return ^(id response, id<HyNetworkTaskProtocol> networkTask) {
+    return ^(id<HyNetworkSuccessProtocol> successObject) {
         signalBlock ?
-        signalBlock(response, subscriber) :
+        signalBlock(successObject, subscriber) :
         ({
             NSString *status= [NSString stringWithFormat:@"%@",@"info"];
             if (![status isEqualToString:@"0"]) {
                 [subscriber sendError:nil];
             }else{
-                [subscriber sendNext:response];
+                [subscriber sendNext:successObject];
                 [subscriber sendCompleted];
             }
         });
@@ -26,13 +26,13 @@ HyNetworkSuccessBlock subscribSuccesss(id<RACSubscriber> subscriber,  RequestSig
 }
 
 HyNetworkFailureBlock subscribFailure(id<RACSubscriber>  _Nonnull subscriber) {
-    return ^(NSError *_Nullable error, id<HyNetworkTaskProtocol> networkTask) {
-        [subscriber sendError:error];
+    return ^(id<HyNetworkFailureProtocol> failureObject) {
+        [subscriber sendError:failureObject.error];
     };
 }
 
 typedef void(^DisposableBlock)(void);
-DisposableBlock taskDisposableBlock(id<HyNetworkTaskProtocol> networkTask) {
+DisposableBlock taskDisposableBlock(id<HyNetworkSingleTaskProtocol> networkTask) {
     return ^{
         [networkTask cancel];
     };
@@ -46,7 +46,7 @@ DisposableBlock taskDisposableBlock(id<HyNetworkTaskProtocol> networkTask) {
                              url:(NSString *)url
                        parameter:(NSDictionary *_Nullable)parameter
                     handleSignal:(RequestSignalBlock)handleSignal {
-    
+
     return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         return [RACDisposable disposableWithBlock:taskDisposableBlock
                 ([HyNetworkManager.network getShowHUD:showHUD
@@ -63,7 +63,7 @@ DisposableBlock taskDisposableBlock(id<HyNetworkTaskProtocol> networkTask) {
                              url:(NSString *)url
                        parameter:(NSDictionary *_Nullable)parameter
                      handleSignal:(RequestSignalBlock)handleSignal {
-    
+
       return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
           return [RACDisposable disposableWithBlock:taskDisposableBlock
                   ([HyNetworkManager.network postShowHUD:showHUD
@@ -81,7 +81,7 @@ DisposableBlock taskDisposableBlock(id<HyNetworkTaskProtocol> networkTask) {
                         parameter:(NSDictionary *_Nullable)parameter
                          formData:(void(^_Nullable)(id<HyMultipartFormDataProtocol>))formData
                      handleSignal:(RequestSignalBlock)handleSignal {
-    
+
    return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         return [RACDisposable disposableWithBlock:taskDisposableBlock
                 ([HyNetworkManager.network postShowHUD:showHUD

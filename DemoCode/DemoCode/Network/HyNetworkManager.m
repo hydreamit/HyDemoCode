@@ -27,7 +27,7 @@
         
         _instance = [[super allocWithZone:NULL] init];
         _instance.yyNetworkCache = [[YYNetworkCache alloc] init];
-        _instance.afnNetwork = [[AFNetwork alloc] init];
+        _instance.afnNetwork = [AFNetwork networkWithCache:_instance.yyNetworkCache];
     });
     return _instance;
 }

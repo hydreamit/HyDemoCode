@@ -66,18 +66,31 @@ NSError *);
     
     NSString *url = self.urlBlock ? self.urlBlock(input) : @"";
     NSDictionary *parameter = self.parameterBlock ? self.parameterBlock(input) : input;
+    
+    void (^success)(id<HyNetworkSuccessProtocol>) =
+    ^(id<HyNetworkSuccessProtocol>  _Nullable successObject){
+        [self _handleResponse:successObject.response input:input];
+    };
+    
+    void (^failure)(id<HyNetworkFailureProtocol>) =
+    ^(id<HyNetworkFailureProtocol>  _Nullable failureObject){
+        !self.failureHandler ?: self.failureHandler(input, failureObject.error);
+    };
+    
     if (self.isGet) {
-        [HyNetworkManager.network getShowHUD:YES cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            [self _handleResponse:response input:input];
-        } failureBlock:^(NSError * _Nullable error, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            !self.failureHandler ?: self.failureHandler(input, error);
-        }];
+        [[HyNetworkManager.network getShowHUD:YES
+                                        cache:NO
+                                          url:url
+                                    parameter:parameter
+                                 successBlock:success
+                                 failureBlock:failure] resume];
     } else {
-        [HyNetworkManager.network postShowHUD:YES cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            [self _handleResponse:response input:input];
-        } failureBlock:^(NSError * _Nullable error, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            !self.failureHandler ?: self.failureHandler(input, error);
-        }];
+        [[HyNetworkManager.network postShowHUD:YES
+                                         cache:NO
+                                           url:url
+                                     parameter:parameter
+                                  successBlock:success
+                                  failureBlock:failure] resume];
     }
 }
 

@@ -82,18 +82,31 @@
     NSString *url = self.urlBlock ? self.urlBlock(input,type) : @"";
     NSDictionary *parameter = self.parameterBlock ? self.parameterBlock(input,type) : input;
     BOOL showHUD = type == HyListViewRequestDataTypeFirst;
+    
+    void (^success)(id<HyNetworkSuccessProtocol>) =
+    ^(id<HyNetworkSuccessProtocol>  _Nullable successObject){
+        [self _handleResponse:successObject.response input:input type:type];
+    };
+    
+    void (^failure)(id<HyNetworkFailureProtocol>) =
+    ^(id<HyNetworkFailureProtocol>  _Nullable failureObject){
+        !self.failureHandler ?: self.failureHandler(input, failureObject.error, type);
+    };
+    
     if (self.isGet) {
-        [HyNetworkManager.network getShowHUD:showHUD cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            [self _handleResponse:response input:input type:type];
-        } failureBlock:^(NSError * _Nullable error, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            !self.failureHandler ?: self.failureHandler(input, error, type);
-        }];
+        [[HyNetworkManager.network getShowHUD:showHUD
+                                        cache:NO
+                                          url:url
+                                    parameter:parameter
+                                 successBlock:success
+                                 failureBlock:failure] resume];
     } else {
-        [HyNetworkManager.network postShowHUD:showHUD cache:NO url:url parameter:parameter successBlock:^(id  _Nullable response, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            [self _handleResponse:response input:input type:type];
-        } failureBlock:^(NSError * _Nullable error, id<HyNetworkTaskProtocol>  _Nonnull task) {
-            !self.failureHandler ?: self.failureHandler(input, error, type);
-        }];
+        [[HyNetworkManager.network postShowHUD:showHUD
+                                         cache:NO
+                                           url:url
+                                     parameter:parameter
+                                  successBlock:success
+                                  failureBlock:failure] resume];
     }
 }
 

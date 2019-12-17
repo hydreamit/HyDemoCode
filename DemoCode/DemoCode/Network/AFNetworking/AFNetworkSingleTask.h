@@ -7,14 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HyNetworkTaskProtocol.h"
-#import "AFNetworkTaskInfo.h"
+#import "HyNetworkSingleTaskProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AFNetworkTask : NSObject <HyNetworkTaskProtocol>
-
-@property (nonatomic,strong) NSURLSessionDataTask *sessionTask;
+@interface AFNetworkSingleTask : NSObject <HyNetworkSingleTaskProtocol>
 
 @end
 

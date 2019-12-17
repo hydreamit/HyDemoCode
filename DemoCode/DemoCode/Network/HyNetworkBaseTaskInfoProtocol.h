@@ -1,15 +1,13 @@
 //
-//  HyNetworkTaskInfoProtocol.h
+//  HyNetworkBaseTaskInfoProtocol.h
 //  DemoCode
 //
-//  Created by Hy on 2017/11/28.
-//  Copyright © 2017 Hy. All rights reserved.
+//  Created by huangyi on 2019/12/16.
+//  Copyright © 2019 Hy. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "HyNetworkProtocol.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "HyNetworkTypedef.h"
 
 typedef NS_ENUM(NSUInteger, HyNetworRequestType) {
     HyNetworRequestTypeGet,
@@ -22,39 +20,32 @@ typedef NS_ENUM(NSUInteger, HyNetworRequestType) {
 };
 
 typedef NS_ENUM(NSUInteger, HyNetworkTaskStatus) {
-    HyNetworkTaskStatusWillResume,
+    HyNetworkTaskStatusNoResume,
     HyNetworkTaskStatusResuming,
     HyNetworkTaskStatusSuccess,
-    HyNetworkTaskStatusFailure
+    HyNetworkTaskStatusFailure,
+    HyNetworkTaskStatusResumedNoNetwork
 };
 
+NS_ASSUME_NONNULL_BEGIN
 
-@protocol HyNetworkTaskProtocol;
-@protocol HyNetworkTaskInfoProtocol <NSObject>
+@protocol HyNetworkBaseTaskInfoProtocol <NSObject>
 
 + (instancetype)taskInfoWithRequestType:(HyNetworRequestType)type
-                                showHUD:(BOOL)showHUD
                                   cache:(BOOL)cache
                                     url:(NSString *)url
                               parameter:(nullable id)parameter
-                          formDataBlock:(HyNetworkFormDataBlock)formDataBlock
-                           successBlock:(HyNetworkSuccessBlock)successBlock
-                           failureBlock:(HyNetworkFailureBlock)failureBlock;
-
-- (HyNetworRequestType)requestType;
+                          formDataBlock:(HyNetworkFormDataBlock)formDataBlock;
 
 - (BOOL)cache;
-- (BOOL)showHUD;
-
 - (NSString *)url;
 - (NSDictionary *)parameter;
+- (HyNetworRequestType)requestType;
 - (HyNetworkFormDataBlock)formData;
-
-- (HyNetworkSuccessBlock)successBlock;
-- (HyNetworkFailureBlock)failureBlock;
 
 @property (nonatomic,assign) HyNetworkTaskStatus taskStatus;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

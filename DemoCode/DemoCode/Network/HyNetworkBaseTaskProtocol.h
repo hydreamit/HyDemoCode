@@ -1,5 +1,5 @@
 //
-//  AFNetwork.h
+//  HyNetworkSingleTaskProtocol.h
 //  DemoCode
 //
 //  Created by Hy on 2017/11/28.
@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h>
-#import "HyNetworkProtocol.h"
-#import "HyNetwork.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AFNetwork : HyNetwork<AFHTTPSessionManager *>
+@protocol HyNetworkBaseTaskProtocol <NSObject>
+
+- (void)resume;
+
+- (void)cancel;
 
 @end
 

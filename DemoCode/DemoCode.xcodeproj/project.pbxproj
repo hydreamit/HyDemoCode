@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		510BB17123A1EFA800A97F0A /* NSObject+HyProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB16F23A1EFA800A97F0A /* NSObject+HyProtocol.m */; };
+		510BB23A23A72B7100A97F0A /* HyNetworkCompletionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB23123A72B7100A97F0A /* HyNetworkCompletionObject.m */; };
+		510BB23B23A72B7100A97F0A /* HyNetworkFailureObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB23223A72B7100A97F0A /* HyNetworkFailureObject.m */; };
+		510BB23C23A72B7100A97F0A /* HyNetworkBaseTaskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB23423A72B7100A97F0A /* HyNetworkBaseTaskInfo.m */; };
+		510BB23D23A72B7100A97F0A /* HyNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB23623A72B7100A97F0A /* HyNetwork.m */; };
+		510BB23E23A72B7100A97F0A /* HyNetworkSuccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB23923A72B7100A97F0A /* HyNetworkSuccessObject.m */; };
+		510BB24423A734D700A97F0A /* HyNetworkSignleTaskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB24323A734D700A97F0A /* HyNetworkSignleTaskInfo.m */; };
+		510BB24723A734E400A97F0A /* HyNetworkMutipleTasksInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB24623A734E400A97F0A /* HyNetworkMutipleTasksInfo.m */; };
+		510BB25123A75BAF00A97F0A /* HyNetworkMutipleTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB25023A75BAF00A97F0A /* HyNetworkMutipleTasks.m */; };
 		5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */; };
 		5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */; };
 		51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343502238E1B64007600EA /* UITableView+HySignalExtension.m */; };
@@ -21,8 +29,7 @@
 		51343535238E877D007600EA /* HyRefreshViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134352D238E877D007600EA /* HyRefreshViewManager.m */; };
 		51343545238FAD48007600EA /* HyNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343544238FAD48007600EA /* HyNetworkManager.m */; };
 		51343549238FB6C7007600EA /* AFNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343548238FB6C7007600EA /* AFNetwork.m */; };
-		5134354C238FC0EE007600EA /* AFNetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134354B238FC0EE007600EA /* AFNetworkTask.m */; };
-		5134354F238FC0FC007600EA /* AFNetworkTaskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134354E238FC0FC007600EA /* AFNetworkTaskInfo.m */; };
+		5134354C238FC0EE007600EA /* AFNetworkSingleTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134354B238FC0EE007600EA /* AFNetworkSingleTask.m */; };
 		513435542390B68D007600EA /* RACCommand+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 513435512390B68D007600EA /* RACCommand+Network.m */; };
 		513435552390B68D007600EA /* RACSignal+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 513435522390B68D007600EA /* RACSignal+Network.m */; };
 		5134355B2390BD15007600EA /* AFMultipartFormDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134355A2390BD15007600EA /* AFMultipartFormDataObject.m */; };
@@ -110,6 +117,31 @@
 		4692DDED328B7273CF5A20E9 /* Pods-DemoCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoCode.debug.xcconfig"; path = "Target Support Files/Pods-DemoCode/Pods-DemoCode.debug.xcconfig"; sourceTree = "<group>"; };
 		510BB16F23A1EFA800A97F0A /* NSObject+HyProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyProtocol.m"; sourceTree = "<group>"; };
 		510BB17023A1EFA800A97F0A /* NSObject+HyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyProtocol.h"; sourceTree = "<group>"; };
+		510BB22323A7268B00A97F0A /* HyNetworkSuccessProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkSuccessProtocol.h; sourceTree = "<group>"; };
+		510BB22423A726AD00A97F0A /* HyNetworkFailureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkFailureProtocol.h; sourceTree = "<group>"; };
+		510BB22523A726DF00A97F0A /* HyNetworkCompletionProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkCompletionProtocol.h; sourceTree = "<group>"; };
+		510BB23023A72B7100A97F0A /* HyNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyNetwork.h; sourceTree = "<group>"; };
+		510BB23123A72B7100A97F0A /* HyNetworkCompletionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyNetworkCompletionObject.m; sourceTree = "<group>"; };
+		510BB23223A72B7100A97F0A /* HyNetworkFailureObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyNetworkFailureObject.m; sourceTree = "<group>"; };
+		510BB23323A72B7100A97F0A /* HyNetworkSuccessObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyNetworkSuccessObject.h; sourceTree = "<group>"; };
+		510BB23423A72B7100A97F0A /* HyNetworkBaseTaskInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyNetworkBaseTaskInfo.m; sourceTree = "<group>"; };
+		510BB23523A72B7100A97F0A /* HyNetworkCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyNetworkCompletionObject.h; sourceTree = "<group>"; };
+		510BB23623A72B7100A97F0A /* HyNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyNetwork.m; sourceTree = "<group>"; };
+		510BB23723A72B7100A97F0A /* HyNetworkFailureObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyNetworkFailureObject.h; sourceTree = "<group>"; };
+		510BB23823A72B7100A97F0A /* HyNetworkBaseTaskInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyNetworkBaseTaskInfo.h; sourceTree = "<group>"; };
+		510BB23923A72B7100A97F0A /* HyNetworkSuccessObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyNetworkSuccessObject.m; sourceTree = "<group>"; };
+		510BB24123A7335600A97F0A /* HyNetworkMutipleTasksInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkMutipleTasksInfoProtocol.h; sourceTree = "<group>"; };
+		510BB24223A734D700A97F0A /* HyNetworkSignleTaskInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkSignleTaskInfo.h; sourceTree = "<group>"; };
+		510BB24323A734D700A97F0A /* HyNetworkSignleTaskInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNetworkSignleTaskInfo.m; sourceTree = "<group>"; };
+		510BB24523A734E400A97F0A /* HyNetworkMutipleTasksInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkMutipleTasksInfo.h; sourceTree = "<group>"; };
+		510BB24623A734E400A97F0A /* HyNetworkMutipleTasksInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNetworkMutipleTasksInfo.m; sourceTree = "<group>"; };
+		510BB24823A7392100A97F0A /* HyNetworkSingleTaskProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkSingleTaskProtocol.h; sourceTree = "<group>"; };
+		510BB24C23A73E5900A97F0A /* HyNetworkTypedef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkTypedef.h; sourceTree = "<group>"; };
+		510BB24D23A7420D00A97F0A /* HyNetworkBaseTaskInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkBaseTaskInfoProtocol.h; sourceTree = "<group>"; };
+		510BB24E23A7568800A97F0A /* HyNetworkSingleTaskInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkSingleTaskInfoProtocol.h; sourceTree = "<group>"; };
+		510BB24F23A75BAF00A97F0A /* HyNetworkMutipleTasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkMutipleTasks.h; sourceTree = "<group>"; };
+		510BB25023A75BAF00A97F0A /* HyNetworkMutipleTasks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNetworkMutipleTasks.m; sourceTree = "<group>"; };
+		510BB25223A75C8200A97F0A /* HyNetworkMutipleTasksProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkMutipleTasksProtocol.h; sourceTree = "<group>"; };
 		5120D98223851193002B3A1C /* RACSignal+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSignal+HyViewControllerJump.h"; sourceTree = "<group>"; };
 		5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+HyViewControllerJump.m"; sourceTree = "<group>"; };
 		5120D985238511A4002B3A1C /* RACCommand+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACCommand+HyViewControllerJump.h"; sourceTree = "<group>"; };
@@ -135,16 +167,13 @@
 		5134352D238E877D007600EA /* HyRefreshViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyRefreshViewManager.m; sourceTree = "<group>"; };
 		5134352E238E877D007600EA /* HyRefreshViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyRefreshViewManager.h; sourceTree = "<group>"; };
 		51343537238F99E2007600EA /* HyNetworkProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkProtocol.h; sourceTree = "<group>"; };
-		51343538238F99F8007600EA /* HyNetworkTaskProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkTaskProtocol.h; sourceTree = "<group>"; };
-		51343540238FA588007600EA /* HyNetworkTaskInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkTaskInfoProtocol.h; sourceTree = "<group>"; };
+		51343538238F99F8007600EA /* HyNetworkBaseTaskProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkBaseTaskProtocol.h; sourceTree = "<group>"; };
 		51343543238FAD48007600EA /* HyNetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkManager.h; sourceTree = "<group>"; };
 		51343544238FAD48007600EA /* HyNetworkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNetworkManager.m; sourceTree = "<group>"; };
 		51343547238FB6C7007600EA /* AFNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetwork.h; sourceTree = "<group>"; };
 		51343548238FB6C7007600EA /* AFNetwork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetwork.m; sourceTree = "<group>"; };
-		5134354A238FC0EE007600EA /* AFNetworkTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkTask.h; sourceTree = "<group>"; };
-		5134354B238FC0EE007600EA /* AFNetworkTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetworkTask.m; sourceTree = "<group>"; };
-		5134354D238FC0FC007600EA /* AFNetworkTaskInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkTaskInfo.h; sourceTree = "<group>"; };
-		5134354E238FC0FC007600EA /* AFNetworkTaskInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetworkTaskInfo.m; sourceTree = "<group>"; };
+		5134354A238FC0EE007600EA /* AFNetworkSingleTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkSingleTask.h; sourceTree = "<group>"; };
+		5134354B238FC0EE007600EA /* AFNetworkSingleTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetworkSingleTask.m; sourceTree = "<group>"; };
 		513435502390B68D007600EA /* RACCommand+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACCommand+Network.h"; sourceTree = "<group>"; };
 		513435512390B68D007600EA /* RACCommand+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACCommand+Network.m"; sourceTree = "<group>"; };
 		513435522390B68D007600EA /* RACSignal+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+Network.m"; sourceTree = "<group>"; };
@@ -313,6 +342,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		510BB22F23A72B7100A97F0A /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				510BB23023A72B7100A97F0A /* HyNetwork.h */,
+				510BB23623A72B7100A97F0A /* HyNetwork.m */,
+				510BB23823A72B7100A97F0A /* HyNetworkBaseTaskInfo.h */,
+				510BB23423A72B7100A97F0A /* HyNetworkBaseTaskInfo.m */,
+				510BB24223A734D700A97F0A /* HyNetworkSignleTaskInfo.h */,
+				510BB24323A734D700A97F0A /* HyNetworkSignleTaskInfo.m */,
+				510BB24523A734E400A97F0A /* HyNetworkMutipleTasksInfo.h */,
+				510BB24623A734E400A97F0A /* HyNetworkMutipleTasksInfo.m */,
+				510BB23323A72B7100A97F0A /* HyNetworkSuccessObject.h */,
+				510BB23923A72B7100A97F0A /* HyNetworkSuccessObject.m */,
+				510BB23723A72B7100A97F0A /* HyNetworkFailureObject.h */,
+				510BB23223A72B7100A97F0A /* HyNetworkFailureObject.m */,
+				510BB23523A72B7100A97F0A /* HyNetworkCompletionObject.h */,
+				510BB23123A72B7100A97F0A /* HyNetworkCompletionObject.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		5134351C238E877D007600EA /* RefreshView */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,10 +409,10 @@
 			children = (
 				51343547238FB6C7007600EA /* AFNetwork.h */,
 				51343548238FB6C7007600EA /* AFNetwork.m */,
-				5134354A238FC0EE007600EA /* AFNetworkTask.h */,
-				5134354B238FC0EE007600EA /* AFNetworkTask.m */,
-				5134354D238FC0FC007600EA /* AFNetworkTaskInfo.h */,
-				5134354E238FC0FC007600EA /* AFNetworkTaskInfo.m */,
+				5134354A238FC0EE007600EA /* AFNetworkSingleTask.h */,
+				5134354B238FC0EE007600EA /* AFNetworkSingleTask.m */,
+				510BB24F23A75BAF00A97F0A /* HyNetworkMutipleTasks.h */,
+				510BB25023A75BAF00A97F0A /* HyNetworkMutipleTasks.m */,
 				513435592390BD15007600EA /* AFMultipartFormDataObject.h */,
 				5134355A2390BD15007600EA /* AFMultipartFormDataObject.m */,
 			);
@@ -686,10 +736,19 @@
 				51343543238FAD48007600EA /* HyNetworkManager.h */,
 				51343544238FAD48007600EA /* HyNetworkManager.m */,
 				51343537238F99E2007600EA /* HyNetworkProtocol.h */,
-				51343538238F99F8007600EA /* HyNetworkTaskProtocol.h */,
-				51343540238FA588007600EA /* HyNetworkTaskInfoProtocol.h */,
+				51343538238F99F8007600EA /* HyNetworkBaseTaskProtocol.h */,
+				510BB24823A7392100A97F0A /* HyNetworkSingleTaskProtocol.h */,
+				510BB25223A75C8200A97F0A /* HyNetworkMutipleTasksProtocol.h */,
+				510BB24D23A7420D00A97F0A /* HyNetworkBaseTaskInfoProtocol.h */,
+				510BB24E23A7568800A97F0A /* HyNetworkSingleTaskInfoProtocol.h */,
+				510BB24123A7335600A97F0A /* HyNetworkMutipleTasksInfoProtocol.h */,
 				513435562390BC83007600EA /* HyMultipartFormDataProtocol.h */,
+				510BB22323A7268B00A97F0A /* HyNetworkSuccessProtocol.h */,
+				510BB22423A726AD00A97F0A /* HyNetworkFailureProtocol.h */,
+				510BB22523A726DF00A97F0A /* HyNetworkCompletionProtocol.h */,
 				513435692390ED13007600EA /* HyNetworkCacheProtocol.h */,
+				510BB24C23A73E5900A97F0A /* HyNetworkTypedef.h */,
+				510BB22F23A72B7100A97F0A /* Base */,
 				513435622390C66D007600EA /* YYCache */,
 				51343546238FB697007600EA /* AFNetworking */,
 			);
@@ -907,6 +966,7 @@
 				51343534238E877D007600EA /* MJRefreshViewFactory.m in Sources */,
 				51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */,
 				513435652390C689007600EA /* YYNetworkCache.m in Sources */,
+				510BB25123A75BAF00A97F0A /* HyNetworkMutipleTasks.m in Sources */,
 				51784F5D238CF47500EB2F14 /* HyListModel.m in Sources */,
 				51559ECF23827A59007904C8 /* ViewController.m in Sources */,
 				5134358B23966F63007600EA /* HyTipStatusView.m in Sources */,
@@ -922,8 +982,9 @@
 				51784F59238CF47500EB2F14 /* HyTableView.m in Sources */,
 				51A247912399155B002497BB /* HyTip.m in Sources */,
 				51784F60238CF47500EB2F14 /* HyCollectionView.m in Sources */,
+				510BB23A23A72B7100A97F0A /* HyNetworkCompletionObject.m in Sources */,
 				51A247962399FBB4002497BB /* HyTipText.m in Sources */,
-				5134354C238FC0EE007600EA /* AFNetworkTask.m in Sources */,
+				5134354C238FC0EE007600EA /* AFNetworkSingleTask.m in Sources */,
 				51784F232387FE1E00EB2F14 /* HyRecommendViewModel.m in Sources */,
 				51343506238E20A7007600EA /* UICollectionView+HySignalExtension.m in Sources */,
 				51CF98FA2387C77C00207DB3 /* HyNewsCell.m in Sources */,
@@ -944,13 +1005,18 @@
 				51CF98F12387C5EA00207DB3 /* HyNewsViewModel.m in Sources */,
 				510BB17123A1EFA800A97F0A /* NSObject+HyProtocol.m in Sources */,
 				513436242397B410007600EA /* HyTipViewAnimationShowTranslation.m in Sources */,
+				510BB23D23A72B7100A97F0A /* HyNetwork.m in Sources */,
 				51343530238E877D007600EA /* KafkaRefreshHeader.m in Sources */,
+				510BB24423A734D700A97F0A /* HyNetworkSignleTaskInfo.m in Sources */,
 				5134361023979F92007600EA /* HyTipViewAnimationDismissTranslation.m in Sources */,
 				5134355B2390BD15007600EA /* AFMultipartFormDataObject.m in Sources */,
 				51559F1C2382807F007904C8 /* RACCommand+HyExtension.m in Sources */,
 				51559F6623839161007904C8 /* HyMeView.m in Sources */,
 				51559F602383913F007904C8 /* HyMeViewModel.m in Sources */,
+				510BB23B23A72B7100A97F0A /* HyNetworkFailureObject.m in Sources */,
 				5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */,
+				510BB24723A734E400A97F0A /* HyNetworkMutipleTasksInfo.m in Sources */,
+				510BB23E23A72B7100A97F0A /* HyNetworkSuccessObject.m in Sources */,
 				51784F262387FE3400EB2F14 /* HyRecommendCell.m in Sources */,
 				51559F6323839153007904C8 /* HyMeModel.m in Sources */,
 				51559F1F2382808E007904C8 /* RACSubject+HyExtension.m in Sources */,
@@ -965,6 +1031,7 @@
 				513435F223978F68007600EA /* HyTipViewAnimationDismissFade.m in Sources */,
 				513436182397A6FB007600EA /* HyTipViewPosition.m in Sources */,
 				51A2483A239F5345002497BB /* HyRefreshAnimationView.m in Sources */,
+				510BB23C23A72B7100A97F0A /* HyNetworkBaseTaskInfo.m in Sources */,
 				51559ECC23827A59007904C8 /* SceneDelegate.m in Sources */,
 				513435542390B68D007600EA /* RACCommand+Network.m in Sources */,
 				513436212397B3FE007600EA /* HyTipViewAnimationShowScale.m in Sources */,
@@ -973,7 +1040,6 @@
 				51784F29238CCB9000EB2F14 /* HyTabBarController.m in Sources */,
 				51343531238E877D007600EA /* KafkaRefreshFactory.m in Sources */,
 				513436272397B41E007600EA /* HyTipViewAnimationShowStretch.m in Sources */,
-				5134354F238FC0FC007600EA /* AFNetworkTaskInfo.m in Sources */,
 				51A247BA239A4AF4002497BB /* HyTipBottomTool.m in Sources */,
 				51784F5A238CF47500EB2F14 /* HyModel.m in Sources */,
 				51CF98EE2387C5CD00207DB3 /* HyNewsViewController.m in Sources */,

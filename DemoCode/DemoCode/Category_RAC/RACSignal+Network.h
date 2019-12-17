@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^_Nullable RequestSignalBlock)(id response, id<RACSubscriber> subscriber);
+typedef void (^_Nullable RequestSignalBlock)(id<HyNetworkSuccessProtocol> successObject, id<RACSubscriber> subscriber);
 
 @interface RACSignal (Network)
 
@@ -35,6 +35,7 @@ typedef void (^_Nullable RequestSignalBlock)(id response, id<RACSubscriber> subs
                         parameter:(NSDictionary *_Nullable)parameter
                          formData:(HyNetworkFormDataBlock)formData
                      handleSignal:(RequestSignalBlock)handleSignal;
+
 @end
 
 NS_ASSUME_NONNULL_END

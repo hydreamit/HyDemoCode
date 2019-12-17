@@ -51,14 +51,15 @@
 }
 
 + (UIWindow *)keyWindow {
-    UIWindow *keyWindow;
+    
+    UIWindow *keyW;
     id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
     if ([delegate respondsToSelector:@selector(window)]){
-        keyWindow = [delegate performSelector:@selector(window)];
-    }else{
-        keyWindow = [[UIApplication sharedApplication] keyWindow];
+        keyW = [delegate performSelector:@selector(window)];
+    } else {
+        keyW = [[UIApplication sharedApplication] keyWindow];
     }
-    return keyWindow;
+    return keyW;
 }
 
 @end

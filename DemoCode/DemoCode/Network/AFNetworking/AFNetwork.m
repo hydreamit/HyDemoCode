@@ -13,7 +13,6 @@
 #import <HyCategoriess/HyCategories.h>
 #import "HyTipText.h"
 #import "HyHUD.h"
-#import "HyTipStatus.h"
 
 
 @interface AFNetwork ()

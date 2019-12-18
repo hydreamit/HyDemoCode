@@ -8,17 +8,12 @@
 
 #import "HyNetworkMutipleTasks.h"
 #import <HyCategoriess/HyCategories.h>
-#import "AFMultipartFormDataObject.h"
-#import "HyNetworkSuccessObject.h"
-#import "HyNetworkFailureObject.h"
-#import "HyNetworkCompletionObject.h"
-#import "AFNetworkSingleTask.h"
-#import <objc/message.h>
-#import "HyTipText.h"
-#import "HyHUD.h"
-#import "HyNetworkProtocol.h"
 #import "HyNetworkCompletionObject.h"
 #import "HyNetworkSignleTaskInfo.h"
+#import "AFNetworkSingleTask.h"
+#import "HyNetworkProtocol.h"
+#import "HyTipText.h"
+#import "HyHUD.h"
 
 
 @interface HyNetworkMutipleTasks ()
@@ -94,7 +89,7 @@
         [completions addObject:NetworkCompletionObject(nil, nil, self)];
     }
     
-    BOOL allCompletion = YES;
+    __block BOOL allCompletion = YES;
     
     dispatch_group_t group = dispatch_group_create();
     HyNetworkSuccessBlock (^success)(NSInteger) = ^(NSInteger index){
@@ -113,6 +108,7 @@
                     if (failureObject.task.taskInfo.cache) {
                         cacheDate = [self.netWork.networkCache getCacheForKey:failureObject.task.taskInfo.url];
                     }
+                    if (!cacheDate) { allCompletion = NO; }
                     [completions replaceObjectAtIndex:index withObject:NetworkCompletionObject(cacheDate, failureObject.error, self)];
                     dispatch_group_leave(group);
                 };

@@ -11,12 +11,10 @@
 #import "AFMultipartFormDataObject.h"
 #import "HyNetworkSuccessObject.h"
 #import "HyNetworkFailureObject.h"
-#import "HyNetworkCompletionObject.h"
 #import "AFNetworkSingleTask.h"
-#import <objc/message.h>
+#import "HyNetworkProtocol.h"
 #import "HyTipText.h"
 #import "HyHUD.h"
-#import "HyNetworkProtocol.h"
 
 
 @interface AFNetworkSingleTask ()

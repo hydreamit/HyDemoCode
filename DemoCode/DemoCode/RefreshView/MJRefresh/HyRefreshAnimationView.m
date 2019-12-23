@@ -35,6 +35,10 @@
         self.pointB = CGPointMake(CircleSizeWH / 2, self.layer.bounds.size.height - CircleSizeWH / 2);
         self.pointC = CGPointMake(self.layer.bounds.size.width - CircleSizeWH / 2, self.layer.bounds.size.height - CircleSizeWH / 2);
 
+        self.circleA = [self createCircleLayerWithColor:UIColor.orangeColor];
+        self.circleB = [self createCircleLayerWithColor:UIColor.blueColor];
+        self.circleC = [self createCircleLayerWithColor:UIColor.greenColor];
+        
         [self.layer addSublayer:self.circleA];
         [self.layer addSublayer:self.circleB];
         [self.layer addSublayer:self.circleC];
@@ -72,27 +76,6 @@
     [self.circleC removeAnimationForKey:@"animation"];
     
     self.animating = NO;
-}
-
-- (CAShapeLayer *)circleA {
-    if (!_circleA){
-        _circleA = [self createCircleLayerWithColor:UIColor.orangeColor];
-    }
-    return _circleA;
-}
-
-- (CAShapeLayer *)circleB {
-    if (!_circleB){
-        _circleB = [self createCircleLayerWithColor:UIColor.blueColor];
-    }
-    return _circleB;
-}
-
-- (CAShapeLayer *)circleC {
-    if (!_circleC){
-        _circleC = [self createCircleLayerWithColor:UIColor.greenColor];
-    }
-    return _circleC;
 }
 
 - (CAShapeLayer *)createCircleLayerWithColor:(UIColor *)color {

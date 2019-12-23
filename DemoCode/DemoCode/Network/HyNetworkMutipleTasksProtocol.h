@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id<HyNetworkMutipleTasksInfoProtocol>)taskInfo;
 
+@property (nonatomic,strong,nullable) NSArray<id<HyNetworkCompletionProtocol>> *completionObject;
+
+@property (nonatomic,assign) BOOL allSuccess;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

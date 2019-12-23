@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id<HyNetworkSingleTaskInfoProtocol>)taskInfo;
 
+@property (nonatomic,strong,nullable) id<HyNetworkSuccessProtocol> successObject;
+
+@property (nonatomic,strong,nullable) id<HyNetworkFailureProtocol> failureObject;
 
 @end
 

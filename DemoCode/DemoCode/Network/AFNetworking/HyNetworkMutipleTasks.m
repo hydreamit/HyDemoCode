@@ -25,6 +25,7 @@
 
 
 @implementation HyNetworkMutipleTasks
+@synthesize completionObject = _completionObject, allSuccess = _allSuccess;
 + (instancetype)taskWithNetwork:(id<HyNetworkProtocol>)netWork
                        taskInfo:(id<HyNetworkMutipleTasksInfoProtocol>)taskInfo {
     
@@ -145,8 +146,10 @@
     }
     
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        self.allSuccess = allCompletion;
+        self.completionObject = [NSArray arrayWithArray:completions];
         self.taskInfo.taskStatus = allCompletion ? HyNetworkTaskStatusSuccess : HyNetworkTaskStatusFailure;
-        self.taskInfo.completionBlock ?: self.taskInfo.completionBlock(completions, allCompletion);
+        self.taskInfo.completionBlock ?: self.taskInfo.completionBlock(self.completionObject, allCompletion);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                       (int64_t)(.1 * NSEC_PER_SEC)),
         dispatch_get_main_queue(), ^{

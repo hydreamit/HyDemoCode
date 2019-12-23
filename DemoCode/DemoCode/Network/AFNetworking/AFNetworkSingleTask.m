@@ -25,6 +25,7 @@
 
 
 @implementation AFNetworkSingleTask
+@synthesize successObject = _successObject, failureObject = _failureObject;
 
 + (instancetype)taskWithNetwork:(id<HyNetworkProtocol>)netWork
                        taskInfo:(id<HyNetworkSingleTaskInfoProtocol>)taskInfo {
@@ -70,11 +71,17 @@
         if (self.taskInfo.cache) {
             id cacheDate = [self.netWork.networkCache getCacheForKey:cacheKey];
             isCacheAndHaveCacheDate = (BOOL)cacheDate;
-            
-            !cacheDate ?: (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(NetworkSuccessObject(cacheDate, self)));
+            if (isCacheAndHaveCacheDate) {
+                self.successObject = NetworkSuccessObject(cacheDate, self);
+            }
+        }
+        if (!isCacheAndHaveCacheDate) {
+            self.failureObject = NetworkFailureObject(nil, self);
         }
         
-        isCacheAndHaveCacheDate ?: (!self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(NetworkFailureObject(nil, self)));
+        isCacheAndHaveCacheDate ?
+        (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject)) :
+        (!self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(self.failureObject));
         
         if ([self.netWork.noResumeSingleTasks containsObject:self]) {
             [self.netWork.noResumeSingleTasks removeObject:self];
@@ -92,7 +99,8 @@
            DismissHUD(hudForView);
            self.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
            !self.taskInfo.cache ?: [self.netWork.networkCache setCache:responseObject forKey:cacheKey];
-           !self.taskInfo.successBlock ?: self.taskInfo.successBlock(NetworkSuccessObject(responseObject, self));
+           self.successObject = NetworkSuccessObject(responseObject, self);
+           !self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject);
            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                          (int64_t)(.1 * NSEC_PER_SEC)),
            dispatch_get_main_queue(), ^{
@@ -106,9 +114,11 @@
            self.taskInfo.taskStatus = HyNetworkTaskStatusFailure;
            if (self.taskInfo.cache) {
                id cacheDate = [self.netWork.networkCache getCacheForKey:cacheKey];
-               !cacheDate ?: (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(NetworkSuccessObject(cacheDate, self)));
+               self.successObject = NetworkSuccessObject(cacheDate, self);
+               !cacheDate ?: (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject));
            }
-           !self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(NetworkFailureObject(error, self));
+           self.failureObject = NetworkFailureObject(error, self);
+           !self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(self.failureObject);
            [self handleNetworkError:error];
            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                          (int64_t)(.1 * NSEC_PER_SEC)),

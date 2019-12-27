@@ -12,8 +12,8 @@
 
 
 @interface HyNetworkManager ()
-@property (nonatomic,strong) AFNetwork *afnNetwork;
-@property (nonatomic,strong) YYNetworkCache *yyNetworkCache;
+@property (nonatomic,strong) id<HyNetworkProtocol> afnNetwork;
+@property (nonatomic,strong) id<HyNetworkCacheProtocol> yyNetworkCache;
 @end
 
 

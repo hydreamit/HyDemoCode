@@ -14,5 +14,7 @@ target 'DemoCode' do
     pod 'YYWebImage'
     pod 'HyCategoriess'
     pod 'KafkaRefresh'
+    pod 'CocoaAsyncSocket'
+    pod 'SocketRocket'
 
 end

@@ -13,6 +13,8 @@
 #import "HyNewsViewController.h"
 #import "HyRecommendViewController.h"
 #import "HyMeViewController.h"
+#import "ViewController.h"
+#import "HySocketViewController.h"
 
 
 @implementation HyTabBarController
@@ -32,10 +34,12 @@
     HyRecommendViewController *recommendVc = (HyRecommendViewController *)[HyRecommendViewController viewControllerWithViewModelName:@"HyRecommendViewModel" parameter:nil];
     HyMeViewController *meVc = (HyMeViewController *)[HyMeViewController viewControllerWithViewModelName:@"HyMeViewModel" parameter:@{@"account" : @"15888888888"}];
     
-    NSArray *array = @[newsVc, recommendVc, meVc];
-    NSArray *titles = @[@"资讯", @"精选", @"我的"];
-    NSArray *normalImages = @[@"icon_zx_nomal_pgall", @"icon_jx_nomal_pgall", @"icon_w_nomal_pgall"];
-    NSArray *selImages = @[@"icon_zx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_jx_pressed_pgall"];
+    HySocketViewController *socketVc = [HySocketViewController new];
+    
+    NSArray *array = @[newsVc, recommendVc, socketVc, meVc];
+    NSArray *titles = @[@"资讯", @"精选", @"Socket", @"我的"];
+    NSArray *normalImages = @[@"icon_zx_nomal_pgall", @"icon_jx_nomal_pgall", @"icon_jx_nomal_pgall", @"icon_w_nomal_pgall"];
+    NSArray *selImages = @[@"icon_zx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_w_pressed_pgall"];
     
     for (UIViewController<HyViewControllerProtocol> *vc in array) {
         NSInteger index = [array indexOfObject:vc];

@@ -13,18 +13,19 @@
 #import "HyViewController.h"
 #import "HyViewModel.h"
 
+
 Class getObjcectPropertyClass(Class cls, const char *name) {
     Class cla = NULL;
-    unsigned int count = 0;
-    objc_property_t *propertys = class_copyPropertyList(cls, &count);
-    for (int i = 0; i<count; i++) {
-        objc_property_t property = propertys[i];
-        if (name == property_getName(property)) {
-            cla = (*rac_copyPropertyAttributes(property)).objectClass;
-            break;
-        }
+    objc_property_t property = class_getProperty(cls, name);
+    if (property != NULL) {
+        cla = (*rac_copyPropertyAttributes(property)).objectClass;
+//        unsigned int outCount=0;
+//        objc_property_attribute_t *attributeList=property_copyAttributeList(property, &outCount);
+//        objc_property_attribute_t attribute = attributeList[0];
+//        NSString *typeString = [NSString stringWithUTF8String:attribute.value];
+//        free(attributeList);
+//        cla = NSClassFromString(typeString);
     }
-    free(propertys);
     return cla;
 }
 

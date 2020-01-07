@@ -88,13 +88,14 @@
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(nullable NSError *)err {
-    NSLog(@"断开连接,host:%@,port:%d",sock.localHost,sock.localPort);
+    NSLog(@"断开连接,host:%@,port:%d====%@",sock.localHost,sock.localPort,err);
     if (err) {
         if (HyNetworkManager.network.networkStatus == HyNetworStatusReachableViaWWAN ||
             HyNetworkManager.network.networkStatus == HyNetworStatusReachbleViaWiFi) {
             NSLog(@"其他原因关闭连接，开始重连...");
             [self.reConnectObject reConnect];
         }  else {
+            NSLog(@"没网不重连");
             [self disConnect];
         }
     } else {
@@ -149,13 +150,12 @@
         __weak typeof(self) _self = self;
         [_reConnectObject reConnectBlock:^{
             __strong typeof(_self) self = _self;
-            NSLog(@"开始重连...");
             [self clearSocket];
             [self initSocket];
             [self.gcdSocket connectToHost:self.ip onPort:[self.port intValue] error:nil];
         } countOutBlock:^{
             __strong typeof(_self) self = _self;
-            [self disConnect];
+            [self clearSocket];
         }];
     }
     return _reConnectObject;

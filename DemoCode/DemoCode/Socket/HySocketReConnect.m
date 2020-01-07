@@ -13,31 +13,35 @@
 @property (nonatomic,assign) NSInteger reConnectCount;
 @property (nonatomic,copy) void(^rBlock)(void);
 @property (nonatomic,copy) void(^cBlock)(void);
+@property (nonatomic,assign) BOOL hasCountOut;
 @end
 
 
 @implementation HySocketReConnect
 - (void)reConnect {
     
-    // 超过一分钟就不再重连 只会重连5次 2^5 = 64
-    if (self.reConnectCount > 64) {
+    // 只会重连6次
+    if (self.reConnectCount > 1) {
+        if (self.hasCountOut) {return;}
+         NSLog(@"超过重连次数");
         !self.cBlock ?: self.cBlock();
+        self.hasCountOut = YES;
         return;
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.reConnectCount * NSEC_PER_SEC)),
+    // 重连时间隔 2^5 = 64
+    NSTimeInterval time = self.reConnectCount ? pow(2, self.reConnectCount) : 0;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)),
                    dispatch_get_main_queue(),
                    self.rBlock);
       
-      // 重连时间2的指数级增长
-      if (self.reConnectCount == 0) {
-          self.reConnectCount = 2;
-      } else {
-          self.reConnectCount *= 2;
-      }
+    self.reConnectCount ++;
+    
+    NSLog(@"第%ld次重连", (long)self.reConnectCount);
 }
 
 - (void)resetReConnectCount {
+    self.hasCountOut = NO;
     self.reConnectCount = 0;
 }
 

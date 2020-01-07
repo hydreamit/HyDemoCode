@@ -160,7 +160,7 @@
             [self autoConnectWithCompletion:nil];
         } countOutBlock:^{
             __strong typeof(_self) self = _self;
-            [self disConnect];
+            close(self.cSocket);
         }];
     }
     return _reConnectObject;

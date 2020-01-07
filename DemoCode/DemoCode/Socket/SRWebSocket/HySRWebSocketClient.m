@@ -174,7 +174,9 @@
             [self.webSocket open];
         } countOutBlock:^{
             __strong typeof(_self) self = _self;
-            [self disConnect];
+            if (self.webSocket) {
+                [self clearSocket];
+            }
         }];
     }
     return _reConnectObject;

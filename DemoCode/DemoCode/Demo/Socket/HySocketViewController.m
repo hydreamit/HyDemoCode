@@ -132,7 +132,6 @@
     table.backgroundColor = UIColor.groupTableViewBackgroundColor;
     table.rowHeight = 25;
     [view addSubview:table];
-    
     [self.socketFactory.server recvClientMessageWithHandler:^(id<HySocketMessageProtocol> _Nonnull message, id  _Nonnull socket) {
         if (message) {
             [mArray addObject:message];

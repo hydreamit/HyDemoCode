@@ -2,8 +2,8 @@
 //  HySocketConnect.m
 //  DemoCode
 //
-//  Created by huangyi on 2020/1/5.
-//  Copyright © 2020 Hy. All rights reserved.
+//  Created by Hy on 2017/1/5.
+//  Copyright © 2017 Hy. All rights reserved.
 //
 
 #import "HySocketConnect.h"

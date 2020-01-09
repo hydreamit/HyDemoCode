@@ -12,7 +12,7 @@
 #import <arpa/inet.h>
 #import "HyServerClientSocketObject.h"
 #import "HySocketMessage.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 #import "HySocketHeartBeat.h"
 
 
@@ -131,8 +131,8 @@
                     [NSJSONSerialization JSONObjectWithData:recvData
                                                     options:NSJSONReadingMutableContainers
                                                       error:nil];
-                    NSObject<HySocketMessageProtocol> *message  = [HySocketMessage mj_objectWithKeyValues:dict];
-                    const char *messageChar = message.mj_JSONString.UTF8String;
+                    NSObject<HySocketMessageProtocol> *message  = [HySocketMessage hy_modelWithJSON:dict];
+                    const char *messageChar = message.hy_modelToJSONString.UTF8String;
                     
                     clientSocketObject.ID = message.sourceID;
                     if (![self.clientSocketObjects containsObject:clientSocketObject]) {
@@ -172,7 +172,7 @@
     
     if (!message.content ||  !message.targetID) { return; }
     
-    NSString *messageJson = message.mj_JSONString;
+    NSString *messageJson = message.hy_modelToJSONString;
     const char *messageChar = messageJson.UTF8String;
     NSString *targetID = message.targetID;
     

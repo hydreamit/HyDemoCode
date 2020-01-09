@@ -27,8 +27,8 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = UIColor.whiteColor;
-//    self.socketFactory = HyCFSocketFactory.socketFactory(@"10.10.10.50", @"8040");
-    self.socketFactory = HyCocoaSyncSocketFactory.socketFactory(@"10.10.10.50", @"8040");
+//    self.socketFactory = HyCFSocketFactory.socketFactory(@"10.10.3.8", @"8040");
+    self.socketFactory = HyCocoaSyncSocketFactory.socketFactory(@"10.10.3.8", @"8040");
     [self.socketFactory.server bindAndListenWithCompletion:^(BOOL success) {
         if (success) {
             NSLog(@"服务器开启监听成功");

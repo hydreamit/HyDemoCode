@@ -10,4 +10,5 @@ ${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework
 ${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework
 ${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework
 ${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework
+${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework
 ${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework

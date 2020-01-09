@@ -7,7 +7,7 @@
 //
 
 #import "HyModel.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 
 @implementation HyModel
 @synthesize parameter = _parameter;
@@ -16,7 +16,7 @@
     
     id<HyModelProtocol> model = [[self alloc] init];
     model.parameter = parameter;
-    model = [((NSObject<HyModelProtocol> *)model) mj_setKeyValues:parameter];
+    [((NSObject<HyModelProtocol> *)model) hy_modelSetWithJSON:parameter];
     [model modelLoad];
     return model;
 }

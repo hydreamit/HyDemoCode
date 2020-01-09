@@ -10,6 +10,7 @@ target 'DemoCode' do
     pod 'MJExtension'
     pod 'MJRefresh’
     pod 'Masonry'
+    pod 'YYModel'
     pod 'YYCache'
     pod 'YYWebImage'
     pod 'HyCategoriess'

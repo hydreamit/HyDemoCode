@@ -51,6 +51,7 @@
 		513436212397B3FE007600EA /* HyTipViewAnimationShowScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 513436202397B3FE007600EA /* HyTipViewAnimationShowScale.m */; };
 		513436242397B410007600EA /* HyTipViewAnimationShowTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = 513436232397B410007600EA /* HyTipViewAnimationShowTranslation.m */; };
 		513436272397B41E007600EA /* HyTipViewAnimationShowStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = 513436262397B41E007600EA /* HyTipViewAnimationShowStretch.m */; };
+		514C598423C57BB800FD4C7C /* NSObject+HyModelParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 514C598323C57BB800FD4C7C /* NSObject+HyModelParser.m */; };
 		51559EC923827A59007904C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559EC823827A59007904C8 /* AppDelegate.m */; };
 		51559ECC23827A59007904C8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559ECB23827A59007904C8 /* SceneDelegate.m */; };
 		51559ECF23827A59007904C8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559ECE23827A59007904C8 /* ViewController.m */; };
@@ -240,6 +241,10 @@
 		513436232397B410007600EA /* HyTipViewAnimationShowTranslation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTipViewAnimationShowTranslation.m; sourceTree = "<group>"; };
 		513436252397B41E007600EA /* HyTipViewAnimationShowStretch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyTipViewAnimationShowStretch.h; sourceTree = "<group>"; };
 		513436262397B41E007600EA /* HyTipViewAnimationShowStretch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTipViewAnimationShowStretch.m; sourceTree = "<group>"; };
+		514C597D23C4675D00FD4C7C /* HyModelParserProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyModelParserProtocol.h; sourceTree = "<group>"; };
+		514C598223C57BB800FD4C7C /* NSObject+HyModelParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyModelParser.h"; sourceTree = "<group>"; };
+		514C598323C57BB800FD4C7C /* NSObject+HyModelParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyModelParser.m"; sourceTree = "<group>"; };
+		514C59C723C72D0700FD4C7C /* HyModelParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyModelParser.h; sourceTree = "<group>"; };
 		51559EC423827A59007904C8 /* DemoCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51559EC723827A59007904C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		51559EC823827A59007904C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -596,6 +601,17 @@
 			path = Position;
 			sourceTree = "<group>";
 		};
+		514C597C23C4670B00FD4C7C /* ModelParser */ = {
+			isa = PBXGroup;
+			children = (
+				514C59C723C72D0700FD4C7C /* HyModelParser.h */,
+				514C597D23C4675D00FD4C7C /* HyModelParserProtocol.h */,
+				514C598223C57BB800FD4C7C /* NSObject+HyModelParser.h */,
+				514C598323C57BB800FD4C7C /* NSObject+HyModelParser.m */,
+			);
+			path = ModelParser;
+			sourceTree = "<group>";
+		};
 		51559EBB23827A59007904C8 = {
 			isa = PBXGroup;
 			children = (
@@ -627,6 +643,7 @@
 				5190326323B5DE2100130D01 /* Monitor */,
 				5134356B2394ECBF007600EA /* TipView */,
 				51CF98CF23867DC100207DB3 /* Network */,
+				514C597C23C4670B00FD4C7C /* ModelParser */,
 				5134351C238E877D007600EA /* RefreshView */,
 				51559F0823827E8F007904C8 /* Category_RAC */,
 				51559EC723827A59007904C8 /* AppDelegate.h */,
@@ -1185,6 +1202,7 @@
 				510BB17123A1EFA800A97F0A /* NSObject+HyProtocol.m in Sources */,
 				519032C323BF3A5300130D01 /* HyCocoaSyncSocketFactory.m in Sources */,
 				513436242397B410007600EA /* HyTipViewAnimationShowTranslation.m in Sources */,
+				514C598423C57BB800FD4C7C /* NSObject+HyModelParser.m in Sources */,
 				510BB23D23A72B7100A97F0A /* HyNetwork.m in Sources */,
 				51343530238E877D007600EA /* KafkaRefreshHeader.m in Sources */,
 				510BB24423A734D700A97F0A /* HyNetworkSignleTaskInfo.m in Sources */,

@@ -10,7 +10,7 @@
 #import "HySocketReConnect.h"
 #import "HySocketMessage.h"
 #import "HySocketHeartBeat.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 #import "GCDAsyncSocket.h"
 #import "HySocketConnect.h"
 #import "HyNetworkManager.h"
@@ -70,7 +70,7 @@
     if (!message.content || !self.gcdSocket) { return; }
     
     message.sourceID = self.ID;
-    NSString *messageJson = message.mj_JSONString;
+    NSString *messageJson = message.hy_modelToJSONString;
     NSData  *messageData = [messageJson dataUsingEncoding:NSUTF8StringEncoding];
     [self.gcdSocket writeData:messageData withTimeout:-1 tag:0];
 }
@@ -118,7 +118,7 @@
                                       error:nil];
     
     if ([message isKindOfClass:NSDictionary.class]) {
-       id<HySocketMessageProtocol> msg = [HySocketMessage mj_objectWithKeyValues:message];
+       id<HySocketMessageProtocol> msg = [HySocketMessage hy_modelWithJSON:message];
         !self.recvMessageHandler ?: self.recvMessageHandler(msg);
     } else {
         !self.recvMessageHandler ?: self.recvMessageHandler(message);

@@ -7,7 +7,7 @@
 //
 
 #import "HyViewModel.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 #import "NSObject+HyProtocol.h"
 #import "HyNetworkManager.h"
 #import "NSObject+HyProtocol.h"
@@ -34,7 +34,7 @@ NSError *);
     
     id<HyViewModelProtocol> viewModel = [[self alloc] init];
     viewModel.parameter = parameter;
-    viewModel = [((NSObject<HyViewModelProtocol> *)viewModel) mj_setKeyValues:parameter];
+    [((NSObject<HyViewModelProtocol> *)viewModel) hy_modelSetWithJSON:parameter];
     return viewModel;
 }
 

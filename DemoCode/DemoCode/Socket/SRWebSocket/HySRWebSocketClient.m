@@ -10,7 +10,7 @@
 #import "HySocketReConnect.h"
 #import "HySocketMessage.h"
 #import "HySocketHeartBeat.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 #import "SocketRocket.h"
 #import "HySocketConnect.h"
 #import "HyNetworkManager.h"
@@ -73,7 +73,7 @@
     if (!message.content || !self.webSocket) { return; }
     
     message.sourceID = self.ID;
-    NSString *messageJson = message.mj_JSONString;
+    NSString *messageJson = message.hy_modelToJSONString;
     NSData  *messageData = [messageJson dataUsingEncoding:NSUTF8StringEncoding];
     [self.webSocket send:messageData];
 }
@@ -105,7 +105,7 @@
                                       error:nil];
     
     if ([msg isKindOfClass:NSDictionary.class]) {
-       id<HySocketMessageProtocol> msgResult = [HySocketMessage mj_objectWithKeyValues:msg];
+       id<HySocketMessageProtocol> msgResult = [HySocketMessage hy_modelWithJSON:msg];
         !self.recvMessageHandler ?: self.recvMessageHandler(msgResult);
     } else {
         !self.recvMessageHandler ?: self.recvMessageHandler(msg);

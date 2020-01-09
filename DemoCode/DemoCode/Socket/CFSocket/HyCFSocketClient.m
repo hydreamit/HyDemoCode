@@ -13,7 +13,7 @@
 #import "HySocketReConnect.h"
 #import "HySocketMessage.h"
 #import "HySocketHeartBeat.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 #import "HySocketConnect.h"
 #import "HyNetworkManager.h"
 
@@ -94,7 +94,7 @@
                    
                    dispatch_async(dispatch_get_main_queue(), ^{
                        if ([msg isKindOfClass:NSDictionary.class]) {
-                          id<HySocketMessageProtocol> msgResult = [HySocketMessage mj_objectWithKeyValues:msg];
+                          id<HySocketMessageProtocol> msgResult = [HySocketMessage hy_modelWithJSON:msg];
                            !self.recvMessageHandler ?: self.recvMessageHandler(msgResult);
                        } else {
                            !self.recvMessageHandler ?: self.recvMessageHandler(msg);
@@ -126,7 +126,7 @@
     if (!message.content || !self.isConnected) { return; }
     
     message.sourceID = self.ID;
-    NSString *messageJson = message.mj_JSONString;
+    NSString *messageJson = message.hy_modelToJSONString;
     const char *messageChar = messageJson.UTF8String;
     send(self.cSocket, messageChar, strlen(messageChar), 0);
 }

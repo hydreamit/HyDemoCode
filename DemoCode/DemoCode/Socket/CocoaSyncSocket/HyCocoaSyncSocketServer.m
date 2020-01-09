@@ -10,7 +10,7 @@
 #import "HyServerClientSocketObject.h"
 #import "GCDAsyncSocket.h"
 #import "HySocketMessage.h"
-#import <MJExtension/MJExtension.h>
+#import "HyModelParser.h"
 #import "HySocketHeartBeat.h"
 #import "HySocketConnect.h"
 #import "HyNetworkManager.h"
@@ -62,7 +62,7 @@
     
     if (!message.content ||  !message.targetID) { return; }
     
-    NSString *messageJson = message.mj_JSONString;
+    NSString *messageJson = message.hy_modelToJSONString;
     NSData  *messageData = [messageJson dataUsingEncoding:NSUTF8StringEncoding];
     
     NSString *targetID = message.targetID;
@@ -104,7 +104,7 @@
                                     options:NSJSONReadingMutableContainers
                                       error:nil];
 
-    id<HySocketMessageProtocol> message  = [HySocketMessage mj_objectWithKeyValues:dict];
+    id<HySocketMessageProtocol> message  = [HySocketMessage hy_modelWithJSON:dict];
     clientSocketObject.ID = message.sourceID;
     if (![self.clientSocketObjects containsObject:clientSocketObject]) {
         [self.clientSocketObjects addObject:clientSocketObject];

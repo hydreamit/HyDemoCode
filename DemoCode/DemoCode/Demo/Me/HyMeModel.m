@@ -7,6 +7,7 @@
 //
 
 #import "HyMeModel.h"
+#import "HyModelParser.h"
 
 @implementation HyMeModel
 
@@ -17,4 +18,13 @@
 - (void)dealloc {
     NSLog(@"%s", __func__);
 }
+
+//+ (NSArray<NSString *> *)hy_modelPropertyBlacklist {
+//    return @[@"account"];
+//}
+
+- (void)hy_modelDidParsedWithDictionary:(NSDictionary *)dictionary {
+    NSLog(@"hy_modelDidParsedWithDictionary====%@", dictionary);
+}
+
 @end

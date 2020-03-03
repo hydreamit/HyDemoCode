@@ -47,7 +47,7 @@
                assetName:(NSString *_Nullable)assetName
               completion:(void(^_Nullable)(NSURL *url, NSError *error))completion {
     
-    NSString *photoAssetName = assetName;
+    NSString *photoAssetName = assetName ?: @"视频相册";
     
     PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
     dispatch_async(dispatch_get_main_queue(), ^{

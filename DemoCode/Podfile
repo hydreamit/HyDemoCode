@@ -17,5 +17,7 @@ target 'DemoCode' do
     pod 'KafkaRefresh'
     pod 'CocoaAsyncSocket'
     pod 'SocketRocket'
+    
+    pod 'GPUImage'
 
 end

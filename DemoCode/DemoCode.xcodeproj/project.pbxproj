@@ -69,6 +69,18 @@
 		51559F6323839153007904C8 /* HyMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F6223839153007904C8 /* HyMeModel.m */; };
 		51559F6623839161007904C8 /* HyMeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F6523839161007904C8 /* HyMeView.m */; };
 		51559F7C2383F9E0007904C8 /* HyTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51559F7B2383F9E0007904C8 /* HyTextFieldView.m */; };
+		516CAB93240E324D00D9447A /* GPUImageFilter+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB70240E324D00D9447A /* GPUImageFilter+Extension.m */; };
+		516CAB94240E324D00D9447A /* HyGPUImageVideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB71240E324D00D9447A /* HyGPUImageVideoCamera.m */; };
+		516CAB95240E324D00D9447A /* HyAVCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB77240E324D00D9447A /* HyAVCapturer.m */; };
+		516CAB96240E324D00D9447A /* HyVideoCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB78240E324D00D9447A /* HyVideoCapturer.m */; };
+		516CAB97240E324D00D9447A /* HyAudioCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB7C240E324D00D9447A /* HyAudioCapturer.m */; };
+		516CAB98240E324D00D9447A /* HyAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB80240E324D00D9447A /* HyAudioTool.m */; };
+		516CAB99240E324D00D9447A /* HyVideoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB82240E324D00D9447A /* HyVideoTool.m */; };
+		516CAB9A240E324D00D9447A /* HyPhotoLibraryTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB85240E324D00D9447A /* HyPhotoLibraryTool.m */; };
+		516CAB9B240E324D00D9447A /* HyAVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB89240E324D00D9447A /* HyAVWriter.m */; };
+		516CAB9C240E324D00D9447A /* HyVideoWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB8B240E324D00D9447A /* HyVideoWriter.m */; };
+		516CAB9D240E324D00D9447A /* HyAVMovieFileOutputHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB8E240E324D00D9447A /* HyAVMovieFileOutputHandler.m */; };
+		516CAB9E240E324D00D9447A /* HyAudioWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 516CAB91240E324D00D9447A /* HyAudioWriter.m */; };
 		51784F202387FE0C00EB2F14 /* HyRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F1F2387FE0C00EB2F14 /* HyRecommendViewController.m */; };
 		51784F232387FE1E00EB2F14 /* HyRecommendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F222387FE1E00EB2F14 /* HyRecommendViewModel.m */; };
 		51784F262387FE3400EB2F14 /* HyRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51784F252387FE3400EB2F14 /* HyRecommendCell.m */; };
@@ -280,6 +292,37 @@
 		51559F792383C520007904C8 /* HyMVVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyMVVM.h; sourceTree = "<group>"; };
 		51559F7A2383F9E0007904C8 /* HyTextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyTextFieldView.h; sourceTree = "<group>"; };
 		51559F7B2383F9E0007904C8 /* HyTextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyTextFieldView.m; sourceTree = "<group>"; };
+		516CAB70240E324D00D9447A /* GPUImageFilter+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GPUImageFilter+Extension.m"; sourceTree = "<group>"; };
+		516CAB71240E324D00D9447A /* HyGPUImageVideoCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyGPUImageVideoCamera.m; sourceTree = "<group>"; };
+		516CAB72240E324D00D9447A /* GPUImageFilter+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPUImageFilter+Extension.h"; sourceTree = "<group>"; };
+		516CAB73240E324D00D9447A /* HyGPUImageVideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyGPUImageVideoCamera.h; sourceTree = "<group>"; };
+		516CAB76240E324D00D9447A /* HyAudioCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAudioCapturer.h; sourceTree = "<group>"; };
+		516CAB77240E324D00D9447A /* HyAVCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyAVCapturer.m; sourceTree = "<group>"; };
+		516CAB78240E324D00D9447A /* HyVideoCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyVideoCapturer.m; sourceTree = "<group>"; };
+		516CAB79240E324D00D9447A /* HyAVCaptureProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAVCaptureProtocol.h; sourceTree = "<group>"; };
+		516CAB7A240E324D00D9447A /* HyVideoCapturerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyVideoCapturerProtocol.h; sourceTree = "<group>"; };
+		516CAB7B240E324D00D9447A /* HyAudioCapturerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAudioCapturerProtocol.h; sourceTree = "<group>"; };
+		516CAB7C240E324D00D9447A /* HyAudioCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyAudioCapturer.m; sourceTree = "<group>"; };
+		516CAB7D240E324D00D9447A /* HyVideoCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyVideoCapturer.h; sourceTree = "<group>"; };
+		516CAB7E240E324D00D9447A /* HyAVCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAVCapturer.h; sourceTree = "<group>"; };
+		516CAB80240E324D00D9447A /* HyAudioTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyAudioTool.m; sourceTree = "<group>"; };
+		516CAB81240E324D00D9447A /* HyPhotoLibraryTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyPhotoLibraryTool.h; sourceTree = "<group>"; };
+		516CAB82240E324D00D9447A /* HyVideoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyVideoTool.m; sourceTree = "<group>"; };
+		516CAB83240E324D00D9447A /* HyVideoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyVideoTool.h; sourceTree = "<group>"; };
+		516CAB84240E324D00D9447A /* HyAudioTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAudioTool.h; sourceTree = "<group>"; };
+		516CAB85240E324D00D9447A /* HyPhotoLibraryTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyPhotoLibraryTool.m; sourceTree = "<group>"; };
+		516CAB87240E324D00D9447A /* HyAVMovieFileOutputHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAVMovieFileOutputHandler.h; sourceTree = "<group>"; };
+		516CAB88240E324D00D9447A /* HyAVWriterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAVWriterProtocol.h; sourceTree = "<group>"; };
+		516CAB89240E324D00D9447A /* HyAVWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyAVWriter.m; sourceTree = "<group>"; };
+		516CAB8A240E324D00D9447A /* HyAVWriterTypedef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAVWriterTypedef.h; sourceTree = "<group>"; };
+		516CAB8B240E324D00D9447A /* HyVideoWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyVideoWriter.m; sourceTree = "<group>"; };
+		516CAB8C240E324D00D9447A /* HyVideoWriterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyVideoWriterProtocol.h; sourceTree = "<group>"; };
+		516CAB8D240E324D00D9447A /* HyAudioWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAudioWriter.h; sourceTree = "<group>"; };
+		516CAB8E240E324D00D9447A /* HyAVMovieFileOutputHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyAVMovieFileOutputHandler.m; sourceTree = "<group>"; };
+		516CAB8F240E324D00D9447A /* HyAVWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAVWriter.h; sourceTree = "<group>"; };
+		516CAB90240E324D00D9447A /* HyAudioWriterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyAudioWriterProtocol.h; sourceTree = "<group>"; };
+		516CAB91240E324D00D9447A /* HyAudioWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyAudioWriter.m; sourceTree = "<group>"; };
+		516CAB92240E324D00D9447A /* HyVideoWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyVideoWriter.h; sourceTree = "<group>"; };
 		51784F1E2387FE0C00EB2F14 /* HyRecommendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyRecommendViewController.h; sourceTree = "<group>"; };
 		51784F1F2387FE0C00EB2F14 /* HyRecommendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyRecommendViewController.m; sourceTree = "<group>"; };
 		51784F212387FE1E00EB2F14 /* HyRecommendViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyRecommendViewModel.h; sourceTree = "<group>"; };
@@ -643,6 +686,7 @@
 				5190326323B5DE2100130D01 /* Monitor */,
 				5134356B2394ECBF007600EA /* TipView */,
 				51CF98CF23867DC100207DB3 /* Network */,
+				516CAB6E240E324D00D9447A /* Audio_Video */,
 				514C597C23C4670B00FD4C7C /* ModelParser */,
 				5134351C238E877D007600EA /* RefreshView */,
 				51559F0823827E8F007904C8 /* Category_RAC */,
@@ -751,6 +795,84 @@
 				51559F7B2383F9E0007904C8 /* HyTextFieldView.m */,
 			);
 			path = Me;
+			sourceTree = "<group>";
+		};
+		516CAB6E240E324D00D9447A /* Audio_Video */ = {
+			isa = PBXGroup;
+			children = (
+				516CAB6F240E324D00D9447A /* GPUImage */,
+				516CAB74240E324D00D9447A /* AVFoundation */,
+			);
+			path = Audio_Video;
+			sourceTree = "<group>";
+		};
+		516CAB6F240E324D00D9447A /* GPUImage */ = {
+			isa = PBXGroup;
+			children = (
+				516CAB72240E324D00D9447A /* GPUImageFilter+Extension.h */,
+				516CAB70240E324D00D9447A /* GPUImageFilter+Extension.m */,
+				516CAB73240E324D00D9447A /* HyGPUImageVideoCamera.h */,
+				516CAB71240E324D00D9447A /* HyGPUImageVideoCamera.m */,
+			);
+			path = GPUImage;
+			sourceTree = "<group>";
+		};
+		516CAB74240E324D00D9447A /* AVFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				516CAB75240E324D00D9447A /* Capturer */,
+				516CAB86240E324D00D9447A /* Writer */,
+				516CAB7F240E324D00D9447A /* Tools */,
+			);
+			path = AVFoundation;
+			sourceTree = "<group>";
+		};
+		516CAB75240E324D00D9447A /* Capturer */ = {
+			isa = PBXGroup;
+			children = (
+				516CAB7E240E324D00D9447A /* HyAVCapturer.h */,
+				516CAB77240E324D00D9447A /* HyAVCapturer.m */,
+				516CAB76240E324D00D9447A /* HyAudioCapturer.h */,
+				516CAB7C240E324D00D9447A /* HyAudioCapturer.m */,
+				516CAB7D240E324D00D9447A /* HyVideoCapturer.h */,
+				516CAB78240E324D00D9447A /* HyVideoCapturer.m */,
+				516CAB79240E324D00D9447A /* HyAVCaptureProtocol.h */,
+				516CAB7B240E324D00D9447A /* HyAudioCapturerProtocol.h */,
+				516CAB7A240E324D00D9447A /* HyVideoCapturerProtocol.h */,
+			);
+			path = Capturer;
+			sourceTree = "<group>";
+		};
+		516CAB7F240E324D00D9447A /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				516CAB84240E324D00D9447A /* HyAudioTool.h */,
+				516CAB80240E324D00D9447A /* HyAudioTool.m */,
+				516CAB83240E324D00D9447A /* HyVideoTool.h */,
+				516CAB82240E324D00D9447A /* HyVideoTool.m */,
+				516CAB81240E324D00D9447A /* HyPhotoLibraryTool.h */,
+				516CAB85240E324D00D9447A /* HyPhotoLibraryTool.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		516CAB86240E324D00D9447A /* Writer */ = {
+			isa = PBXGroup;
+			children = (
+				516CAB8F240E324D00D9447A /* HyAVWriter.h */,
+				516CAB89240E324D00D9447A /* HyAVWriter.m */,
+				516CAB8D240E324D00D9447A /* HyAudioWriter.h */,
+				516CAB91240E324D00D9447A /* HyAudioWriter.m */,
+				516CAB92240E324D00D9447A /* HyVideoWriter.h */,
+				516CAB8B240E324D00D9447A /* HyVideoWriter.m */,
+				516CAB87240E324D00D9447A /* HyAVMovieFileOutputHandler.h */,
+				516CAB8E240E324D00D9447A /* HyAVMovieFileOutputHandler.m */,
+				516CAB88240E324D00D9447A /* HyAVWriterProtocol.h */,
+				516CAB90240E324D00D9447A /* HyAudioWriterProtocol.h */,
+				516CAB8C240E324D00D9447A /* HyVideoWriterProtocol.h */,
+				516CAB8A240E324D00D9447A /* HyAVWriterTypedef.h */,
+			);
+			path = Writer;
 			sourceTree = "<group>";
 		};
 		51784F1D2387FDF900EB2F14 /* Recommend */ = {
@@ -1156,10 +1278,12 @@
 				51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */,
 				513435652390C689007600EA /* YYNetworkCache.m in Sources */,
 				510BB25123A75BAF00A97F0A /* HyNetworkMutipleTasks.m in Sources */,
+				516CAB9B240E324D00D9447A /* HyAVWriter.m in Sources */,
 				51784F5D238CF47500EB2F14 /* HyListModel.m in Sources */,
 				51559ECF23827A59007904C8 /* ViewController.m in Sources */,
 				5134358B23966F63007600EA /* HyTipStatusView.m in Sources */,
 				513435552390B68D007600EA /* RACSignal+Network.m in Sources */,
+				516CAB94240E324D00D9447A /* HyGPUImageVideoCamera.m in Sources */,
 				51784F5C238CF47500EB2F14 /* HyView.m in Sources */,
 				519032C023BF3A5300130D01 /* HyCFSocketFactory.m in Sources */,
 				5134361B2397B35F007600EA /* HyTipViewAnimationShowNone.m in Sources */,
@@ -1184,6 +1308,7 @@
 				51559EC923827A59007904C8 /* AppDelegate.m in Sources */,
 				519032C823C1B74300130D01 /* HySocketConnect.m in Sources */,
 				51A247992399FBC8002497BB /* HyTipTextView.m in Sources */,
+				516CAB95240E324D00D9447A /* HyAVCapturer.m in Sources */,
 				51CF98F72387C76C00207DB3 /* HyNewsImageCell.m in Sources */,
 				51343533238E877D007600EA /* MJRefreshViewFooter.m in Sources */,
 				51784F5B238CF47500EB2F14 /* HyListViewModel.m in Sources */,
@@ -1203,6 +1328,7 @@
 				519032C323BF3A5300130D01 /* HyCocoaSyncSocketFactory.m in Sources */,
 				513436242397B410007600EA /* HyTipViewAnimationShowTranslation.m in Sources */,
 				514C598423C57BB800FD4C7C /* NSObject+HyModelParser.m in Sources */,
+				516CAB98240E324D00D9447A /* HyAudioTool.m in Sources */,
 				510BB23D23A72B7100A97F0A /* HyNetwork.m in Sources */,
 				51343530238E877D007600EA /* KafkaRefreshHeader.m in Sources */,
 				510BB24423A734D700A97F0A /* HyNetworkSignleTaskInfo.m in Sources */,
@@ -1215,10 +1341,13 @@
 				5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */,
 				510BB24723A734E400A97F0A /* HyNetworkMutipleTasksInfo.m in Sources */,
 				510BB23E23A72B7100A97F0A /* HyNetworkSuccessObject.m in Sources */,
+				516CAB9A240E324D00D9447A /* HyPhotoLibraryTool.m in Sources */,
 				51784F262387FE3400EB2F14 /* HyRecommendCell.m in Sources */,
 				51559F6323839153007904C8 /* HyMeModel.m in Sources */,
 				51559F1F2382808E007904C8 /* RACSubject+HyExtension.m in Sources */,
+				516CAB9E240E324D00D9447A /* HyAudioWriter.m in Sources */,
 				51784F61238CF47500EB2F14 /* HyViewController.m in Sources */,
+				516CAB99240E324D00D9447A /* HyVideoTool.m in Sources */,
 				5190327223B5E11600130D01 /* HyPerformanceMonitor.m in Sources */,
 				519032C223BF3A5300130D01 /* HyCocoaSyncSocketServer.m in Sources */,
 				513435822394F414007600EA /* HyHUDView.m in Sources */,
@@ -1227,6 +1356,7 @@
 				51559EDA23827A59007904C8 /* main.m in Sources */,
 				51A247B7239A4A3B002497BB /* HyTipCenterTool.m in Sources */,
 				51CF98F42387C63300207DB3 /* HyNewsModel.m in Sources */,
+				516CAB97240E324D00D9447A /* HyAudioCapturer.m in Sources */,
 				5134352F238E877D007600EA /* KafkaRefreshFooter.m in Sources */,
 				5134361E2397B3F3007600EA /* HyTipViewAnimationShowFade.m in Sources */,
 				513435F223978F68007600EA /* HyTipViewAnimationDismissFade.m in Sources */,
@@ -1242,14 +1372,18 @@
 				519032BC23BF3A5300130D01 /* HySRWebSocketFactory.m in Sources */,
 				513436212397B3FE007600EA /* HyTipViewAnimationShowScale.m in Sources */,
 				5134360D23979D49007600EA /* HyTipViewAnimationDismissScale.m in Sources */,
+				516CAB96240E324D00D9447A /* HyVideoCapturer.m in Sources */,
 				519032C123BF3A5300130D01 /* HyServerClientSocketObject.m in Sources */,
 				51343549238FB6C7007600EA /* AFNetwork.m in Sources */,
+				516CAB9D240E324D00D9447A /* HyAVMovieFileOutputHandler.m in Sources */,
 				51784F29238CCB9000EB2F14 /* HyTabBarController.m in Sources */,
 				51343531238E877D007600EA /* KafkaRefreshFactory.m in Sources */,
 				513436272397B41E007600EA /* HyTipViewAnimationShowStretch.m in Sources */,
 				51A247BA239A4AF4002497BB /* HyTipBottomTool.m in Sources */,
 				51784F5A238CF47500EB2F14 /* HyModel.m in Sources */,
+				516CAB9C240E324D00D9447A /* HyVideoWriter.m in Sources */,
 				51CF98EE2387C5CD00207DB3 /* HyNewsViewController.m in Sources */,
+				516CAB93240E324D00D9447A /* GPUImageFilter+Extension.m in Sources */,
 				519032C423BF3A5300130D01 /* HyCocoaSyncSocketClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

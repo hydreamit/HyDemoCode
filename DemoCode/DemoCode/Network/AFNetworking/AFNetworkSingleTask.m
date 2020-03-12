@@ -15,9 +15,11 @@
 #import "HyNetworkProtocol.h"
 #import "HyTipText.h"
 #import "HyHUD.h"
+#import "NSObject+HyNetwork.h"
 
 
 @interface AFNetworkSingleTask ()
+@property (nonatomic,assign) BOOL haveResumeObject;
 @property (nonatomic,strong) NSURLSessionDataTask *sessionTask;
 @property (nonatomic,strong) id<HyNetworkSingleTaskInfoProtocol> networkTaskInfo;
 @property (nonatomic,weak) id<HyNetworkProtocol> netWork;
@@ -41,167 +43,202 @@
 }
 
 - (void)resume {
-    
-    if (self.taskInfo.taskStatus == HyNetworkTaskStatusResuming) {
-        return;
-    }
-    
-    UIView *hudForView = UIViewController.hy_currentViewController.view;
-    
-    NSString *cacheKey  = @"";
-    if (self.taskInfo.cache && self.taskInfo.url.length > 0) { cacheKey = self.taskInfo.url; }
-    
-    
-    if (self.netWork.networkStatus == HyNetworStatusNotReachable ||
-        self.netWork.networkStatus == HyNetworStatusUnKnown) {
-        ShowTipText(@"当前网络不可用\n请检查网络设置");
+    self.resumeAtObjcet(nil);
+}
+
+- (void (^)(NSObject *object))resumeAtObjcet {
+    return ^(NSObject *object) {
         
-        self.taskInfo.taskStatus = HyNetworkTaskStatusResumedNoNetwork;
-        
-        if (self.netWork.noNetworkResumedSingleTasks.count > 20) {
-            [self.netWork.noNetworkResumedSingleTasks removeObjectAtIndex:0];
+        if (self.taskInfo.taskStatus == HyNetworkTaskStatusResuming) {
+            return;
         }
         
-        if ([self.netWork.noNetworkResumedSingleTasks containsObject:self]) {
-            [self.netWork.noNetworkResumedSingleTasks removeObject:self];
+        if (object) {
+            self.haveResumeObject = YES;
+            [object.hy_networkTaskContainer.tasks addObject:self];
         }
-        [self.netWork.noNetworkResumedSingleTasks addObject:self];
+
+        UIView *hudForView = UIViewController.hy_currentViewController.view;
         
-        BOOL isCacheAndHaveCacheDate = NO;
-        if (self.taskInfo.cache) {
-            id cacheDate = [self.netWork.networkCache getCacheForKey:cacheKey];
-            isCacheAndHaveCacheDate = (BOOL)cacheDate;
-            if (isCacheAndHaveCacheDate) {
-                self.successObject = NetworkSuccessObject(cacheDate, self);
+        NSString *cacheKey  = @"";
+        if (self.taskInfo.cache && self.taskInfo.url.length > 0) { cacheKey = self.taskInfo.url; }
+        
+        if (self.netWork.networkStatus == HyNetworStatusNotReachable ||
+            self.netWork.networkStatus == HyNetworStatusUnKnown) {
+            ShowTipText(@"当前网络不可用\n请检查网络设置");
+            
+            self.taskInfo.taskStatus = HyNetworkTaskStatusResumedNoNetwork;
+            
+            if (self.netWork.noNetworkResumedSingleTasks.count > 20) {
+                [self.netWork.noNetworkResumedSingleTasks removeObjectAtIndex:0];
             }
-        }
-        if (!isCacheAndHaveCacheDate) {
-            self.failureObject = NetworkFailureObject(nil, self);
+            
+            if ([self.netWork.noNetworkResumedSingleTasks containsObject:self]) {
+                [self.netWork.noNetworkResumedSingleTasks removeObject:self];
+            }
+            [self.netWork.noNetworkResumedSingleTasks addObject:self];
+            
+            if (!self.haveResumeObject || object) {
+                
+                BOOL isCacheAndHaveCacheDate = NO;
+                if (self.taskInfo.cache) {
+                   id cacheDate = [self.netWork.networkCache getCacheForKey:cacheKey];
+                   isCacheAndHaveCacheDate = (BOOL)cacheDate;
+                   if (isCacheAndHaveCacheDate) {
+                       self.successObject = NetworkSuccessObject(cacheDate, self);
+                   }
+               }
+               if (!isCacheAndHaveCacheDate) {
+                   self.failureObject = NetworkFailureObject(nil, self);
+               }
+               
+               isCacheAndHaveCacheDate ?
+               (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject)) :
+               (!self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(self.failureObject));
+                
+                if (object) {
+                    [object.hy_networkTaskContainer.tasks removeObject:self];
+                }
+            }
+           
+            
+            if ([self.netWork.noResumeSingleTasks containsObject:self]) {
+                [self.netWork.noResumeSingleTasks removeObject:self];
+            }
+            
+            return;
         }
         
-        isCacheAndHaveCacheDate ?
-        (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject)) :
-        (!self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(self.failureObject));
+        if (self.taskInfo.showHUD) {
+            ShowHUD(hudForView);
+        }
+
+        void (^success)(NSURLSessionDataTask *, id) =
+           ^(NSURLSessionDataTask * _Nonnull sessionDataTask, id  _Nullable responseObject){
+               DismissHUD(hudForView);
+               !self.taskInfo.cache ?: [self.netWork.networkCache setCache:responseObject forKey:cacheKey];
+               self.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
+               self.successObject = NetworkSuccessObject(responseObject, self);
+               if (!self.haveResumeObject || object) {
+                   !self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject);
+                   if (object) {
+                       [object.hy_networkTaskContainer.tasks removeObject:self];
+                   }
+               }
+               dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                             (int64_t)(.1 * NSEC_PER_SEC)),
+               dispatch_get_main_queue(), ^{
+                   [self.netWork.resumingSingleTasks removeObject:self];
+               });
+           };
+
+           void (^failure)(NSURLSessionDataTask *, NSError *) =
+           ^(NSURLSessionDataTask * _Nonnull sessionDataTask, NSError * _Nonnull error){
+               DismissHUD(hudForView);
+               
+               self.taskInfo.taskStatus = HyNetworkTaskStatusFailure;
+               self.failureObject = NetworkFailureObject(error, self);
+               
+               if (self.taskInfo.cache) {
+                   id cacheDate = [self.netWork.networkCache getCacheForKey:cacheKey];
+                   self.successObject = NetworkSuccessObject(cacheDate, self);
+                   if (!self.haveResumeObject || object) {
+                       !cacheDate ?: (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject));
+                   }
+               }
+               if (!self.haveResumeObject || object) {
+                   !self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(self.failureObject);
+               }
+               
+               if (object) {
+                   [object.hy_networkTaskContainer.tasks removeObject:self];
+               }
+
+               [self handleNetworkError:error];
+               dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                             (int64_t)(.1 * NSEC_PER_SEC)),
+               dispatch_get_main_queue(), ^{
+                   [self.netWork.resumingSingleTasks removeObject:self];
+               });
+           };
         
+        self.taskInfo.taskStatus = HyNetworkTaskStatusResuming;
+        
+        switch (self.taskInfo.requestType) {
+            case HyNetworRequestTypeGet:{
+                self.sessionTask =
+               [self.netWork.sessionManager GET:self.taskInfo.url
+                                     parameters:self.taskInfo.parameter
+                                       progress:nil
+                                        success:success
+                                        failure:failure];
+            }break;
+            case HyNetworRequestTypePost:{
+                self.sessionTask =
+                [self.netWork.sessionManager POST:self.taskInfo.url
+                                      parameters:self.taskInfo.parameter
+                                        progress:nil
+                                         success:success
+                                         failure:failure];
+            }break;
+            case HyNetworRequestTypePostFormData:{
+                self.sessionTask =
+                [self.netWork.sessionManager POST:self.taskInfo.url
+                                      parameters:self.taskInfo.parameter
+                        constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+                        !self.taskInfo.formData ?: self.taskInfo.formData([AFMultipartFormDataObject object:formData]);
+                    }
+                                        progress:nil
+                                         success:success
+                                         failure:failure];
+            }break;
+            case HyNetworRequestTypeHead:{
+                self.sessionTask =
+                [self.netWork.sessionManager HEAD:self.taskInfo.url
+                                       parameters:self.taskInfo.parameter
+                                          success:^(NSURLSessionDataTask * _Nonnull sessionDataTask) {
+                        self.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
+                        !self.taskInfo.successBlock ?: self.taskInfo.successBlock(NetworkSuccessObject(nil, self));
+                       [self.netWork.resumingSingleTasks removeObject:self];
+                   }
+                   failure:failure];
+            }break;
+            case HyNetworRequestTypePut:{
+                self.sessionTask =
+                 [self.netWork.sessionManager PUT:self.taskInfo.url
+                                       parameters:self.taskInfo.parameter
+                                          success:success
+                                          failure:failure];
+            }break;
+            case HyNetworRequestTypePatch:{
+                self.sessionTask =
+                [self.netWork.sessionManager PATCH:self.taskInfo.url
+                                        parameters:self.taskInfo.parameter
+                                           success:success
+                                           failure:failure];
+            }break;
+            case HyNetworRequestTypeDelete:{
+                self.sessionTask =
+                [self.netWork.sessionManager DELETE:self.taskInfo.url
+                                         parameters:self.taskInfo.parameter
+                                            success:success
+                                            failure:failure];
+            }break;
+            default:
+            break;
+        }
+        
+        if (![self.netWork.resumingSingleTasks containsObject:self]) {
+            [self.netWork.resumingSingleTasks addObject:self];
+        }
         if ([self.netWork.noResumeSingleTasks containsObject:self]) {
             [self.netWork.noResumeSingleTasks removeObject:self];
         }
+        if ([self.netWork.noNetworkResumedSingleTasks containsObject:self]) {
+            [self.netWork.noNetworkResumedSingleTasks removeObject:self];
+        }
         
-        return;
-    }
-    
-    if (self.taskInfo.showHUD) {
-        ShowHUD(hudForView);
-    }
-
-    void (^success)(NSURLSessionDataTask *, id) =
-       ^(NSURLSessionDataTask * _Nonnull sessionDataTask, id  _Nullable responseObject){
-           DismissHUD(hudForView);
-           self.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
-           !self.taskInfo.cache ?: [self.netWork.networkCache setCache:responseObject forKey:cacheKey];
-           self.successObject = NetworkSuccessObject(responseObject, self);
-           !self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject);
-           dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                         (int64_t)(.1 * NSEC_PER_SEC)),
-           dispatch_get_main_queue(), ^{
-               [self.netWork.resumingSingleTasks removeObject:self];
-           });
-       };
-
-       void (^failure)(NSURLSessionDataTask *, NSError *) =
-       ^(NSURLSessionDataTask * _Nonnull sessionDataTask, NSError * _Nonnull error){
-           DismissHUD(hudForView);
-           self.taskInfo.taskStatus = HyNetworkTaskStatusFailure;
-           if (self.taskInfo.cache) {
-               id cacheDate = [self.netWork.networkCache getCacheForKey:cacheKey];
-               self.successObject = NetworkSuccessObject(cacheDate, self);
-               !cacheDate ?: (!self.taskInfo.successBlock ?: self.taskInfo.successBlock(self.successObject));
-           }
-           self.failureObject = NetworkFailureObject(error, self);
-           !self.taskInfo.failureBlock ?: self.taskInfo.failureBlock(self.failureObject);
-           [self handleNetworkError:error];
-           dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                         (int64_t)(.1 * NSEC_PER_SEC)),
-           dispatch_get_main_queue(), ^{
-               [self.netWork.resumingSingleTasks removeObject:self];
-           });
-       };
-    
-    self.taskInfo.taskStatus = HyNetworkTaskStatusResuming;
-    
-    switch (self.taskInfo.requestType) {
-        case HyNetworRequestTypeGet:{
-            self.sessionTask =
-           [self.netWork.sessionManager GET:self.taskInfo.url
-                                 parameters:self.taskInfo.parameter
-                                   progress:nil
-                                    success:success
-                                    failure:failure];
-        }break;
-        case HyNetworRequestTypePost:{
-            self.sessionTask =
-            [self.netWork.sessionManager POST:self.taskInfo.url
-                                  parameters:self.taskInfo.parameter
-                                    progress:nil
-                                     success:success
-                                     failure:failure];
-        }break;
-        case HyNetworRequestTypePostFormData:{
-            self.sessionTask =
-            [self.netWork.sessionManager POST:self.taskInfo.url
-                                  parameters:self.taskInfo.parameter
-                    constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-                    !self.taskInfo.formData ?: self.taskInfo.formData([AFMultipartFormDataObject object:formData]);
-                }
-                                    progress:nil
-                                     success:success
-                                     failure:failure];
-        }break;
-        case HyNetworRequestTypeHead:{
-            self.sessionTask =
-            [self.netWork.sessionManager HEAD:self.taskInfo.url
-                                   parameters:self.taskInfo.parameter
-                                      success:^(NSURLSessionDataTask * _Nonnull sessionDataTask) {
-                    self.taskInfo.taskStatus = HyNetworkTaskStatusSuccess;
-                    !self.taskInfo.successBlock ?: self.taskInfo.successBlock(NetworkSuccessObject(nil, self));
-                   [self.netWork.resumingSingleTasks removeObject:self];
-               }
-               failure:failure];
-        }break;
-        case HyNetworRequestTypePut:{
-            self.sessionTask =
-             [self.netWork.sessionManager PUT:self.taskInfo.url
-                                   parameters:self.taskInfo.parameter
-                                      success:success
-                                      failure:failure];
-        }break;
-        case HyNetworRequestTypePatch:{
-            self.sessionTask =
-            [self.netWork.sessionManager PATCH:self.taskInfo.url
-                                    parameters:self.taskInfo.parameter
-                                       success:success
-                                       failure:failure];
-        }break;
-        case HyNetworRequestTypeDelete:{
-            self.sessionTask =
-            [self.netWork.sessionManager DELETE:self.taskInfo.url
-                                     parameters:self.taskInfo.parameter
-                                        success:success
-                                        failure:failure];
-        }break;
-        default:
-        break;
-    }
-    
-    if (![self.netWork.resumingSingleTasks containsObject:self]) {
-        [self.netWork.resumingSingleTasks addObject:self];
-    }
-    if ([self.netWork.noResumeSingleTasks containsObject:self]) {
-        [self.netWork.noResumeSingleTasks removeObject:self];
-    }
-    if ([self.netWork.noNetworkResumedSingleTasks containsObject:self]) {
-        [self.netWork.noNetworkResumedSingleTasks removeObject:self];
-    }
+    };
 }
 
 - (void)cancel {

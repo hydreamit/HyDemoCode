@@ -27,7 +27,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         
-        self.videoDevice = [self captureDeviceWithPostion:AVCaptureDevicePositionFront];
+        self.videoDevice = [self captureDeviceWithPostion:AVCaptureDevicePositionBack];
         self.videoInput = [AVCaptureDeviceInput deviceInputWithDevice:self.videoDevice error:NULL];
         self.videoOutput = [[AVCaptureVideoDataOutput alloc] init];
         [[self.videoOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:AVCaptureVideoOrientationPortrait];
@@ -44,7 +44,7 @@
         _preViewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.avCapture.session];
 //        _preViewLayer.connection.videoOrientation = [self.videoOutput connectionWithMediaType:AVMediaTypeVideo].videoOrientation;
         _preViewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-        _preViewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;;
+//        _preViewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     }
     return _preViewLayer;
 }
@@ -67,6 +67,7 @@
           [self.avCapture.session addInput:videoInput];
           [self.avCapture.session commitConfiguration];
           self.videoInput = videoInput;
+          [[self.videoOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:AVCaptureVideoOrientationPortrait];
       });
 }
 
@@ -90,13 +91,17 @@
 - (void)captureOutput:(AVCaptureOutput *)output
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
-    
+
     !self.didOutputBlock ?: self.didOutputBlock(output, sampleBuffer, connection);
+    
+    if (!self.avCapture.avWriter) {
+        return;
+    }
     
     if (!self.avCapture.avWriter.isAssetWriting) {
         return;
     }
-    
+
     if (!self.avCapture.avWriter.videoWriter) {
 //        NSDictionary* actualSettings = self.videoOutput.videoSettings;
 //        NSInteger videoWidth = [[actualSettings objectForKey:@"Width"] integerValue];

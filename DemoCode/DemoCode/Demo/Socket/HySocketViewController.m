@@ -22,9 +22,8 @@
 
 
 @implementation HySocketViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)hy_viewDidLoad {
+    [super hy_viewDidLoad];
     
     self.view.backgroundColor = UIColor.whiteColor;
 //    self.socketFactory = HyCFSocketFactory.socketFactory(@"10.10.3.8", @"8040");

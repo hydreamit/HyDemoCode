@@ -9,7 +9,6 @@
 #import "HyAVCapturer.h"
 #import "HyAVWriter.h"
 
-// AVCaptureSessionRuntimeErrorNotification
 
 @interface HyAVCapturer () 
 @property (nonatomic,strong) AVCaptureSession *session;
@@ -89,7 +88,9 @@
 - (AVCaptureSession *)session {
     if (!_session){
         _session = [[AVCaptureSession alloc] init];
-        [_session setSessionPreset:AVCaptureSessionPresetHigh];
+        if ([_session canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
+            _session.sessionPreset = AVCaptureSessionPreset1280x720;
+        }
     }
     return _session;
 }
@@ -119,5 +120,13 @@
     }
 }
 
+////session运行期间发生错误
+//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSessionState:) name:AVCaptureSessionRuntimeErrorNotification object:nil];
+////session开始运行的通知
+//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSessionStartRunning:) name:AVCaptureSessionDidStartRunningNotification object:nil];
+////session停止运行的通知
+//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSessionStopRunning:) name:AVCaptureSessionDidStopRunningNotification object:nil];
+////session被打断的通知
+//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSessionInterrpute:) name:AVCaptureSessionWasInterruptedNotification object:nil];
 
 @end

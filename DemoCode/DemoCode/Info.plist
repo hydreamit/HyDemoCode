@@ -126,5 +126,15 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>232</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>1232</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>123</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>321</string>
+	<key>NSCameraUsageDescription</key>
+	<string>123</string>
 </dict>
 </plist>

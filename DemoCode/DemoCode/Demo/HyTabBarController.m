@@ -15,6 +15,7 @@
 #import "HyMeViewController.h"
 #import "ViewController.h"
 #import "HySocketViewController.h"
+#import "HyAudioVideoViewController.h"
 
 
 @implementation HyTabBarController
@@ -35,11 +36,13 @@
     HyMeViewController *meVc = (HyMeViewController *)[HyMeViewController viewControllerWithViewModelName:@"HyMeViewModel" parameter:@{@"account" : @"15888888888"}];
     
     HySocketViewController *socketVc = [HySocketViewController new];
+    HyAudioVideoViewController *avVc = [HyAudioVideoViewController new];
     
-    NSArray *array = @[newsVc, recommendVc, socketVc, meVc];
-    NSArray *titles = @[@"资讯", @"精选", @"Socket", @"我的"];
-    NSArray *normalImages = @[@"icon_zx_nomal_pgall", @"icon_jx_nomal_pgall", @"icon_jx_nomal_pgall", @"icon_w_nomal_pgall"];
-    NSArray *selImages = @[@"icon_zx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_w_pressed_pgall"];
+    
+    NSArray *array = @[newsVc, recommendVc, socketVc, avVc, meVc];
+    NSArray *titles = @[@"资讯", @"精选", @"Socket", @"AV", @"我的"];
+    NSArray *normalImages = @[@"icon_zx_nomal_pgall", @"icon_jx_nomal_pgall", @"icon_jx_nomal_pgall",@"icon_jx_nomal_pgall", @"icon_w_nomal_pgall"];
+    NSArray *selImages = @[@"icon_zx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_jx_pressed_pgall", @"icon_w_pressed_pgall"];
     
     for (UIViewController<HyViewControllerProtocol> *vc in array) {
         NSInteger index = [array indexOfObject:vc];
@@ -52,7 +55,7 @@
     }
     
     self.hy_clickItemBlock = ^(UITabBarController * _Nonnull _self, NSInteger index, BOOL isRepeat) {
-        if (isRepeat && index != 2) {
+        if (isRepeat && (index == 0 || index == 1)) {
             HyVoidMsgSend(((UINavigationController *)_self.viewControllers[index]).hy_rootViewController, sel_registerName("scrollToTop"));
         }
     };

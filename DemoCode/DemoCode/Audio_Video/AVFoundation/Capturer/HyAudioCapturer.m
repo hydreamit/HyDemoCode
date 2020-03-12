@@ -36,6 +36,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     !self.didOutputBlock ?: self.didOutputBlock(output, sampleBuffer, connection);
     
+    if (!self.avCapture.avWriter) {
+        return;
+    }
+    
     if (!self.avCapture.avWriter.isAssetWriting) {
         return;
     }

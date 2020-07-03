@@ -21,9 +21,9 @@
 
 - (void)hy_tableViewLoad {
     if (self.listViewModel) {
-        [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
+        self.hy_delegateConfigure.configSectionAndCellDataKey(^NSArray<NSString *> *{
             return @[@"listModel.listModelArray", @"listModelArray"];
-        }];
+        });
     }
 }
 
@@ -117,10 +117,12 @@
                    [self.refreshViewFactory.getFooterRefreshView setHidden:YES];
                }
        }];
-       
-       [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
-           return @[@"listModel.listModelArray", @"listModelArray"];
-       }];
+        
+        if (self.hy_delegateConfigure) {
+            self.hy_delegateConfigure.configSectionAndCellDataKey(^NSArray<NSString *> *{
+                return @[@"listModel.listModelArray", @"listModelArray"];
+            });
+        }
        
        listViewModel.reloadListViewBlock = ^(id  _Nonnull parameter) {
            __strong typeof(_self) self = _self;

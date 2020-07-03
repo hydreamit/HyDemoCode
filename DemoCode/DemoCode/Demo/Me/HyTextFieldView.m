@@ -83,11 +83,16 @@
 - (void)setMaxLength:(NSInteger)maxLength {
     
     if (maxLength > 0 && !self.maxLengthSignal) {
-        self.maxLengthSignal =
-        RAC(self.textField, text) =
-        [self.textField.rac_textSignal map:^NSString *(NSString *value) {
-            return value.length > maxLength ? [value substringToIndex:maxLength] : value;
-        }];
+        self.maxLengthSignal = [RACSignal return:nil];
+        
+        RACChannelTerminal *tem = self.textField.rac_newTextChannel;
+        [[tem map:^id _Nullable(NSString *  _Nullable value) {
+             return value.length > maxLength ? [value substringToIndex:maxLength] : value;
+        }] subscribe:tem];
+//        RAC(self.textField, text) =
+//        [self.textField.rac_textSignal map:^NSString *(NSString *value) {
+//            return value.length > maxLength ? [value substringToIndex:maxLength] : value;
+//        }];
     }
 }
 
@@ -126,17 +131,17 @@
                                             placeholder:nil
                                        placeholderColor:nil
                                       delegateConfigure:^(HyTextFieldDelegateConfigure * _Nonnull configure) {
-            
-            [[[configure configTextFieldDidBeginEditing:^(UITextField * _Nonnull textField) {
+  
+            configure.configTextFieldDidBeginEditing(^(UITextField * _Nonnull textField) {
                 @strongify(self);
                 self.bottomLine.backgroundColor = self.lineSelectedColor;
-            }] configTextFieldDidEndEditing:^(UITextField * _Nonnull textField) {
+            }).configTextFieldDidEndEditing(^(UITextField * _Nonnull textField) {
                 @strongify(self);
                 self.bottomLine.backgroundColor = self.lineNormalColor;
-            }] configTextFieldShouldReturn:^BOOL(UITextField * _Nonnull textField) {
+            }).configTextFieldShouldReturn(^BOOL(UITextField * _Nonnull textField) {
                 [textField resignFirstResponder];
                 return YES;
-            }];
+            });
         }];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.keyboardType = UIKeyboardTypeNumberPad;

@@ -21,15 +21,15 @@
     
     UITableView *tableView =
     [UITableView hy_tableViewWithFrame:self.view.bounds style:UITableViewStylePlain tableViewData:@[@"Capture", @"Codec"] cellClasses:@[UITableViewCell.class] headerFooterViewClasses:nil delegateConfigure:^(HyTableViewDelegateConfigure *configure) {
-        [[configure configCellWithData:^(UITableViewCell *cell, id cellData, NSIndexPath *indexPath) {
+        configure.configCellWithData(^(UITableViewCell *cell, id cellData, NSIndexPath *indexPath) {
             cell.textLabel.text = (NSString *)cellData;
-        }] configDidSelectRowAtIndexPath:^(UITableView *tableView, NSIndexPath *indexPath) {
+        }).configDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             __strong typeof(_self) self = _self;
             UIViewController *vc = indexPath.row ? HyAudioVideoCodecViewController.new : HyAudioVideoCaptureViewController.new;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-        }];
+        });
     }];
     
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

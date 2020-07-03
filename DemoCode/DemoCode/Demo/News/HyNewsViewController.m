@@ -52,19 +52,19 @@
                                             cellClasses:@[HyNewsCell.class, HyNewsImageCell.class]
                                 headerFooterViewClasses:nil
                                       delegateConfigure:^(HyTableViewDelegateConfigure *configure) {
-            [[[configure configCellClassForRow:^Class(id cellData, NSIndexPath *indexPath) {
+            configure.configCellClassForRow(^Class(id cellData, NSIndexPath *indexPath) {
                 return ((HyNewsModel *)cellData).cellClass;
-            }] configHeightForRowAtIndexPath:^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
+            }).configHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
                 @strongify(self);
                 return ((HyNewsModel *)self.viewModel.cellModel(indexPath)).cellHeight;
-            }] configDidSelectRowAtIndexPath:^(UITableView *tableView, NSIndexPath *indexPath) {
+            }).configDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath) {
                 @strongify(self);
                 [self.class pushViewControllerWithName:@"HyRecommendViewController"
                                          viewModelName:@"HyRecommendViewModel"
                                              parameter:nil
                                               animated:YES
                                             completion:nil];
-            }];
+            });
         }];
         [_tableView configRefreshFramework:nil
                                refreshType:HyListViewRefreshTypePullDownAndUp

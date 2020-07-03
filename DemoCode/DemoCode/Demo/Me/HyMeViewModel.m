@@ -73,7 +73,7 @@
      }] distinctUntilChanged];
 
     self.pushCommand =
-    RACCommand.pushEnabledCommand(pushEnabledSignal, @"HyMeViewController", @"HyMeViewModel", @{@"account" : @"12345678901"}, YES);
+    RACCommand.pushEnabledCommand(pushEnabledSignal, @"HyMeViewController", @"HyMeViewModel", @{@"account" : @"123456789019999999"}, YES);
 
 
     #pragma mark — pop

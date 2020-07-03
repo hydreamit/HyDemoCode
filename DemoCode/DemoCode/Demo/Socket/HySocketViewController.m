@@ -116,7 +116,7 @@
     NSMutableArray<id<HySocketMessageProtocol>> *mArray = @[].mutableCopy;
     UITableView *table  =
     [UITableView hy_tableViewWithFrame:CGRectMake(140, 0, self.view.bounds.size.width - 150, 110) style:UITableViewStylePlain tableViewData:mArray cellClasses:@[UITableViewCell.class] headerFooterViewClasses:nil delegateConfigure:^(HyTableViewDelegateConfigure *configure) {
-       [configure configCellWithData:^(UITableViewCell *cell, id cellData, NSIndexPath *indexPath) {
+        configure.configCellWithData(^(UITableViewCell *cell, id cellData, NSIndexPath *indexPath) {
            cell.contentView.backgroundColor = UIColor.groupTableViewBackgroundColor;
            cell.textLabel.backgroundColor = UIColor.groupTableViewBackgroundColor;
            cell.textLabel.font = [UIFont systemFontOfSize:13];
@@ -126,7 +126,7 @@
            } else {
                cell.textLabel.text = [NSString stringWithFormat:@"%@发来心跳包💗: %@",message.sourceID, message.content];
            }
-       }];
+       });
     }];
     table.backgroundColor = UIColor.groupTableViewBackgroundColor;
     table.rowHeight = 25;
@@ -192,7 +192,7 @@
     NSMutableArray<id<HySocketMessageProtocol>> *mArray = @[].mutableCopy;
     UITableView *table  =
     [UITableView hy_tableViewWithFrame:CGRectMake(140, 0, self.view.bounds.size.width - 150, 80) style:UITableViewStylePlain tableViewData:mArray cellClasses:@[UITableViewCell.class] headerFooterViewClasses:nil delegateConfigure:^(HyTableViewDelegateConfigure *configure) {
-        [configure configCellWithData:^(UITableViewCell *cell, id cellData, NSIndexPath *indexPath) {
+        configure.configCellWithData(^(UITableViewCell *cell, id cellData, NSIndexPath *indexPath) {
             cell.contentView.backgroundColor = UIColor.groupTableViewBackgroundColor;
             cell.textLabel.backgroundColor = UIColor.groupTableViewBackgroundColor;
             cell.textLabel.font = [UIFont systemFontOfSize:13];
@@ -202,7 +202,7 @@
             } else {
                 cell.textLabel.text = [NSString stringWithFormat:@"服务器推来消息: %@", message.content];
             }
-        }];
+        });
     }];
     table.backgroundColor = UIColor.groupTableViewBackgroundColor;
     table.rowHeight = 25;

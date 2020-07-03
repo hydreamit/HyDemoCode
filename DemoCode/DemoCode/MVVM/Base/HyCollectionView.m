@@ -20,10 +20,10 @@
 @implementation HyCollectionView
 
 - (void)hy_colletionViewLoad {
-    if (self.listViewModel) {
-        [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
+    if (self.listViewModel && self.hy_delegateConfigure) {
+        self.hy_delegateConfigure.configSectionAndCellDataKey(^NSArray<NSString *> *{
             return @[@"listModel.listModelArray", @"listModelArray"];
-        }];
+        });
     }
 }
 
@@ -118,9 +118,11 @@
                }
        }];
        
-       [self.hy_delegateConfigure configSectionAndCellDataKey:^NSArray<NSString *> *{
-           return @[@"listModel.listModelArray", @"listModelArray"];
-       }];
+        if (self.hy_delegateConfigure) {
+            self.hy_delegateConfigure.configSectionAndCellDataKey(^NSArray<NSString *> *{
+               return @[@"listModel.listModelArray", @"listModelArray"];
+            });
+        }
        
        listViewModel.reloadListViewBlock = ^(id  _Nonnull parameter) {
            __strong typeof(_self) self = _self;

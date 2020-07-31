@@ -12,6 +12,7 @@
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <Masonry/Masonry.h>
 #import <HyCategoriess/UIColor+HyExtension.h>
+#import "HyMeModel.h"
 
 
 @interface HyMeView ()
@@ -26,11 +27,12 @@
     [self configUI];
     [self configLayout];
     
-    RAC(self.accountTextFieldView, text) = [RACObserve(self.viewModel.model, account) distinctUntilChanged];
-    RAC(self.viewModel.model, account) = [self.accountTextFieldView.textSignal skip:1];
+    
+    RAC(self.accountTextFieldView, text) = [RACObserve(self.dataProvider, account) distinctUntilChanged];
+    RAC(self.dataProvider, account) = [self.accountTextFieldView.textSignal skip:1];
 
-    RAC(self.codeTextFieldView, text) = [RACObserve(self.viewModel.model, code) distinctUntilChanged];
-    RAC(self.viewModel.model, code) = [self.codeTextFieldView.textSignal skip:1];
+    RAC(self.codeTextFieldView, text) = [RACObserve(self.dataProvider, code) distinctUntilChanged];
+    RAC(self.dataProvider, code) = [self.codeTextFieldView.textSignal skip:1];
 }
 
 - (void)configUI {
@@ -83,4 +85,5 @@
 - (void)dealloc {
     NSLog(@"%s", __func__);
 }
+
 @end

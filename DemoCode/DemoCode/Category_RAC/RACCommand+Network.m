@@ -7,7 +7,6 @@
 //
 
 #import "RACCommand+Network.h"
-#import "RACSignal+Network.h"
 
 
 BOOL requestShowHUD(id input, RequestShowHUDBlcok block) {
@@ -50,10 +49,10 @@ RequestSignalBlock requestCommand(id input, RequestCommandBlock block) {
                     handleCommand:(RequestCommandBlock)handleCommand {
     
     return [[self alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {;
-        return [RACSignal signalGetShowHUD:requestShowHUD(input, showHUD)
-                                     cache:requestCache(input, cache)
-                                       url:requestUrl(input, url)
-                                 parameter:requestParameter(input, parameter)
+        return [RACSignal signalGetShowHUD:valueBlock(requestShowHUD(input, showHUD))
+                                     cache:valueBlock(requestCache(input, cache))
+                                       url:valueBlock(requestUrl(input, url))
+                                 parameter:valueBlock(requestParameter(input, parameter))
                               handleSignal:requestCommand(input, handleCommand)];
     }];
 }
@@ -66,10 +65,10 @@ RequestSignalBlock requestCommand(id input, RequestCommandBlock block) {
                      handleCommand:(RequestCommandBlock)handleCommand {
     
     return [[self alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {;
-        return [RACSignal signalPostShowHUD:requestShowHUD(input, showHUD)
-                                      cache:requestCache(input, cache)
-                                        url:requestUrl(input, url)
-                                  parameter:requestParameter(input, parameter)
+        return [RACSignal signalPostShowHUD:valueBlock(requestShowHUD(input, showHUD))
+                                      cache:valueBlock(requestCache(input, cache))
+                                        url:valueBlock(requestUrl(input, url))
+                                  parameter:valueBlock(requestParameter(input, parameter))
                                handleSignal:requestCommand(input, handleCommand)];
     }];
 }
@@ -83,10 +82,10 @@ RequestSignalBlock requestCommand(id input, RequestCommandBlock block) {
                      handleCommand:(RequestCommandBlock)handleCommand {
     
     return [[self alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {;
-        return [RACSignal signalPostShowHUD:requestShowHUD(input, showHUD)
-                                      cache:requestCache(input, cache)
-                                        url:requestUrl(input, url)
-                                  parameter:requestParameter(input, parameter)
+        return [RACSignal signalPostShowHUD:valueBlock(requestShowHUD(input, showHUD))
+                                      cache:valueBlock(requestCache(input, cache))
+                                        url:valueBlock(requestUrl(input, url))
+                                  parameter:valueBlock(requestParameter(input, parameter))
                                    formData:requestFormData(input, formData)
                                handleSignal:requestCommand(input, handleCommand)];
     }];

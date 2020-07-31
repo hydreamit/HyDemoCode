@@ -15,17 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HyViewModelProtocol;
 @protocol HyViewControllerProtocol <NSObject>
 @optional
-@property (nonatomic,strong) NSDictionary *parameter;
-@property (nonatomic,strong) id<HyViewModelProtocol> viewModel;
-- (void)viewModelWillLoad;
-- (void)viewModelDidLoad;
-- (void)popFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;
-- (void)dismissFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;
-@end
 
-
-@protocol HyViewControllerFactoryProtocol <NSObject>
-@optional
 + (UIViewController<HyViewControllerProtocol> *)viewControllerWithViewModelName:(NSString * _Nullable)viewModelName
                                                                       parameter:(NSDictionary * _Nullable)parameter;
 
@@ -38,6 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
                                                 parameter:(NSDictionary *_Nullable)parameter
                                                  animated:(BOOL)flag
                                                completion:(void(^_Nullable)(UIViewController<HyViewControllerProtocol> *controller))completion;
+
+
+@property (nonatomic,strong) NSDictionary *parameter;
+@property (nonatomic,strong) id<HyViewModelProtocol> viewModel;
+- (void)viewModelWillLoad;
+- (void)viewModelDidLoad;
+- (void)popFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;
+- (void)dismissFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;
 @end
+
 
 NS_ASSUME_NONNULL_END

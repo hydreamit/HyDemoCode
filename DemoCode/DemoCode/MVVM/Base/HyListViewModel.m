@@ -94,19 +94,19 @@
     };
     
     if (self.isGet) {
-        [[HyNetworkManager.network getShowHUD:showHUD
+        [HyNetworkManager.network getShowHUD:showHUD
                                         cache:NO
                                           url:url
                                     parameter:parameter
                                  successBlock:success
-                                 failureBlock:failure] resume];
+                                 failureBlock:failure].resumeAtObjcet(self);
     } else {
-        [[HyNetworkManager.network postShowHUD:showHUD
+        [HyNetworkManager.network postShowHUD:showHUD
                                          cache:NO
                                            url:url
                                      parameter:parameter
                                   successBlock:success
-                                  failureBlock:failure] resume];
+                                  failureBlock:failure].resumeAtObjcet(self);
     }
 }
 
@@ -121,14 +121,14 @@
            if (self.sectionDataHandler) {
                
                id sectionData = nil;
-               Class<HyModelFactoryProtocol> sectionModelClass = HyListModel.class;
+               Class<HyModelProtocol> sectionModelClass = HyListModel.class;
                NSArray *sectionArray = self.sectionDataHandler(input, response, type);
                if (sectionArray.count) {
                    sectionData = sectionArray.firstObject;
                    if (sectionArray.count == 2) {
                        Class cls = sectionArray.lastObject;
                        if ([cls conformsToProtocol:@protocol(HyListModelProtocol)] &&
-                           Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+                           Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
                            sectionModelClass = cls;
                        }
                    }
@@ -167,7 +167,7 @@
                        if (cellArray.count == 2) {
                            Class cls = cellArray.lastObject;
                            if ([cls conformsToProtocol:@protocol(HyModelProtocol)] &&
-                               Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+                               Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
                                cellModelClass = cls;
                            }
                        }
@@ -242,7 +242,6 @@
      __weak typeof(self) _self = self;
     return ^ id<HyListModelProtocol> (NSUInteger section){
         __strong typeof(_self) self = _self;
-        
         if (!self.listModel) { return nil; }
         if (section >= self.listModel.listModelArray.count) { return nil;}
         return self.listModel.listModelArray[section];
@@ -267,11 +266,11 @@
 
 - (id<HyListModelProtocol>)listModel {
     if (!_listModel) {
-        Class<HyModelFactoryProtocol> cls = getObjcectPropertyClass([self class], "listModel");
+        Class<HyModelProtocol> cls = getObjcectPropertyClass([self class], "listModel");
         if (cls == NULL) {
             cls = HyListModel.class;
         }
-        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
             _listModel = (id<HyListModelProtocol>)[cls modelWithParameter:self.parameter];
         }
     }

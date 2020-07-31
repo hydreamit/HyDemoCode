@@ -9,13 +9,17 @@
 #import "HyMeViewModel.h"
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "RACCommand+HyExtension.h"
-#import "RACCommand+HyViewControllerJump.h"
+#import "NSObject+HyRACExtension.h"
+#import "HyMeModel.h"
+
 
 @implementation HyMeViewModel
 @dynamic model;
 
 - (void)viewModelLoad {
     [super viewModelLoad];
+    
+
     
     #pragma mark — 倒计时信号
     RACSignal *(^timerCountSignal)(UIButton *, NSNumber *, NSString *) =
@@ -53,10 +57,10 @@
            [saveSubscriber sendCompleted];
            [btn sizeToFit];
        }];
-       
-       [btn rac_liftSelector:@selector(setTitle:forState:)
-                 withSignals:[RACSignal merge:@[counterStringSignal, resetStringSignal]],
-        [RACSignal return:@(UIControlStateNormal)], nil];
+        
+        btn.liftSelectorWithSignals(@selector(setTitle:forState:),
+                                    @[[RACSignal merge:@[counterStringSignal, resetStringSignal]],
+                                      [RACSignal return:@(UIControlStateNormal)]]);
        [btn sizeToFit];
        
        return timerSignal;
@@ -65,19 +69,17 @@
 
     #pragma mark — push
     RACSignal *pushEnabledSignal =
-    [[[RACSignal combineLatest:@[RACObserve(self.model, account),
-                                RACObserve(self.model, code)]]
-       reduceEach:^(NSString *account,
-                    NSString *code){
-         return @(account.length == 11 && code.length);
-     }] distinctUntilChanged];
-
+    hy_combineLatestAndReduceEach(@[RACObserve(self.model, account),
+                                    RACObserve(self.model, code)], ^id _Nonnull(NSString *account,
+                                    NSString *code){
+        return @(account.length == 11 && code.length);
+    });
     self.pushCommand =
-    RACCommand.pushEnabledCommand(pushEnabledSignal, @"HyMeViewController", @"HyMeViewModel", @{@"account" : @"123456789019999999"}, YES);
+    hy_pushCommand(pushEnabledSignal, @"HyMeViewController", @"HyMeViewModel", @{@"account" : self.model.account}, YES);
 
-
+    
     #pragma mark — pop
-    self.popCommand = RACCommand.popCommand(@"",@{}, YES);
+    self.popCommand = hy_popCommand(nil, @"", @{}, YES);
 
 
     #pragma mark — 发送验证码
@@ -86,12 +88,16 @@
        return @(value.length == 11);
     }];
 
-    CommandSignalInputBlock (^codeSignal)(void) = ^CommandSignalInputBlock {
-       return ^RACSignal *(id value){
-           return timerCountSignal(value, @60, @"获取验证码");
-       };
-    };
-    self.codeCommand = RACCommand.enabledBlockCommand(codeEnabledSignal, codeSignal(), nil);
+    self.codeCommand = hy_command(codeEnabledSignal, nil, ^RACSignal * _Nonnull(id  _Nonnull value) {
+        return timerCountSignal(value, @60, @"获取验证码");
+    });
+}
+
+- (id<HyViewDataProtocol>)viewDataProviderForClassString:(NSString *)classString {
+    if ([classString isEqualToString:@"HyMeView"]) {
+        return self.model;
+    }
+    return nil;
 }
 
 - (void)dealloc {

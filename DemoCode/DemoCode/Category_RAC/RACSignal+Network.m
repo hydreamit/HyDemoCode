@@ -28,11 +28,11 @@ HyNetworkSuccessBlock subscribSuccesss(id<RACSubscriber> subscriber,  RequestSig
 HyNetworkFailureBlock subscribFailure(id<RACSubscriber>  _Nonnull subscriber) {
     return ^(id<HyNetworkFailureProtocol> failureObject) {
         [subscriber sendError:failureObject.error];
+        
     };
 }
 
-typedef void(^DisposableBlock)(void);
-DisposableBlock taskDisposableBlock(id<HyNetworkSingleTaskProtocol> networkTask) {
+typeof(void(^)(void)) taskDisposableBlock(id<HyNetworkSingleTaskProtocol> networkTask) {
     return ^{
         [networkTask cancel];
     };
@@ -41,57 +41,57 @@ DisposableBlock taskDisposableBlock(id<HyNetworkSingleTaskProtocol> networkTask)
 
 @implementation RACSignal (Network)
 
-+ (instancetype)signalGetShowHUD:(BOOL)showHUD
-                           cache:(BOOL)cache
-                             url:(NSString *)url
-                       parameter:(NSDictionary *_Nullable)parameter
++ (instancetype)signalGetShowHUD:(valueBlockType(BOOL))showHUD
+                           cache:(valueBlockType(BOOL))cache
+                             url:(valueBlockType(NSString *))url
+                       parameter:(valueBlockType(NSDictionary *_Nullable))parameter
                     handleSignal:(RequestSignalBlock)handleSignal {
-
+    
     return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         return [RACDisposable disposableWithBlock:taskDisposableBlock
-                ([HyNetworkManager.network getShowHUD:showHUD
-                                                cache:cache
-                                                  url:url
-                                            parameter:parameter
+                ([HyNetworkManager.network getShowHUD:showHUD ? showHUD() : YES
+                                                cache:cache ? cache() : NO
+                                                  url:url ? url() : @""
+                                            parameter:parameter ? parameter() : nil
                                          successBlock:subscribSuccesss(subscriber, handleSignal)
                                          failureBlock:subscribFailure(subscriber)])];
     }];
 }
 
-+ (instancetype)signalPostShowHUD:(BOOL)showHUD
-                           cache:(BOOL)cache
-                             url:(NSString *)url
-                       parameter:(NSDictionary *_Nullable)parameter
++ (instancetype)signalPostShowHUD:(valueBlockType(BOOL))showHUD
+                            cache:(valueBlockType(BOOL))cache
+                              url:(valueBlockType(NSString *))url
+                        parameter:(valueBlockType(NSDictionary *_Nullable))parameter
                      handleSignal:(RequestSignalBlock)handleSignal {
-
-      return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-          return [RACDisposable disposableWithBlock:taskDisposableBlock
-                  ([HyNetworkManager.network postShowHUD:showHUD
-                                                   cache:cache
-                                                     url:url
-                                               parameter:parameter
-                                            successBlock:subscribSuccesss(subscriber, handleSignal)
-                                            failureBlock:subscribFailure(subscriber)])];
-      }];
-}
-
-+ (instancetype)signalPostShowHUD:(BOOL)showHUD
-                            cache:(BOOL)cache
-                              url:(NSString *)url
-                        parameter:(NSDictionary *_Nullable)parameter
-                         formData:(void(^_Nullable)(id<HyMultipartFormDataProtocol>))formData
-                     handleSignal:(RequestSignalBlock)handleSignal {
-
-   return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+    
+    return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         return [RACDisposable disposableWithBlock:taskDisposableBlock
-                ([HyNetworkManager.network postShowHUD:showHUD
-                                                 cache:cache
-                                                   url:url
-                                             parameter:parameter
-                                         formDataBlock:formData
+                ([HyNetworkManager.network postShowHUD:showHUD ? showHUD() : YES
+                                                 cache:cache ? cache() : NO
+                                                   url:url ? url() : @""
+                                             parameter:parameter ? parameter() : nil
                                           successBlock:subscribSuccesss(subscriber, handleSignal)
                                           failureBlock:subscribFailure(subscriber)])];
     }];
+}
+
++ (instancetype)signalPostShowHUD:(valueBlockType(BOOL))showHUD
+                            cache:(valueBlockType(BOOL))cache
+                              url:(valueBlockType(NSString *))url
+                        parameter:(valueBlockType(NSDictionary *_Nullable))parameter
+                         formData:(HyNetworkFormDataBlock)formData
+                     handleSignal:(RequestSignalBlock)handleSignal {
+    
+    return [self createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+         return [RACDisposable disposableWithBlock:taskDisposableBlock
+                 ([HyNetworkManager.network postShowHUD:showHUD ? showHUD() : YES
+                                                  cache:cache ? cache() : NO
+                                                    url:url ? url() : @""
+                                              parameter:parameter ? parameter() : nil
+                                          formDataBlock:formData
+                                           successBlock:subscribSuccesss(subscriber, handleSignal)
+                                           failureBlock:subscribFailure(subscriber)])];
+     }];
 }
 
 @end

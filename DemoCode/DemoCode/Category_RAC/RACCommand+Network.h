@@ -8,15 +8,16 @@
 
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "HyMultipartFormDataProtocol.h"
+#import "RACSignal+Network.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef BOOL (^_Nullable RequestShowHUDBlcok)(id _Nullable input);
 typedef BOOL (^_Nullable RequestCacheBlock)(id _Nullable input);
-typedef void (^_Nullable RequestFormDataBlock)(id<HyMultipartFormDataProtocol> formData, id _Nullable input);
 typedef NSString  * _Nullable (^_Nullable RequestUrlBlock)(id _Nullable input);
 typedef id  _Nullable (^_Nullable RequestParameterBlock)(id _Nullable input);
+typedef void (^_Nullable RequestFormDataBlock)(id<HyMultipartFormDataProtocol> formData, id _Nullable input);
 typedef void (^_Nullable RequestCommandBlock)(id _Nullable input, id response,  id<RACSubscriber> subscriber);
 
 

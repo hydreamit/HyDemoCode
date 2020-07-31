@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "HyModel.h"
+#import "HyMeView.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyMeModel : HyModel
+@interface HyMeModel : HyModel<HyMeViewDataProtocol>
 
 @property (nonatomic,strong) NSString *account;
 @property (nonatomic,strong) NSString *code;

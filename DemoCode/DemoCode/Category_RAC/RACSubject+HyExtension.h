@@ -10,22 +10,18 @@
 #import "RACCommand+HyExtension.h"
 
 
-typedef void (^subscribeBlock)(id _Nullable value);
-typedef RACSubject *_Nullable(^subjectBlock)(subscribeBlock _Nullable subscribe);
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RACSubject (HyExtension)
 
-+ (subjectBlock)createSubject;
+@property (nonatomic,copy,readonly) void(^sendWithInputBlock)(id input);
+@property (nonatomic,copy,readonly) typeof(void(^)(id))(^sendWithInputHandlerBlock)(id(^_Nullable)(id value));
+@property (nonatomic,copy,readonly) typeof(void(^)(void))(^sendWithVoidBlock)(id input);
+@property (nonatomic,copy,readonly) typeof(void(^)(void))(^sendWithVoidHandlerBlock)(id(^_Nullable)(void));
 
-- (EmtyBlock (^)(id input))bindSendEmtyBlock;
-- (EmtyBlock (^)(ValueBlock block))bindSendEmtyValueBlock;
-- (void (^)(id input))bindSendBlock;
-- (EmtyParamBlock (^)(ValueParamBlock block))bindSendValueBlock;
+@property (nonatomic,copy,readonly) void (^send)(id _Nullable input);
+@property (nonatomic,copy,readonly) void (^sendFromSignal)(RACSignal *signal, id(^_Nullable)(id value));
 
-- (void (^)(id input, RACSignal *signal))bindSendSignal;
-- (RACSignal *(^)(id input, RACSignal *signal))bindFlattenMapSignal;
 @end
 
 NS_ASSUME_NONNULL_END

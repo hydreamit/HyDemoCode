@@ -62,9 +62,9 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
     return controller;
 }
 
-+ (UIViewController<HyViewControllerProtocol> *)presentViewControllerWithName:(NSString *_Nullable)controllerName
++ (UIViewController<HyViewControllerProtocol> *)presentViewControllerWithName:(NSString * _Nullable)controllerName
                                                                 viewModelName:(NSString * _Nullable)viewModelName
-                                                                    parameter:(NSDictionary *_Nullable)parameter
+                                                                    parameter:(NSDictionary * _Nullable)parameter
                                                                      animated:(BOOL)flag
                                                                    completion:(void(^_Nullable)(UIViewController<HyViewControllerProtocol> *controller))completion {
     

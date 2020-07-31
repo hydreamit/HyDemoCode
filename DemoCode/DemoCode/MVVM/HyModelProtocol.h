@@ -6,22 +6,19 @@
 //  Copyright © 2017 Hy. All rights reserved.
 //
 
-#import "HyViewControllerJumpProtocol.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol HyModelProtocol <NSObject>
 @optional
++ (instancetype)modelWithParameter:(nullable NSDictionary *)parameter;
 @property (nonatomic,strong) NSDictionary *parameter;
 - (void)modelLoad;
 @end
 
 
-@protocol HyModelFactoryProtocol <NSObject>
-@optional
-+ (id<HyModelProtocol>)modelWithParameter:(nullable NSDictionary *)parameter;
-@end
 
 NS_ASSUME_NONNULL_END

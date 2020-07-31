@@ -8,82 +8,89 @@
 
 
 #import <ReactiveObjC/ReactiveObjC.h>
+#import "RACSignal+HyExtension.h"
 
-
-typedef void (^EmtyBlock)(void);
-typedef void (^EmtyParamBlock)(id value);
-
-typedef id (^ValueBlock)(void);
-typedef id (^ValueParamBlock)(id value);
-
-
-typedef void (^CommandInputBlock)(id input);
-typedef RACSignal *(^CommandSignalInputBlock)(id input);
-typedef RACCommand *(^EmtyCommandBloack)(CommandInputBlock inputBlock);
-typedef RACCommand *(^EmtyEnabledCommandBloack)(RACSignal *enabledSignal ,CommandInputBlock inputBlock);
-typedef RACCommand *(^CommandBloack)(RACSignal *signal, CommandInputBlock inputBlock);
-typedef RACCommand *(^BlockCommandBloack)(CommandSignalInputBlock signalBlock, CommandInputBlock inputBlock);
-
-typedef RACCommand *(^EnabledcommandBloack)(RACSignal *signal,RACSignal *enabledSignal ,CommandInputBlock inputBlock);
-typedef RACCommand *(^EnabledBlockCommandBloack)(RACSignal *enabledSignal , CommandSignalInputBlock signalBlock,CommandInputBlock inputBlock);
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface RACCommand (HyExtension)
 
+@property (nonatomic,copy,readonly) void(^executeWithInputBlock)(id input);
+@property (nonatomic,copy,readonly) typeof(void(^)(id))(^executeWithInputHandlerBlock)(id(^_Nullable)(id value));
+@property (nonatomic,copy,readonly) typeof(void(^)(void))(^executeWithVoidBlock)(id input);
+@property (nonatomic,copy,readonly) typeof(void(^)(void))(^executeWithVoidHandlerBlock)(id(^_Nullable)(void));
 
-/**
- 空信号的Command
+@property (nonatomic,copy,readonly) RACSignal *(^execute)(id _Nullable input);
+@property (nonatomic,copy,readonly) RACSignal *(^executeFromSignal)(RACSignal *signal, id(^_Nullable)(id value));
+@property (nonatomic,copy,readonly) RACSignal *(^executeToSignal)(id input, RACSignal *(^)(id value));
+@property (nonatomic,copy,readonly) RACSignal *(^executeFromToSignal)(RACSignal *signal, id(^_Nullable)(id value), RACSignal *(^)(id value));
 
- @return 设值的block
- */
-+ (EmtyCommandBloack)emptyCommand;
-
-
-/**
-  空信号的控制enabled的Command
-
- @return 设值的block
- */
-+ (EmtyEnabledCommandBloack)emptyEnabledCommand;
-
-
-/**
- 正常的command
-
- @return 设值的block
- */
-+ (CommandBloack)command;
-+ (BlockCommandBloack)blockCommand;
-
-/**
- 正常控制的enabled的Command
- 
- @return 设值的block
- */
-+ (EnabledcommandBloack)enabledcommand;
-+ (EnabledBlockCommandBloack)enabledBlockCommand;
-
-// block 执行 command
-- (EmtyBlock (^)(id input))bindExcuteEmtyBlock;
-- (EmtyBlock (^)(ValueBlock block))bindExcuteEmtyValueBlock;
-- (void (^)(id input))bindExcuteBlock;
-- (EmtyParamBlock (^)(ValueParamBlock block))bindExcuteValueBlock;
-// signal 执行 command
-- (void (^)(id input, RACSignal *signal))bindExcuteSignal;
-// signal FlattenMap command
-- (RACSignal *(^)(id input, RACSignal *signal))bindFlattenMapSignal;
-
-
-// 方法简写
-- (RACSignal *)signal;
-- (RACDisposable *)subscribeNext:(void (^)(id value))nextBlock;
-- (RACDisposable *)subscribeError:(void (^)(NSError *error))errorBlock;
-- (RACDisposable *)subscribeCompleted:(void (^)(id value))completedBlock;
-- (NSArray<RACDisposable *> *)subscribeNext:(void (^)(id value))nextBlock
-                                      error:(void (^)(NSError *error))errorBlock
-                                  completed:(void (^)(id value))completedBlock;
+@property (nonatomic,strong,readonly) RACSignal *signal;
+@property (nonatomic,copy,readonly) RACDisposable *(^subscribeNext)(void (^)(id value));
+@property (nonatomic,copy,readonly) RACDisposable *(^subscribeError)(void (^)(NSError *error));
+@property (nonatomic,copy,readonly) RACDisposable *(^subscribeCompleted)(void (^)(id value));
+@property (nonatomic,copy,readonly) NSArray<RACDisposable *> *(^subscribeAll)(void (^_Nullable)(id value), void (^_Nullable)(NSError *error), void (^_Nullable)(id value));
 
 @end
+
+
+
+CG_INLINE RACCommand *
+hy_command(RACSignal<NSNumber *> * _Nullable enabledSignal, void(^_Nullable inputHandler)(id input), RACSignal *(^_Nullable signalBlock)(id value)) {
+    RACSignal *enabledS = enabledSignal ?: hy_signalWithValue(@YES);
+    return [[RACCommand alloc] initWithEnabled:enabledS signalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        !inputHandler ?: inputHandler(input);
+        return (signalBlock ? signalBlock(input) : nil) ?: hy_signalWithValue(input);
+    }];
+}
+
+CG_INLINE RACCommand *
+hy_commandWithAction(void(^block)(id input)) {
+    return hy_command(nil, block, nil);
+}
+
+CG_INLINE RACCommand *
+hy_commandWithEnbleAction(RACSignal<NSNumber *> *signal, void(^block)(id input)) {
+    return hy_command(signal, block, nil);
+}
+
+CG_INLINE RACCommand *
+hy_commandWithSignal(RACSignal *(^block)(id input)) {
+    return hy_command(nil, nil, block);
+}
+
+CG_INLINE RACCommand *
+hy_commandWithEnbleSignal(RACSignal<NSNumber *> *signal, RACSignal *(^block)(id input)) {
+    
+    return hy_command(signal, nil , block);
+}
+
+#define hy_popCommand(_enabledSignal, _viewControllerName, _parameter, _animated) \
+[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                        signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+    return hy_popSignal(_viewControllerName, _parameter, _animated); \
+}];
+
+#define hy_pushCommand(_enabledSignal, _viewControllerName, _viewModelName, _parameter, _animated)\
+[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                        signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+    return hy_pushSignal(_viewControllerName, _viewModelName, _parameter, _animated); \
+}];
+
+#define hy_presentCommand(_enabledSignal, _viewControllerName, _viewModelName, _parameter, _animated) \
+[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                                   signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+    return hy_presentSignal(_viewControllerName, _viewModelName, _parameter, _animated); \
+}];
+
+
+
+#define hy_dismissCommand(enabledSignal, _parameter, _animated) \
+[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                        signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+     return hy_dismissSignal(_parameter, _animated); \
+}];
+
 
 NS_ASSUME_NONNULL_END

@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HyViewControllerJumpProtocol.h"
 #import "HyModelProtocol.h"
-
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyModel : NSObject <HyViewControllerJumpProtocol, HyModelFactoryProtocol, HyModelProtocol>
+@interface HyModel : NSObject <HyViewControllerJumpProtocol, HyModelProtocol>
 
 @end
 

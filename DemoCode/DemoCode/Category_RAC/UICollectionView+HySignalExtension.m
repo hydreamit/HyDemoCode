@@ -9,7 +9,6 @@
 #import "UICollectionView+HySignalExtension.h"
 
 
-
 @implementation UICollectionView (HySignalExtension)
 
 - (void)setHy_collectionViewData:(id)hy_collectionViewData {

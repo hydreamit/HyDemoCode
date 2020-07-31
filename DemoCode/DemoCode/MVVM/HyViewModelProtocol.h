@@ -7,17 +7,20 @@
 //
 
 
-#import "HyViewControllerJumpProtocol.h"
-#import <ReactiveObjC/ReactiveObjC.h>
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+//#import "HyViewProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^ReloadViewBlock)(id _Nullable parameter);
-@protocol HyViewControllerProtocol, HyModelProtocol;
+@protocol HyViewControllerProtocol, HyModelProtocol, HyViewProtocol;
 @protocol HyViewModelProtocol <NSObject>
 @optional
+
++ (instancetype)viewModelWithParameter:(nullable NSDictionary *)parameter;
+
 @property (nonatomic,strong) NSDictionary *parameter;
 @property (nonatomic,strong) id<HyModelProtocol> model;
 @property (nonatomic,readonly) UINavigationController *viewModelNavigationController;
@@ -39,12 +42,8 @@ typedef void (^ReloadViewBlock)(id _Nullable parameter);
                                         id<HyModelProtocol> model))successHandler
                failureHandler:(void (^_Nullable)(id input,
                                         NSError *error))failureHandler;
+
 @end
 
-
-@protocol HyViewModelFactoryProtocol <NSObject>
-@optional
-+ (id<HyViewModelProtocol>)viewModelWithParameter:(nullable NSDictionary *)parameter;
-@end
 
 NS_ASSUME_NONNULL_END

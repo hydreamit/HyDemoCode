@@ -11,35 +11,7 @@
 
 @implementation RACSubject (HyExtension)
 
-+ (subjectBlock)createSubject {
-    return ^RACSubject *(subscribeBlock subscribe){
-        RACSubject *subject = [RACSubject subject];
-        [subject subscribeNext:subscribe];
-        return subject;
-    };
-}
-
-- (EmtyBlock (^)(id input))bindSendEmtyBlock {
-    @weakify(self);
-    return ^EmtyBlock(id input) {
-        return ^{
-            @strongify(self);
-            [self sendNext:input];
-        };
-    };
-}
-
-- (EmtyBlock (^)(ValueBlock block))bindSendEmtyValueBlock {
-    @weakify(self);
-    return ^EmtyBlock(ValueBlock block) {
-        return ^{
-            @strongify(self);
-            [self sendNext:block ? block() : nil];
-        };
-    };
-}
-
-- (void (^)(id input))bindSendBlock {
+- (void (^)(id _Nonnull))sendWithInputBlock {
     @weakify(self);
     return ^(id input){
         @strongify(self);
@@ -47,34 +19,51 @@
     };
 }
 
-- (EmtyParamBlock (^)(ValueParamBlock block))bindSendValueBlock {
+- (typeof(void (^)(id _Nonnull))  _Nonnull (^)(id  _Nonnull (^ _Nullable)(id _Nonnull)))sendWithInputHandlerBlock {
     @weakify(self);
-    return ^EmtyParamBlock(ValueParamBlock block) {
-        return ^(id input){
+    return ^(id(^inputBlock)(id input)){
+        return ^(id value){
             @strongify(self);
-            [self sendNext:block ? block(input) : nil];
+            [self sendNext:inputBlock ? inputBlock(value) : nil];
         };
     };
 }
 
-- (void (^)(id input, RACSignal *signal))bindSendSignal {
-    @weakify(self);
-    return ^(id input, RACSignal *signal){
-        [signal subscribeNext:^(id  _Nullable x) {
+- (typeof(void (^)(void))  _Nonnull (^)(id _Nonnull))sendWithVoidBlock {
+    return ^(id input){
+        @weakify(self);
+        return ^{
             @strongify(self);
             [self sendNext:input];
-        }];
+        };
     };
 }
 
-- (RACSignal *(^)(id input, RACSignal *signal))bindFlattenMapSignal {
+- (typeof(void (^)(void))  _Nonnull (^)(id  _Nonnull (^ _Nullable)(void)))sendWithVoidHandlerBlock {
+    return ^(id(^handler)(void)) {
+        @weakify(self);
+        return ^{
+            @strongify(self);
+            [self sendNext:handler ? handler() : nil];
+        };
+    };
+}
+
+- (void (^)(id _Nullable))send {
     @weakify(self);
-    return ^RACSignal *(id input, RACSignal *signal) {
+    return ^(id input){
         @strongify(self);
-        self.bindSendSignal(input, signal);
-        return [signal flattenMap:^RACSignal *(id value) {
-                return self;
-        }];
+         [self sendNext:input];
+    };
+}
+
+- (void (^)(RACSignal * _Nonnull, id  _Nonnull (^ _Nullable)(id _Nonnull)))sendFromSignal {
+    return ^(RACSignal *signal, id(^inputBlock)(id)) {
+        @weakify(self);
+        signal.subscribeNext(^(id  _Nonnull value) {
+            @strongify(self);
+            self.send(inputBlock ? inputBlock(value) : value);
+        });
     };
 }
 

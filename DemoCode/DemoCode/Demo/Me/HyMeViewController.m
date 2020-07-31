@@ -12,7 +12,7 @@
 #import <HyCategoriess/UIColor+HyExtension.h>
 #import "HyMeViewModel.h"
 #import "HyMeView.h"
-
+#import "RACSignal+Network.h"
 
 @interface HyMeViewController ()
 @property (nonatomic,strong) UIButton *popButton;

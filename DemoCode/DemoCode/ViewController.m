@@ -7,14 +7,12 @@
 //
 
 #import "ViewController.h"
-
+#import "RACSignal+Network.h"
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = UIColor.whiteColor;
     
 }
 

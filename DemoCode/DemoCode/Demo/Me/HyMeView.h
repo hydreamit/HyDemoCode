@@ -12,7 +12,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyMeView : HyView<HyMeViewModel *>
+
+@protocol HyMeViewDataProtocol <HyViewDataProtocol>
+@property (nonatomic,strong) NSString *account;
+@property (nonatomic,strong) NSString *code;
+@end
+
+
+@interface HyMeView : HyView<HyMeViewModel *, id<HyMeViewDataProtocol>, id<HyViewEventProtocol>>
 
 @end
 

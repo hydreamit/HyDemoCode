@@ -12,6 +12,7 @@
 #import "HyNetworkManager.h"
 #import "NSObject+HyProtocol.h"
 #import <HyCategoriess/HyCategories.h>
+#import "HyModel.h"
 
 
 @interface HyViewModel ()
@@ -30,12 +31,12 @@ NSError *);
 @implementation HyViewModel
 @synthesize parameter = _parameter, model = _model;
 
-+ (id<HyViewModelProtocol>)viewModelWithParameter:(NSDictionary *)parameter {
++ (instancetype)viewModelWithParameter:(NSDictionary *)parameter {
     
     id<HyViewModelProtocol> viewModel = [[self alloc] init];
     viewModel.parameter = parameter;
     [((NSObject<HyViewModelProtocol> *)viewModel) hy_modelSetWithJSON:parameter];
-    return viewModel;
+    return (id)viewModel;
 }
 
 - (void)viewModelLoad {
@@ -78,19 +79,19 @@ NSError *);
     };
     
     if (self.isGet) {
-        [[HyNetworkManager.network getShowHUD:YES
+        [HyNetworkManager.network getShowHUD:YES
                                         cache:NO
                                           url:url
                                     parameter:parameter
                                  successBlock:success
-                                 failureBlock:failure] resume];
+                                failureBlock:failure].resumeAtObjcet(self);
     } else {
-        [[HyNetworkManager.network postShowHUD:YES
+        [HyNetworkManager.network postShowHUD:YES
                                          cache:NO
                                            url:url
                                      parameter:parameter
                                   successBlock:success
-                                  failureBlock:failure] resume];
+                                  failureBlock:failure].resumeAtObjcet(self);
     }
 }
 
@@ -99,7 +100,7 @@ NSError *);
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         id modelData = response;
-        Class<HyModelFactoryProtocol> modelClass = HyModel.class;
+        Class<HyModelProtocol> modelClass = HyModel.class;
         
         if (self.dataHandler) {
             NSArray *array = self.dataHandler(response);
@@ -108,7 +109,7 @@ NSError *);
                 if (array.count == 2) {
                     Class cls = array.lastObject;
                     if ([cls conformsToProtocol:@protocol(HyModelProtocol)] &&
-                        Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+                        Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
                         modelClass = cls;
                     }
                 }
@@ -123,11 +124,11 @@ NSError *);
 
 - (id<HyModelProtocol>)model {
     if (!_model) {
-        Class<HyModelFactoryProtocol> cls = getObjcectPropertyClass([self class], "model");
+        Class<HyModelProtocol> cls = getObjcectPropertyClass([self class], "model");
         if (cls == NULL) {
             cls = HyModel.class;
         }
-        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelFactoryProtocol), @selector(modelWithParameter:))) {
+        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
             _model = (id<HyModelProtocol>)[cls modelWithParameter:self.parameter];
         }
     }
@@ -166,6 +167,15 @@ NSError *);
     for (ReloadViewBlock block in self.reloadViewBlockArray) {
         block(parameter);
     }
+}
+
+#pragma mark - HyViewInvokerProtocol
+- (id<HyViewDataProtocol>)viewDataProviderForClassString:(NSString *)classString {
+    return nil;
+}
+
+- (id<HyViewEventProtocol>)viewEventHandlerForClassString:(NSString *)classString {
+    return nil;
 }
 
 @end

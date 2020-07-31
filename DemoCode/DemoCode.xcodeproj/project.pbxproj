@@ -16,8 +16,6 @@
 		510BB24423A734D700A97F0A /* HyNetworkSignleTaskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB24323A734D700A97F0A /* HyNetworkSignleTaskInfo.m */; };
 		510BB24723A734E400A97F0A /* HyNetworkMutipleTasksInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB24623A734E400A97F0A /* HyNetworkMutipleTasksInfo.m */; };
 		510BB25123A75BAF00A97F0A /* HyNetworkMutipleTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 510BB25023A75BAF00A97F0A /* HyNetworkMutipleTasks.m */; };
-		5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */; };
-		5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */ = {isa = PBXBuildFile; fileRef = 5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */; };
 		51343503238E1B64007600EA /* UITableView+HySignalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343502238E1B64007600EA /* UITableView+HySignalExtension.m */; };
 		51343506238E20A7007600EA /* UICollectionView+HySignalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 51343505238E20A7007600EA /* UICollectionView+HySignalExtension.m */; };
 		5134352F238E877D007600EA /* KafkaRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5134351E238E877D007600EA /* KafkaRefreshFooter.m */; };
@@ -155,6 +153,7 @@
 		51CF98F72387C76C00207DB3 /* HyNewsImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F62387C76C00207DB3 /* HyNewsImageCell.m */; };
 		51CF98FA2387C77C00207DB3 /* HyNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CF98F92387C77C00207DB3 /* HyNewsCell.m */; };
 		7C9D82519AEA4A94F910CAEE /* Pods_DemoCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4370958740260EABFA1F4A /* Pods_DemoCode.framework */; };
+		B5A0700424D299F500C5C4B8 /* NSObject+HyRACExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A0700324D299F500C5C4B8 /* NSObject+HyRACExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,10 +203,6 @@
 		510BB24F23A75BAF00A97F0A /* HyNetworkMutipleTasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkMutipleTasks.h; sourceTree = "<group>"; };
 		510BB25023A75BAF00A97F0A /* HyNetworkMutipleTasks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNetworkMutipleTasks.m; sourceTree = "<group>"; };
 		510BB25223A75C8200A97F0A /* HyNetworkMutipleTasksProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNetworkMutipleTasksProtocol.h; sourceTree = "<group>"; };
-		5120D98223851193002B3A1C /* RACSignal+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACSignal+HyViewControllerJump.h"; sourceTree = "<group>"; };
-		5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+HyViewControllerJump.m"; sourceTree = "<group>"; };
-		5120D985238511A4002B3A1C /* RACCommand+HyViewControllerJump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RACCommand+HyViewControllerJump.h"; sourceTree = "<group>"; };
-		5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RACCommand+HyViewControllerJump.m"; sourceTree = "<group>"; };
 		51343501238E1B64007600EA /* UITableView+HySignalExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+HySignalExtension.h"; sourceTree = "<group>"; };
 		51343502238E1B64007600EA /* UITableView+HySignalExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+HySignalExtension.m"; sourceTree = "<group>"; };
 		51343504238E20A7007600EA /* UICollectionView+HySignalExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+HySignalExtension.h"; sourceTree = "<group>"; };
@@ -628,6 +623,8 @@
 		51CF98F82387C77C00207DB3 /* HyNewsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyNewsCell.h; sourceTree = "<group>"; };
 		51CF98F92387C77C00207DB3 /* HyNewsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyNewsCell.m; sourceTree = "<group>"; };
 		940EB0552BB229DC24EA24A2 /* Pods-DemoCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoCode.release.xcconfig"; path = "Target Support Files/Pods-DemoCode/Pods-DemoCode.release.xcconfig"; sourceTree = "<group>"; };
+		B5A0700224D299F500C5C4B8 /* NSObject+HyRACExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyRACExtension.h"; sourceTree = "<group>"; };
+		B5A0700324D299F500C5C4B8 /* NSObject+HyRACExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyRACExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -940,20 +937,18 @@
 		51559F0823827E8F007904C8 /* Category_RAC */ = {
 			isa = PBXGroup;
 			children = (
-				513435502390B68D007600EA /* RACCommand+Network.h */,
-				513435512390B68D007600EA /* RACCommand+Network.m */,
 				513435532390B68D007600EA /* RACSignal+Network.h */,
 				513435522390B68D007600EA /* RACSignal+Network.m */,
+				513435502390B68D007600EA /* RACCommand+Network.h */,
+				513435512390B68D007600EA /* RACCommand+Network.m */,
 				51559F172382806C007904C8 /* RACSignal+HyExtension.h */,
 				51559F182382806C007904C8 /* RACSignal+HyExtension.m */,
 				51559F1A2382807F007904C8 /* RACCommand+HyExtension.h */,
 				51559F1B2382807F007904C8 /* RACCommand+HyExtension.m */,
 				51559F1D2382808E007904C8 /* RACSubject+HyExtension.h */,
 				51559F1E2382808E007904C8 /* RACSubject+HyExtension.m */,
-				5120D98223851193002B3A1C /* RACSignal+HyViewControllerJump.h */,
-				5120D98323851193002B3A1C /* RACSignal+HyViewControllerJump.m */,
-				5120D985238511A4002B3A1C /* RACCommand+HyViewControllerJump.h */,
-				5120D986238511A4002B3A1C /* RACCommand+HyViewControllerJump.m */,
+				B5A0700224D299F500C5C4B8 /* NSObject+HyRACExtension.h */,
+				B5A0700324D299F500C5C4B8 /* NSObject+HyRACExtension.m */,
 				51343501238E1B64007600EA /* UITableView+HySignalExtension.h */,
 				51343502238E1B64007600EA /* UITableView+HySignalExtension.m */,
 				51343504238E20A7007600EA /* UICollectionView+HySignalExtension.h */,
@@ -1972,6 +1967,7 @@
 				516CAFD62418DE1100D9447A /* HyAVCapturer.m in Sources */,
 				519032BD23BF3A5300130D01 /* HySocketHeartBeat.m in Sources */,
 				516CAFDF2418DE1100D9447A /* HyVideoToolboxEncoder.m in Sources */,
+				B5A0700424D299F500C5C4B8 /* NSObject+HyRACExtension.m in Sources */,
 				51784F202387FE0C00EB2F14 /* HyRecommendViewController.m in Sources */,
 				513435812394F414007600EA /* HyHUD.m in Sources */,
 				516CB0042418FE7800D9447A /* HyAudioVideoCaptureButton.m in Sources */,
@@ -1981,7 +1977,6 @@
 				5134358823966F55007600EA /* HyTipStatus.m in Sources */,
 				51559F7C2383F9E0007904C8 /* HyTextFieldView.m in Sources */,
 				516CAFE62418DE1100D9447A /* HyAudioTool.m in Sources */,
-				5120D98423851193002B3A1C /* RACSignal+HyViewControllerJump.m in Sources */,
 				51784F5E238CF47500EB2F14 /* HyViewModel.m in Sources */,
 				51CF98F12387C5EA00207DB3 /* HyNewsViewModel.m in Sources */,
 				510BB17123A1EFA800A97F0A /* NSObject+HyProtocol.m in Sources */,
@@ -2005,7 +2000,6 @@
 				51559F602383913F007904C8 /* HyMeViewModel.m in Sources */,
 				510BB23B23A72B7100A97F0A /* HyNetworkFailureObject.m in Sources */,
 				516CAFE02418DE1100D9447A /* HyVideoToolboxDecoder.m in Sources */,
-				5120D987238511A4002B3A1C /* RACCommand+HyViewControllerJump.m in Sources */,
 				510BB24723A734E400A97F0A /* HyNetworkMutipleTasksInfo.m in Sources */,
 				516CAFC72418DE1100D9447A /* HyFFmepgVideoEncoder.m in Sources */,
 				510BB23E23A72B7100A97F0A /* HyNetworkSuccessObject.m in Sources */,

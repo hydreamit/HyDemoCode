@@ -25,7 +25,7 @@
         
         Class viewModelClass = NSClassFromString(viewModelName);
         
-        if (Hy_ProtocolAndSelector(viewModelClass, @protocol(HyViewModelFactoryProtocol), @selector(viewModelWithParameter:))) {
+        if (Hy_ProtocolAndSelector(viewModelClass, @protocol(HyViewModelProtocol), @selector(viewModelWithParameter:))) {
             
             id<HyViewModelProtocol> viewModel = [viewModelClass viewModelWithParameter:parameter];
             controller.viewModel = viewModel;

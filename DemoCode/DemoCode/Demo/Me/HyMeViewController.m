@@ -12,7 +12,8 @@
 #import <HyCategoriess/UIColor+HyExtension.h>
 #import "HyMeViewModel.h"
 #import "HyMeView.h"
-#import "RACSignal+Network.h"
+#import <HyCategoriess/HyCategories.h>
+#import "HyMeModel.h"
 
 @interface HyMeViewController ()
 @property (nonatomic,strong) UIButton *popButton;
@@ -21,6 +22,7 @@
 
 
 @implementation HyMeViewController
+
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     
@@ -49,12 +51,13 @@
 }
 
 - (void)viewModelDidLoad {
-    self.pushButton.rac_command = self.viewModel.pushCommand;
-    self.popButton.rac_command = self.viewModel.popCommand;
+    
+    self.pushButton.rac_command = self.viewModel.command(@"push");
+    self.popButton.rac_command = self.viewModel.command(@"pop");
 }
 
-- (void)popFromViewController:(NSString *)name parameter:(NSDictionary *)parameter {
-    
+- (void)popFromViewController:(NSString *)name parameter:(id)parameter {
+    self.viewModel.model.account = parameter[@"account"];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -65,6 +68,7 @@
     if (!_pushButton){
         _pushButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_pushButton setTitle:@"Push" forState:UIControlStateNormal];
+        _pushButton.backgroundColor = UIColor.orangeColor;
         RAC(_pushButton, backgroundColor) =
         [[_pushButton rac_signalForSelector:@selector(setEnabled:)] map:^id _Nullable(RACTuple * _Nullable value) {
             return [value.first boolValue] ? UIColor.orangeColor : [UIColor hy_colorWithHexString:@"#D5DCE4"];
@@ -84,7 +88,4 @@
     return _popButton;
 }
 
-- (void)dealloc {
-    NSLog(@"%s", __func__);
-}
 @end

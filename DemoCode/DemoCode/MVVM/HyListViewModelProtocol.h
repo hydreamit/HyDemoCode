@@ -17,43 +17,32 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, HyListViewRequestDataType) {
-    HyListViewRequestDataTypeFirst,
-    HyListViewRequestDataTypeNew,
-    HyListViewRequestDataTypeMore
-};
-
 
 @protocol HyListViewModelProtocol <HyViewModelProtocol>
 @optional
 
-@property (nonatomic,strong) id<HyListModelProtocol> listModel;
-@property (nonatomic,copy) void(^_Nullable reloadListViewBlock)(id _Nullable parameter);
 
-- (NSInteger)getPageSize;
-- (NSInteger(^)(HyListViewRequestDataType type))getRequestDataPageNumber;
+@property (nonatomic,copy,readonly) id<HyListEntityProtocol>(^listEntity)(NSString *_Nullable key);
 
-- (void)configStartPage:(NSInteger)startPage
-               pageSize:(NSInteger)pageSize;
+// 事件
+@property (nonatomic,copy,readonly) typeof(void(^)(id parameter, HyListActionType type)) (^listAction)(NSString *_Nullable key);
+- (id<HyBlockProtocol>)addListActionSuccessHandler:(void(^)(id _Nullable input, id _Nullable data, HyListActionType type, BOOL noMore))successHandler
+                                            forKey:(NSString *_Nullable)key;
+- (id<HyBlockProtocol>)addListActionFailureHandler:(void(^)(id _Nullable input, NSError *error, HyListActionType type))failureHandler
+                                            forKey:(NSString *_Nullable)key;
+- (NSArray<id<HyBlockProtocol>> *)addListActionSuccessHandler:(void(^_Nullable)(id _Nullable input, id _Nullable data, HyListActionType type, BOOL noMore))successHandler
+                                               failureHandler:(void(^_Nullable)(id _Nullable input, NSError *error, HyListActionType type))failureHandler
+                                                       forKey:(NSString *_Nullable)key;
 
-- (void)configRequestIsGet:(BOOL)isGet
-                       url:(NSString *(^)(id _Nullable input, HyListViewRequestDataType type))url
-                 parameter:(NSDictionary *(^_Nullable)(id _Nullable input, HyListViewRequestDataType type))parameter
-         sectionDataHandler:(NSArray<id> *(^_Nullable)(id _Nullable input, NSDictionary *response, HyListViewRequestDataType type))sectionDataHandler
-            cellDataHandler:(NSArray<id> *(^_Nullable)(id _Nullable input, NSDictionary *sectionData, NSUInteger section, HyListViewRequestDataType type))cellDataHandler;
+// refreshView
+@property (nonatomic,copy,readonly) NSArray<typeof(void(^)(id _Nullable parameter))> *(^refreshListView)(NSString *_Nullable key);
+- (id<HyBlockProtocol>)addRefreshListView:(void(^)(id _Nullable parameter))block forKey:(NSString *_Nullable)key;
+- (void)refreshListViewWithParameter:(id _Nullable)parameter forKey:(NSString *_Nullable)key;
 
-- (void)requestListDataWithInput:(id _Nullable)input type:(HyListViewRequestDataType)type;
 
-- (void)requestListSuccessHandler:(void (^_Nullable)(id input,
-                                        id<HyListModelProtocol> listModel,
-                                        HyListViewRequestDataType type,
-                                        BOOL noMore))successHandler
-                   failureHandler:(void (^_Nullable)(id input,
-                                            NSError *error,
-                                            HyListViewRequestDataType type))failureHandler;
-
-- (id<HyModelProtocol> (^)(NSIndexPath *indexPath))cellModel;
-- (id<HyListModelProtocol> (^)(NSUInteger section))sectionModel;
+#pragma mark - RAC
+@property (nonatomic,copy,readonly) RACCommand<RACTuple *, RACTuple *> *(^listCommand)(NSString *_Nullable key);
+@property (nonatomic,copy,readonly) RACSubject *(^refreshListViewSignal)(NSString *_Nullable key);
 
 @end
 

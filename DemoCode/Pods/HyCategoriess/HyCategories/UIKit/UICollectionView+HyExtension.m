@@ -28,7 +28,7 @@
 @property (nonatomic,copy) CGSize(^layoutReferenceSizeForHeader)(UICollectionView *collectionView, UICollectionViewLayout *layout, NSInteger section);
 @property (nonatomic,copy) CGSize(^layoutReferenceSizeForFooter)(UICollectionView *collectionView, UICollectionViewLayout *layout, NSInteger section);
 
-@property (nonatomic,copy) NSArray<NSString *> *(^sectionAndCellDataKey)(void);
+@property (nonatomic,copy) NSArray *(^sectionAndCellDataKey)(void);
 @property (nonatomic,copy) Class(^cellClassForRow)(id cellData, NSIndexPath * indexPath);
 @property (nonatomic,copy) void(^cellWithData)(UICollectionViewCell *cell, id cellData, NSIndexPath *indexPath);
 @property (nonatomic,copy) Class(^sectionHeaderFooterViewClassAtSection)(id sectionData,HyCollectionSeactionViewKinds seactionViewKinds,NSUInteger section);
@@ -447,6 +447,9 @@ willDisplaySupplementaryView:(UICollectionReusableView *)view
 - (id)getSectionData {
     
     NSString *sectionKey = [self getSectionKey];
+    if (![sectionKey isKindOfClass:NSString.class]) {
+        return sectionKey;
+    }
     if (sectionKey.length && sectionKey.length) {
         NSArray *keys = [sectionKey componentsSeparatedByString:@"."];
         id data = self.hy_collectionViewData;
@@ -463,6 +466,9 @@ willDisplaySupplementaryView:(UICollectionReusableView *)view
 - (id)getCellKeyDataWithSection:(NSInteger)section {
     
     NSString *cellKey = [self getCellKey];
+    if (![cellKey isKindOfClass:NSString.class]) {
+        return cellKey;
+    }
     if (self.hy_collectionViewData && cellKey.length) {
         
         id sectionData = [self getSectionData] ?: self.hy_collectionViewData;
@@ -519,10 +525,8 @@ willDisplaySupplementaryView:(UICollectionReusableView *)view
 
 - (BOOL)isObjectWithData:(id)data {
     if (!data) { return NO;}
-    
     return ![self isArrayWithData:data];
 }
-
 
 - (id)hy_collectionViewData {
     return self.collectionView.hy_collectionViewData;

@@ -7,17 +7,18 @@
 //
 
 #import "HyRecommendViewModel.h"
+#import "HyRecommendModel.h"
+
+
+@interface HyRecommendViewModel ()
+@property (nonatomic, strong)HyRecommendModel *listModel;
+@end
+
 
 @implementation HyRecommendViewModel
 
 - (void)viewModelLoad {
     [super viewModelLoad];
     
-    [self configRequestIsGet:YES url:^NSString * _Nonnull(id  _Nullable input, HyListViewRequestDataType type) {
-        return @"http://i.play.163.com/news/topicOrderSource/list";
-    } parameter:nil sectionDataHandler:nil cellDataHandler:^NSArray<id> * _Nonnull(id  _Nullable input, NSDictionary * _Nonnull sectionData, NSUInteger section, HyListViewRequestDataType type) {
-        return @[sectionData[@"info"]];
-    }];
 }
-
 @end

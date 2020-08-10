@@ -19,5 +19,6 @@ target 'DemoCode' do
     pod 'SocketRocket'
     
     pod 'GPUImage'
+    pod 'LFPhoneInfo'
 
 end

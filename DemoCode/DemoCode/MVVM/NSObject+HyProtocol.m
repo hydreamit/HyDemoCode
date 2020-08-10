@@ -51,13 +51,16 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
 
     UIViewController<HyViewControllerProtocol> *controller = [controllerClass viewControllerWithViewModelName:viewModelName parameter:parameter];
     UIViewController *currentController = UIViewController.hy_currentViewController;
-    __weak typeof(controller) weakController = controller;
     if (currentController.navigationController.viewControllers.count) {
         controller.hidesBottomBarWhenPushed = YES;
     }
+    
+    __block void(^block)(id) = completion;
+    __weak typeof(controller) weakController = controller;
     [currentController.navigationController hy_pushViewController:controller animated:flag completion:^{
         __strong typeof(weakController) strongController = weakController;
-        !completion ?: completion(strongController);
+        !block ?: block(strongController);
+        block = NULL;
     }];
     return controller;
 }
@@ -82,10 +85,12 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
     
     UIViewController<HyViewControllerProtocol> *controller = [controllerClass viewControllerWithViewModelName:viewModelName parameter:parameter];
     UIViewController *currentController = UIViewController.hy_currentViewController;
+    __block void(^block)(id) = completion;
     __weak typeof(controller) weakController = controller;
     [currentController presentViewController:controller animated:flag completion:^{
         __strong typeof(weakController) strongController = weakController;
-        !completion ?: completion(strongController);
+        !block ?: block(strongController);
+        block = NULL;
     }];
     return controller;
 }
@@ -97,12 +102,15 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
     UIViewController<HyViewControllerProtocol> *currentController = (UIViewController<HyViewControllerProtocol> *)UIViewController.hy_currentViewController;
      NSString *controllerName = NSStringFromClass(currentController.class);
     UIViewController<HyViewControllerProtocol> *popController = (UIViewController<HyViewControllerProtocol> *)[currentController.navigationController hy_viewControllerToIndex:1];
-     __weak typeof(currentController) weakController = popController;
+    __block void(^block)(void) = completion;
+    __weak typeof(currentController) weakController = popController;
     return (UIViewController<HyViewControllerProtocol> *)[currentController.navigationController hy_popViewControllerAnimated:flag completion:^{
         __strong typeof(weakController) strongController = weakController;
         if (Hy_ProtocolAndSelector(strongController, @protocol(HyViewControllerProtocol), @selector(popFromViewController:parameter:))) {
             [strongController popFromViewController:controllerName parameter:parameter];
         }
+        !block ?: block();
+        block = NULL;
     }];
 }
 
@@ -113,6 +121,7 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
     
     UIViewController<HyViewControllerProtocol> *currentController = (UIViewController<HyViewControllerProtocol> *)UIViewController.hy_currentViewController;
     NSString *controllerName = NSStringFromClass(currentController.class);
+    __block void(^block)(void) = completion;
     __weak typeof(currentController) weakController = viewController;
     return
     [currentController.navigationController hy_popToViewController:viewController animated:flag completion:^{
@@ -120,6 +129,8 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
         if (Hy_ProtocolAndSelector(strongController, @protocol(HyViewControllerProtocol), @selector(popFromViewController:parameter:))) {
             [strongController popFromViewController:controllerName parameter:parameter];
         }
+        !block ?: block();
+        block = NULL;
     }];
 }
 
@@ -160,12 +171,15 @@ Class getObjcectPropertyClass(Class cls, const char *name) {
     UIViewController<HyViewControllerProtocol> *currentController = (UIViewController<HyViewControllerProtocol> *)UIViewController.hy_currentViewController;
     NSString *controllerName = NSStringFromClass(currentController.class);
     UIViewController<HyViewControllerProtocol> *presentedViewController = (UIViewController<HyViewControllerProtocol> *)currentController.presentedViewController;
+    __block void(^block)(void) = completion;
     __weak typeof(currentController) weakController = presentedViewController;
     [currentController dismissViewControllerAnimated:flag completion:^{
         __strong typeof(weakController) strongController = weakController;
         if (Hy_ProtocolAndSelector(strongController, @protocol(HyViewControllerProtocol), @selector(dismissFromViewController:parameter:))) {
             [strongController dismissFromViewController:controllerName parameter:parameter];
         }
+        !block ?: block();
+        block = NULL;
     }];
 }
 

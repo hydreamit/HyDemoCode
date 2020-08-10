@@ -13,11 +13,13 @@
 #import "HyNetworkManager.h"
 #import "HyTableView.h"
 #import "HyNewsCell.h"
+#import "HyNewsCellEntity.h"
 
 
 @interface HyNewsViewController ()
 @property (nonatomic,strong) HyTableView *tableView;
 @end
+
 
 @implementation HyNewsViewController
 - (void)hy_viewDidLoad {
@@ -36,7 +38,7 @@
 }
 
 - (void)viewModelDidLoad {
-    [self.viewModel requestListDataWithInput:nil type:0];
+    [self.viewModel.listCommand(nil) execute:RACTuplePack(nil, @(0))];
 }
 
 - (void)scrollToTop {
@@ -53,10 +55,10 @@
                                 headerFooterViewClasses:nil
                                       delegateConfigure:^(HyTableViewDelegateConfigure *configure) {
             configure.configCellClassForRow(^Class(id cellData, NSIndexPath *indexPath) {
-                return ((HyNewsModel *)cellData).cellClass;
+                return ((HyNewsCellEntity *)cellData).cellClass;
             }).configHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
                 @strongify(self);
-                return ((HyNewsModel *)self.viewModel.cellModel(indexPath)).cellHeight;
+                return ((HyNewsCellEntity *)self.viewModel.listEntity(nil).cellEntity(indexPath)).cellHeight;
             }).configDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath) {
                 @strongify(self);
                 [self.class pushViewControllerWithName:@"HyRecommendViewController"

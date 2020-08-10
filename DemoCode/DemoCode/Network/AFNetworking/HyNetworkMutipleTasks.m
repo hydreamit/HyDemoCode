@@ -41,15 +41,15 @@
     return self.networkTaskInfo;
 }
 
-- (void)resume {
-    self.resumeAtObjcet(nil);
+- (instancetype)resume {
+   return self.resumeAtObjcet(nil);
 }
 
-- (void (^)(NSObject * object))resumeAtObjcet {
+- (instancetype (^)(NSObject * object))resumeAtObjcet {
     return ^(NSObject * object){
         
         if (self.taskInfo.taskStatus == HyNetworkTaskStatusResuming) {
-            return;
+            return self;
         }
         
         if (object) {
@@ -91,7 +91,7 @@
                 self.taskInfo.completionBlock ?: self.taskInfo.completionBlock(mArray, allComletion);
             }
 
-            return;
+            return self;
         }
 
         UIView *hudForView = UIViewController.hy_currentViewController.view;
@@ -174,11 +174,9 @@
             });
         });
         
-        
+        return self;
     };
 }
-
-
 
 - (void)cancel {
     [self.singleTasks makeObjectsPerformSelector:@selector(cancel)];

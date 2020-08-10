@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configLayoutReferenceSizeForHeader)(CGSize (^)(UICollectionView *collectionView, UICollectionViewLayout *layout, NSInteger section));
 @property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configLayoutReferenceSizeForFooter)(CGSize (^)(UICollectionView *collectionView, UICollectionViewLayout *layout, NSInteger section));
 
-@property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configSectionAndCellDataKey)(NSArray<NSString *> *(^)(void));
+@property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configSectionAndCellDataKey)(NSArray *(^)(void));
 @property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configCellClassForRow)(Class (^)(id cellData, NSIndexPath * indexPath));
 @property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configCellWithData)(void (^)(UICollectionViewCell *cell, id cellData, NSIndexPath *indexPath));
 @property (nonatomic,copy,readonly) HyCollectionViewDelegateConfigure *(^configSectionHeaderFooterViewClassAtSection)(Class (^)(id sectionData,HyCollectionSeactionViewKinds seactionViewKinds,NSUInteger section));

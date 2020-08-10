@@ -9,18 +9,23 @@
 #import "HyView.h"
 #import "NSObject+HyProtocol.h"
 
+@interface HyView ()
+@property (nonatomic,strong) id viewModel;
+@property (nonatomic,strong) id parameter;
+@end
+
+
 @implementation HyView
-@synthesize parameter = _parameter;
 
 + (instancetype)viewWithFrame:(CGRect)frame
-                    viewModel:(id<HyViewModelProtocol>)viewModel
+                    viewModel:(id)viewModel
                     parameter:(id)parameter {
     
-    UIView<HyViewProtocol> *view = [[self alloc] initWithFrame:frame];
+    HyView *view = [[self alloc] initWithFrame:frame];
     view.viewModel = viewModel;
     view.parameter = parameter;
     [view viewLoad];
-    return (id)view;
+    return view;
 }
 
 - (void)viewLoad {}
@@ -39,4 +44,7 @@
     return nil;
 }
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
 @end

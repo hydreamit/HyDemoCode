@@ -13,6 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^_Nullable HyNetworkCommandSuccessSubscribeBlock)(id input, id<HyNetworkSuccessProtocol> successObject, id<RACSubscriber> subscriber);
+typedef void (^_Nullable HyNetworkCommandFailureSubscribeBlock)(id input, id<HyNetworkFailureProtocol> failureObject, id<RACSubscriber> subscriber);
 
 @interface RACCommand (HyExtension)
 
@@ -37,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 CG_INLINE RACCommand *
-hy_command(RACSignal<NSNumber *> * _Nullable enabledSignal, void(^_Nullable inputHandler)(id input), RACSignal *(^_Nullable signalBlock)(id value)) {
+hy_command(RACSignal<NSNumber *> * _Nullable enabledSignal, void(^_Nullable inputHandler)(id _Nullable input), RACSignal *(^_Nullable signalBlock)(id _Nullable value)) {
     RACSignal *enabledS = enabledSignal ?: hy_signalWithValue(@YES);
     return [[RACCommand alloc] initWithEnabled:enabledS signalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         !inputHandler ?: inputHandler(input);
@@ -51,7 +53,7 @@ hy_commandWithAction(void(^block)(id input)) {
 }
 
 CG_INLINE RACCommand *
-hy_commandWithEnbleAction(RACSignal<NSNumber *> *signal, void(^block)(id input)) {
+hy_commandWithEnabledAction(RACSignal<NSNumber *> *signal, void(^block)(id input)) {
     return hy_command(signal, block, nil);
 }
 
@@ -61,36 +63,168 @@ hy_commandWithSignal(RACSignal *(^block)(id input)) {
 }
 
 CG_INLINE RACCommand *
-hy_commandWithEnbleSignal(RACSignal<NSNumber *> *signal, RACSignal *(^block)(id input)) {
-    
+hy_commandWithEnabledSignal(RACSignal<NSNumber *> *signal, RACSignal *(^block)(id input)) {
     return hy_command(signal, nil , block);
 }
 
-#define hy_popCommand(_enabledSignal, _viewControllerName, _parameter, _animated) \
-[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
-                        signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
-    return hy_popSignal(_viewControllerName, _parameter, _animated); \
-}];
+CG_INLINE HyNetworkSignalSuccessSubscribeBlock
+networkCommandSuccessSubscribe(id input, HyNetworkCommandSuccessSubscribeBlock block) {
+    return !block  ? nil :
+    ^(id<HyNetworkSuccessProtocol> successObject, id<RACSubscriber> subscriber) {
+        block(input, successObject, subscriber);
+    };
+}
 
-#define hy_pushCommand(_enabledSignal, _viewControllerName, _viewModelName, _parameter, _animated)\
-[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
-                        signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
-    return hy_pushSignal(_viewControllerName, _viewModelName, _parameter, _animated); \
-}];
+CG_INLINE HyNetworkSignalFailureSubscribeBlock
+networkCommandFailureSubscribe(id input, HyNetworkCommandFailureSubscribeBlock block) {
+    return !block  ? nil :
+    ^(id<HyNetworkFailureProtocol> failureObject, id<RACSubscriber> subscriber) {
+        block(input, failureObject, subscriber);
+    };
+}
+
+CG_INLINE RACCommand *
+hy_getCommand(BOOL(^_Nullable showHUD)(id _Nullable input),
+              BOOL(^_Nullable cache)(id _Nullable input),
+              NSString *(^_Nullable url)(id _Nullable input),
+              NSDictionary *(^_Nullable parameter)(id _Nullable input),
+              HyNetworkCommandSuccessSubscribeBlock sBlock,
+              HyNetworkCommandFailureSubscribeBlock fBlock) {
+    return hy_commandWithSignal(^RACSignal * _Nonnull(id  _Nonnull input) {
+        return hy_getSiganl(showHUD ? showHUD(input) : YES,
+                            cache ? cache(input) : NO,
+                            url ? url(input) : @"",
+                            parameter ? parameter(input) : input,
+                            networkCommandSuccessSubscribe(input, sBlock),
+                            networkCommandFailureSubscribe(input, fBlock));
+    });
+};
+
+CG_INLINE RACCommand *
+hy_getEnabledCommand(RACSignal<NSNumber *> *enabledSignal,
+                     BOOL(^_Nullable showHUD)(id _Nullable input),
+                     BOOL(^_Nullable cache)(id _Nullable input),
+                     NSString *(^_Nullable url)(id _Nullable input),
+                     NSDictionary *(^_Nullable parameter)(id _Nullable input),
+                     HyNetworkCommandSuccessSubscribeBlock sBlock,
+                     HyNetworkCommandFailureSubscribeBlock fBlock) {
+    return hy_commandWithEnabledSignal(enabledSignal, ^RACSignal * _Nonnull(id  _Nonnull input) {
+        return hy_getSiganl(showHUD ? showHUD(input) : YES,
+                            cache ? cache(input) : NO,
+                            url ? url(input) : @"",
+                            parameter ? parameter(input) : input,
+                            networkCommandSuccessSubscribe(input, sBlock),
+                            networkCommandFailureSubscribe(input, fBlock));
+    });
+};
+
+CG_INLINE RACCommand *
+hy_postCommand(BOOL(^_Nullable showHUD)(id _Nullable input),
+              BOOL(^_Nullable cache)(id _Nullable input),
+              NSString *(^_Nullable url)(id _Nullable input),
+              NSDictionary *(^_Nullable parameter)(id _Nullable input),
+              HyNetworkCommandSuccessSubscribeBlock sBlock,
+              HyNetworkCommandFailureSubscribeBlock fBlock) {
+    return hy_commandWithSignal(^RACSignal * _Nonnull(id  _Nonnull input) {
+        return hy_postSiganl(showHUD ? showHUD(input) : YES,
+                            cache ? cache(input) : NO,
+                            url ? url(input) : @"",
+                            parameter ? parameter(input) : input,
+                            networkCommandSuccessSubscribe(input, sBlock),
+                            networkCommandFailureSubscribe(input, fBlock));
+    });
+};
+
+CG_INLINE RACCommand *
+hy_postEnabledCommand(RACSignal<NSNumber *> *enabledSignal,
+                     BOOL(^_Nullable showHUD)(id _Nullable input),
+                     BOOL(^_Nullable cache)(id _Nullable input),
+                     NSString *(^_Nullable url)(id _Nullable input),
+                     NSDictionary *(^_Nullable parameter)(id _Nullable input),
+                     HyNetworkCommandSuccessSubscribeBlock sBlock,
+                     HyNetworkCommandFailureSubscribeBlock fBlock) {
+    return hy_commandWithEnabledSignal(enabledSignal, ^RACSignal * _Nonnull(id  _Nonnull input) {
+        return hy_postSiganl(showHUD ? showHUD(input) : YES,
+                            cache ? cache(input) : NO,
+                            url ? url(input) : @"",
+                            parameter ? parameter(input) : input,
+                            networkCommandSuccessSubscribe(input, sBlock),
+                            networkCommandFailureSubscribe(input, fBlock));
+    });
+};
+
+
+CG_INLINE RACCommand *
+hy_postFormDataCommand(BOOL(^_Nullable showHUD)(id _Nullable input),
+                       BOOL(^_Nullable cache)(id _Nullable input),
+                       NSString *(^_Nullable url)(id _Nullable input),
+                       NSDictionary *(^_Nullable parameter)(id _Nullable input),
+                       HyNetworkFormDataBlock formDataBlock,
+                       HyNetworkCommandSuccessSubscribeBlock sBlock,
+                       HyNetworkCommandFailureSubscribeBlock fBlock) {
+    return hy_commandWithSignal(^RACSignal * _Nonnull(id  _Nonnull input) {
+        return hy_postFormDataSiganl(showHUD ? showHUD(input) : YES,
+                                     cache ? cache(input) : NO,
+                                     url ? url(input) : @"",
+                                     parameter ? parameter(input) : input,
+                                     formDataBlock,
+                                     networkCommandSuccessSubscribe(input, sBlock),
+                                     networkCommandFailureSubscribe(input, fBlock));
+    });
+};
+
+CG_INLINE RACCommand *
+hy_postFormDataEnabledCommand(RACSignal<NSNumber *> *enabledSignal,
+                              BOOL(^_Nullable showHUD)(id _Nullable input),
+                              BOOL(^_Nullable cache)(id _Nullable input),
+                              NSString *(^_Nullable url)(id _Nullable input),
+                              NSDictionary *(^_Nullable parameter)(id _Nullable input),
+                              HyNetworkFormDataBlock formDataBlock,
+                              HyNetworkCommandSuccessSubscribeBlock sBlock,
+                              HyNetworkCommandFailureSubscribeBlock fBlock) {
+    return hy_commandWithEnabledSignal(enabledSignal, ^RACSignal * _Nonnull(id  _Nonnull input) {
+        return hy_postFormDataSiganl(showHUD ? showHUD(input) : YES,
+                                     cache ? cache(input) : NO,
+                                     url ? url(input) : @"",
+                                     parameter ? parameter(input) : input,
+                                     formDataBlock,
+                                     networkCommandSuccessSubscribe(input, sBlock),
+                                     networkCommandFailureSubscribe(input, fBlock));
+    });
+};
+
+
+#define hy_popCommand(_enabledSignal, _viewControllerName, _parameter, _animated) \
+({ \
+    [[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                            signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+        return hy_popSignal(_viewControllerName, _parameter, _animated); \
+    }]; \
+})
+
+#define hy_pushCommand(_enabledSignal, _viewControllerName, _viewModelName, _parameter, _animated) \
+({ \
+    [[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                            signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+        return hy_pushSignal(_viewControllerName, _viewModelName, _parameter, _animated); \
+    }]; \
+})
 
 #define hy_presentCommand(_enabledSignal, _viewControllerName, _viewModelName, _parameter, _animated) \
-[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
-                                   signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
-    return hy_presentSignal(_viewControllerName, _viewModelName, _parameter, _animated); \
-}];
-
-
+({ \
+    [[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                                       signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+        return hy_presentSignal(_viewControllerName, _viewModelName, _parameter, _animated); \
+    }]; \
+})
 
 #define hy_dismissCommand(enabledSignal, _parameter, _animated) \
-[[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
-                        signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
-     return hy_dismissSignal(_parameter, _animated); \
-}];
+({ \
+    [[RACCommand alloc] initWithEnabled:_enabledSignal ?: [RACSignal return:@YES] \
+                            signalBlock:^RACSignal * _Nonnull(id  _Nullable input) { \
+         return hy_dismissSignal(_parameter, _animated); \
+    }]; \
+})
 
 
 NS_ASSUME_NONNULL_END

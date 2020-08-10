@@ -15,10 +15,6 @@
     
 }
 
-- (void)dealloc {
-    NSLog(@"%s", __func__);
-}
-
 //+ (NSArray<NSString *> *)hy_modelPropertyBlacklist {
 //    return @[@"account"];
 //}

@@ -7,41 +7,49 @@
 //
 
 
+#import <ReactiveObjC/ReactiveObjC.h>
+#import "HyModelProtocol.h"
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-//#import "HyViewProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^ReloadViewBlock)(id _Nullable parameter);
-@protocol HyViewControllerProtocol, HyModelProtocol, HyViewProtocol;
-@protocol HyViewModelProtocol <NSObject>
+@protocol HyBlockProtocol <NSObject>
++ (instancetype)block:(id)block;
+- (void)releaseBlock;
+@end
+
+
+@protocol HyViewModelProtocol <HyViewControllerJumpProtocol>
 @optional
 
+@property (nonatomic,strong,readonly) NSDictionary *parameter;
+@property (nonatomic,strong,readonly) id<HyModelProtocol> model;
+@property (nonatomic,weak,readonly) UINavigationController *viewModelNavigationController;
+@property (nonatomic,weak,readonly) UIViewController<HyViewControllerProtocol> *viewModelController;
+
 + (instancetype)viewModelWithParameter:(nullable NSDictionary *)parameter;
-
-@property (nonatomic,strong) NSDictionary *parameter;
-@property (nonatomic,strong) id<HyModelProtocol> model;
-@property (nonatomic,readonly) UINavigationController *viewModelNavigationController;
-@property (nonatomic,weak) UIViewController<HyViewControllerProtocol> *viewModelController;
-
 - (void)viewModelLoad;
 
-- (void)addReloadViewBlock:(ReloadViewBlock)block;
-- (void)reloadViewWithParameter:(id _Nullable)parameter;
+#pragma mark -
+@property (nonatomic,copy,readonly) typeof(void(^)(id _Nullable parameter)) (^action)(NSString *_Nullable key);
+- (id<HyBlockProtocol>)addActionSuccessHandler:(void(^)(id _Nullable input, id _Nullable data))successHandler
+                                        forKey:(NSString *_Nullable)key;
+- (id<HyBlockProtocol>)addActionFailureHandler:(void(^)(id _Nullable input, NSError *error))failureHandler
+                                        forKey:(NSString *_Nullable)key;
+- (NSArray<id<HyBlockProtocol>> *)addActionSuccessHandler:(void(^)(id _Nullable input, id _Nullable data))successHandler
+                                           failureHandler:(void(^)(id _Nullable input, NSError *error))failureHandler
+                                                   forKey:(NSString *_Nullable)key;
 
-- (void)configRequestIsGet:(BOOL)isGet
-                       url:(NSString *(^)(id _Nullable input))url
-                 parameter:(NSDictionary *(^_Nullable)(id _Nullable input))parameter
-               dataHandler:(NSArray<id> *(^_Nullable)(id _Nullable input, NSDictionary *response))dataHandler;
+// refreshView
+@property (nonatomic,copy,readonly) NSArray<typeof(void(^)(id _Nullable parameter))> *(^refreshView)(NSString *_Nullable key);
+- (id<HyBlockProtocol>)addRefreshView:(void(^)(id _Nullable parameter))block forKey:(NSString *_Nullable)key;
+- (void)refreshViewWithParameter:(id _Nullable)parameter forKey:(NSString *_Nullable)key;
 
-- (void)requestDataWithInput:(id _Nullable)input;
 
-- (void)requestSuccessHandler:(void (^_Nullable)(id input,
-                                        id<HyModelProtocol> model))successHandler
-               failureHandler:(void (^_Nullable)(id input,
-                                        NSError *error))failureHandler;
+
+#pragma mark - RAC
+@property (nonatomic,copy,readonly) RACCommand *(^command)(NSString *_Nullable key);
+@property (nonatomic,copy,readonly) RACSubject *(^refreshViewSignal)(NSString *_Nullable key);
 
 @end
 

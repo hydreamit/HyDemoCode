@@ -7,46 +7,18 @@
 //
 
 #import "HyNewsModel.h"
-
+#import "HyNewsCellEntity.h"
 
 @implementation HyNewsModel
 
-- (void)modelLoad {
+- (void)configListReuestConfigure:(ListRequestConfigure *)configure {
     
-    [self handleTitleAttr];
-    [self handleImageUrlStr];
-    [self handleCellHeight];
-    [self handleCellClass];
-}
-
-- (void)handleTitleAttr {
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:2];
-    NSDictionary *attrs = @{ NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:15.0f] ,
-                             NSForegroundColorAttributeName: [UIColor blackColor],
-                             NSParagraphStyleAttributeName : paragraphStyle };
-   
-    self.titleAttr  = [[NSAttributedString alloc]initWithString:self.title attributes:attrs];
-}
-
-- (void)handleImageUrlStr {
-    self.imageUrlStr = [NSString stringWithFormat:@"%@?w=750&h=20000&quality=75", self.imgsrc.firstObject];
-}
-
-- (void)handleCellHeight {
-    if (self.showType != 2) {
-        self.cellHeight = 80;
-    } else {
-        CGFloat titleHeight = [self.titleAttr boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 20, MAXFLOAT)
-                                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                                           context:nil].size.height;
-        self.cellHeight = 100 + titleHeight + 30;
-    }
-}
-
-- (void)handleCellClass {
-    self.cellClass = NSClassFromString(self.showType == 2 ? @"HyNewsImageCell"
-                                       : @"HyNewsCell");
+    NSInteger pageIndex = self.getPageIndex(configure.type, configure.key);
+    NSInteger pageSize = self.getPageSize(configure.key);
+    configure.url = [NSString stringWithFormat:@"http://i.play.163.com/user/article/list/%ld/%ld", pageIndex * pageSize, (long)pageSize];
+    configure.cellDataHandler = ^NSArray * _Nonnull(id  _Nullable input, NSDictionary * _Nonnull sectionData, NSUInteger section, HyListActionType type) {
+        return @[sectionData[@"info"], HyNewsCellEntity.class];
+    };
 }
 
 @end

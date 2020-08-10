@@ -8,6 +8,7 @@
 
 #import "RACSignal+HyExtension.h"
 
+
 @implementation RACSignal (HyExtension)
 
 - (RACSignal * _Nonnull (^)(RACSignal * _Nullable (^ _Nonnull)(id _Nullable)))flattenMap {
@@ -163,4 +164,5 @@
         return [self doCompleted:block];
     };
 }
+
 @end

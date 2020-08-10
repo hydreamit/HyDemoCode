@@ -12,9 +12,10 @@
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "HyCocoaSyncSocketFactory.h"
 #import "HyCFSocketFactory.h"
+#import <LFPhoneInfo/LFPhoneInfo.h>
 
 
-@interface HySocketViewController ()
+@interface HySocketViewController ()<UITextFieldDelegate>
 @property (nonatomic,weak) UIView *layoutView;
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) id<HySocketFactoryProtocol> socketFactory;
@@ -26,8 +27,10 @@
     [super hy_viewDidLoad];
     
     self.view.backgroundColor = UIColor.whiteColor;
-//    self.socketFactory = HyCFSocketFactory.socketFactory(@"10.10.3.8", @"8040");
-    self.socketFactory = HyCocoaSyncSocketFactory.socketFactory(@"10.10.3.8", @"8040");
+        
+    
+//    self.socketFactory = HyCFSocketFactory.socketFactory(LFPhoneInfo.deviceLANIp, @"8040");
+    self.socketFactory = HyCocoaSyncSocketFactory.socketFactory(LFPhoneInfo.deviceLANIp, @"8040");
     [self.socketFactory.server bindAndListenWithCompletion:^(BOOL success) {
         if (success) {
             NSLog(@"服务器开启监听成功");
@@ -75,6 +78,7 @@
     UITextField *textf = [[UITextField alloc] init];
     textf.font = [UIFont systemFontOfSize:13];
     textf.borderStyle = UITextBorderStyleRoundedRect;
+    textf.delegate = self;
     [view addSubview:textf];
     [textf mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleL);
@@ -166,6 +170,7 @@
     UITextField *textf = [[UITextField alloc] init];
     textf.font = [UIFont systemFontOfSize:13];
     textf.borderStyle = UITextBorderStyleRoundedRect;
+    textf.delegate = self;
     [view addSubview:textf];
     [textf mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleL);
@@ -236,4 +241,8 @@
     return btn;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField endEditing:YES];
+    return YES;
+}
 @end

@@ -52,6 +52,7 @@ PODS:
   - KafkaRefresh/UIKit/LayerKit (1.4.7):
     - KafkaRefresh/Category
     - KafkaRefresh/Default
+  - LFPhoneInfo (0.1.6)
   - Masonry (1.1.0)
   - MJExtension (3.2.1)
   - MJRefresh (3.2.2)
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - GPUImage
   - HyCategoriess
   - KafkaRefresh
+  - LFPhoneInfo
   - Masonry
   - MJExtension
   - MJRefresh
@@ -88,6 +90,7 @@ SPEC REPOS:
     - GPUImage
     - HyCategoriess
     - KafkaRefresh
+    - LFPhoneInfo
     - Masonry
     - MJExtension
     - MJRefresh
@@ -104,6 +107,7 @@ SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HyCategoriess: f5d9ee6b5f58793e950a77a31b7ad9ddb1662928
   KafkaRefresh: a7962ea8f03f384c1b545d8c27ac419aa0d5b055
+  LFPhoneInfo: 47a07451fdc3536103094b9fdedecc65dc563fe3
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
   MJRefresh: 72a46ecaa2a0feaf48fc5198dff95f25f8bb27c6
@@ -114,6 +118,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 7872371fab71322f443705fc7ad335e599bf1046
+PODFILE CHECKSUM: 0039fd938cfdd990a38778d22c11c4180df9643e
 
 COCOAPODS: 1.9.3

@@ -39,7 +39,7 @@
 @property (nonatomic,copy) BOOL (^shouldIndentWhileEditingRowAtIndexPath)(UITableView *tableView ,NSIndexPath * indexPath);
 @property (nonatomic,copy) NSIndexPath *(^targetIndexPathForMoveFromRowAtIndexPath)(UITableView *tableView, NSIndexPath *sourceIndexPath , NSIndexPath *toProposedIndexPath);
 @property (nonatomic,copy) void (^moveRowAtIndexPath)(UITableView *tableView, NSIndexPath * sourceIndexPath,  NSIndexPath * destinationIndexPath);
-@property (nonatomic,copy) NSArray<NSString *> *(^sectionAndCellDataKey)(void);
+@property (nonatomic,copy) NSArray *(^sectionAndCellDataKey)(void);
 @property (nonatomic,copy) Class(^cellClassForRow)(id cellData, NSIndexPath * indexPath);
 @property (nonatomic,copy) void(^cellWithData)(UITableViewCell *cell, id cellData, NSIndexPath *indexPath);
 @property (nonatomic,copy) Class(^sectionHeaderFooterViewClassAtSection)(id sectionData,
@@ -541,6 +541,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 - (id)getSectionData {
     
     NSString *sectionKey = [self getSectionKey];
+    if (![sectionKey isKindOfClass:NSString.class]) {
+        return sectionKey;
+    }
     if (sectionKey.length && sectionKey.length) {
         NSArray *keys = [sectionKey componentsSeparatedByString:@"."];
         id data = self.hy_tableViewData;
@@ -557,6 +560,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 - (id)getCellKeyDataWithSection:(NSInteger)section {
     
     NSString *cellKey = [self getCellKey];
+    if (![cellKey isKindOfClass:NSString.class]) {
+        return cellKey;
+    }
     if (self.hy_tableViewData && cellKey.length) {
         
         id sectionData = [self getSectionData] ?: self.hy_tableViewData;
@@ -612,7 +618,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (BOOL)isObjectWithData:(id)data {
     if (!data) { return NO;}
-    
     return ![self isArrayWithData:data];
 }
 

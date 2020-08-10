@@ -7,12 +7,11 @@
 //
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "HyViewControllerJumpProtocol.h"
+#import "HyViewModelProtocol.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @protocol HyViewDataProtocol <NSObject>
 @end
@@ -25,22 +24,20 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@protocol HyViewModelProtocol;
-@protocol HyViewProtocol <NSObject>
+@protocol HyViewProtocol <HyViewControllerJumpProtocol>
 @optional
 + (instancetype)viewWithFrame:(CGRect)frame
                     viewModel:(nullable id<HyViewModelProtocol>)viewModel
                     parameter:(nullable id)parameter;
 
-@property (nonatomic,strong) NSDictionary *parameter;
-@property (nonatomic,strong) id<HyViewModelProtocol> viewModel;
+- (void)viewLoad;
+
+@property (nonatomic,strong,readonly) NSDictionary *parameter;
+@property (nonatomic,strong,readonly) id<HyViewModelProtocol> viewModel;
 @property (nonatomic,weak,readonly) id<HyViewDataProtocol> dataProvider;
 @property (nonatomic,weak,readonly) id<HyViewEventProtocol> eventHandler;
 
-- (void)viewLoad;
 @end
-
-
 
 
 NS_ASSUME_NONNULL_END

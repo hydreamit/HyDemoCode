@@ -7,7 +7,6 @@
 //
 
 #import "HyMeView.h"
-
 #import "HyTextFieldView.h"
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <Masonry/Masonry.h>
@@ -26,7 +25,6 @@
         
     [self configUI];
     [self configLayout];
-    
     
     RAC(self.accountTextFieldView, text) = [RACObserve(self.dataProvider, account) distinctUntilChanged];
     RAC(self.dataProvider, account) = [self.accountTextFieldView.textSignal skip:1];
@@ -75,15 +73,11 @@
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [btn setTitleColor:[UIColor hy_colorWithHexString:@"#3C8FF9"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-        btn.rac_command = self.viewModel.codeCommand;
+//        btn.rac_command = self.viewModel.command(@"code");
         
         _codeTextFieldView.rightView = btn;
     }
     return _codeTextFieldView;
-}
-
-- (void)dealloc {
-    NSLog(@"%s", __func__);
 }
 
 @end

@@ -42,7 +42,7 @@
 @property (nonatomic,copy,readonly) HyTableViewDelegateConfigure *(^configMoveRowAtIndexPath)(void(^)(UITableView *tableView, NSIndexPath * sourceIndexPath,  NSIndexPath * destinationIndexPath));
 
 
-@property (nonatomic,copy,readonly) HyTableViewDelegateConfigure *(^configSectionAndCellDataKey)(NSArray<NSString *> *(^)(void));
+@property (nonatomic,copy,readonly) HyTableViewDelegateConfigure *(^configSectionAndCellDataKey)(NSArray *(^)(void));
 @property (nonatomic,copy,readonly) HyTableViewDelegateConfigure *(^configCellClassForRow)(Class (^)(id cellData, NSIndexPath * indexPath));
 @property (nonatomic,copy,readonly) HyTableViewDelegateConfigure *(^configCellWithData)(void (^)(UITableViewCell *cell, id cellData, NSIndexPath *indexPath));
 

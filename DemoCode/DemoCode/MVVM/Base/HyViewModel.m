@@ -15,124 +15,100 @@
 #import "HyModel.h"
 
 
+@interface HyBlockObject : NSObject<HyBlockProtocol>
+@property (nonatomic,copy) id bk;
+@property (nonatomic,copy) void(^releaseB)(void);
+@end
+@implementation HyBlockObject
++ (instancetype)block:(id)block {
+    HyBlockObject *object = [[self alloc] init];
+    object.bk = block;
+    return object;
+}
+- (void)releaseBlock {
+    self.bk = nil;
+    !self.releaseB ?: self.releaseB();
+    self.releaseB = nil;
+}
+- (void)dealloc {
+    self.bk = nil;
+    self.releaseB = nil;
+}
+@end
+
+#define HandlerKey if (!key.length) {key = NSStringFromClass(self.class);}
+
 @interface HyViewModel ()
-@property (nonatomic,assign) BOOL isGet;
-@property (nonatomic,copy) NSString *(^urlBlock)(id);
-@property (nonatomic,copy) NSDictionary *(^parameterBlock)(id);
-@property (nonatomic,copy) NSArray<id> *(^dataHandler)(id);
-@property (nonatomic,copy) void(^successHandler)(id,
-id<HyModelProtocol>);
-@property (nonatomic,copy) void(^failureHandler)(id,
-NSError *);
-@property (nonatomic,strong) NSMutableArray<ReloadViewBlock> *reloadViewBlockArray;
+@property (nonatomic,strong) HyModel *model;
+@property (nonatomic,strong) NSDictionary *parameter;
+@property (nonatomic,weak) UIViewController<HyViewControllerProtocol> *viewModelController;
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, void (^)(id _Nonnull)> *actionBlockDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<void (^)(id _Nonnull, id _Nonnull)> *> *successHandlerDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<void (^)(id _Nonnull, NSError *)> *> *failureHandlerDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<void (^)(id _Nonnull)> *> *refreshViewBlockDict;
+
+#pragma mark - RAC
+@property (nonatomic,strong) NSMutableDictionary<NSString *, RACCommand *> *commandDict;
+@property (nonatomic,strong) NSMutableDictionary<NSString *, RACSubject *> *refreshViewSignalDict;
 @end
 
 
 @implementation HyViewModel
-@synthesize parameter = _parameter, model = _model;
 
+#pragma mark - base
 + (instancetype)viewModelWithParameter:(NSDictionary *)parameter {
-    
-    id<HyViewModelProtocol> viewModel = [[self alloc] init];
+    HyViewModel *viewModel = [[self alloc] init];
     viewModel.parameter = parameter;
-    [((NSObject<HyViewModelProtocol> *)viewModel) hy_modelSetWithJSON:parameter];
-    return (id)viewModel;
+    [viewModel hy_modelSetWithJSON:parameter];
+    return viewModel;
 }
 
 - (void)viewModelLoad {
-    self.isGet = YES;
-}
-
-- (void)configRequestIsGet:(BOOL)isGet
-                       url:(NSString *(^)(id _Nullable input))url
-                 parameter:(NSDictionary *(^_Nullable)(id _Nullable input))parameter
-               dataHandler:(NSArray<id> *(^_Nullable)(id _Nullable input, NSDictionary *response))dataHandler {
     
-    self.isGet = isGet;
-    self.urlBlock = [url copy];
-    self.parameterBlock = [parameter copy];
-    self.dataHandler = [dataHandler copy];
-}
-
-- (void)requestSuccessHandler:(void (^)(id input,
-                       id<HyModelProtocol> model))successHandler
-               failureHandler:(void (^)(id input,
-                         NSError *error))failureHandler {
- 
-    self.successHandler = [successHandler copy];
-    self.failureHandler = [failureHandler copy];
-}
-
-- (void)requestDataWithInput:(id _Nullable)input {
-    
-    NSString *url = self.urlBlock ? self.urlBlock(input) : @"";
-    NSDictionary *parameter = self.parameterBlock ? self.parameterBlock(input) : input;
-    
-    void (^success)(id<HyNetworkSuccessProtocol>) =
-    ^(id<HyNetworkSuccessProtocol>  _Nullable successObject){
-        [self _handleResponse:successObject.response input:input];
-    };
-    
-    void (^failure)(id<HyNetworkFailureProtocol>) =
-    ^(id<HyNetworkFailureProtocol>  _Nullable failureObject){
-        !self.failureHandler ?: self.failureHandler(input, failureObject.error);
-    };
-    
-    if (self.isGet) {
-        [HyNetworkManager.network getShowHUD:YES
-                                        cache:NO
-                                          url:url
-                                    parameter:parameter
-                                 successBlock:success
-                                failureBlock:failure].resumeAtObjcet(self);
-    } else {
-        [HyNetworkManager.network postShowHUD:YES
-                                         cache:NO
-                                           url:url
-                                     parameter:parameter
-                                  successBlock:success
-                                  failureBlock:failure].resumeAtObjcet(self);
-    }
-}
-
-- (void)_handleResponse:(NSDictionary *)response
-                  input:(id)input {
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        id modelData = response;
-        Class<HyModelProtocol> modelClass = HyModel.class;
-        
-        if (self.dataHandler) {
-            NSArray *array = self.dataHandler(response);
-            if (array.count) {
-                modelData = array.firstObject;
-                if (array.count == 2) {
-                    Class cls = array.lastObject;
-                    if ([cls conformsToProtocol:@protocol(HyModelProtocol)] &&
-                        Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
-                        modelClass = cls;
+    if (self.model) {
+        __weak typeof(self) _self = self;
+        self.model.actionSuccess  = ^typeof(void (^)(id _Nonnull, id _Nonnull)) (NSString *key){
+            return ^(id input, id data){
+                __strong typeof(_self) self = _self;
+                NSArray<void (^)(id, id)> *array = [self.successHandlerDict objectForKey:key];
+                if (array.count) {
+                    for (void (^block)(id, id) in array) {
+                        block(input, data);
                     }
                 }
-            }
-        }
-        self.model = [modelClass modelWithParameter:modelData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-             !self.successHandler ?: self.successHandler(input, self.model);
-        });
-    });
+            };
+        };
+        
+        self.model.actionFailure = ^typeof(void (^)(id _Nonnull, NSError * _Nonnull)) (NSString *key){
+            return ^(id input, NSError *error){
+                __strong typeof(_self) self = _self;
+                NSArray<void (^)(id, NSError *)> *array = [self.failureHandlerDict objectForKey:key];
+                if (array.count) {
+                    for (void (^block)(id, NSError *) in array) {
+                        block(input, error);
+                    }
+                }
+            };
+        };
+    }
 }
 
 - (id<HyModelProtocol>)model {
     if (!_model) {
         Class<HyModelProtocol> cls = getObjcectPropertyClass([self class], "model");
         if (cls == NULL) {
-            cls = HyModel.class;
+            cls = self.defaultModelClass;
         }
         if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
-            _model = (id<HyModelProtocol>)[cls modelWithParameter:self.parameter];
+            _model = (id)[cls modelWithParameter:self.parameter];
         }
     }
     return _model;
+}
+
+- (Class)defaultModelClass {
+    return HyModel.class;
 }
 
 - (void)setViewModelController:(UIViewController<HyViewControllerProtocol> *)viewModelController {
@@ -150,32 +126,257 @@ NSError *);
     return self.viewModelController.navigationController;
 }
 
-- (void)addReloadViewBlock:(ReloadViewBlock)block {
-    if (!block && ![self.reloadViewBlockArray containsObject:block]) {
-        [self.reloadViewBlockArray addObject:block];
-    }
+#pragma mark - action
+- (typeof(void (^)(id _Nonnull))  _Nonnull (^)(NSString * _Nonnull))action {
+    __weak typeof(self) _self = self;
+    return ^typeof(void (^)(id _Nonnull)) (NSString *key) {
+        __strong typeof(_self) self = _self;
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return self._objectForKey(self.actionBlockDict, key, ^id {
+            return ^(id input){
+                __strong typeof(_self) self = _self;
+                [self actionWithInput:input forKey:key];
+            };
+        });
+    };
 }
 
-- (NSMutableArray<ReloadViewBlock> *)reloadViewBlockArray {
-    if (!_reloadViewBlockArray){
-        _reloadViewBlockArray = @[].mutableCopy;
-    }
-    return _reloadViewBlockArray;
+- (void)actionWithInput:(id)input forKey:(NSString *)key {
+    [self.model actionWithInput:input forKey:key];
 }
 
-- (void)reloadViewWithParameter:(id)parameter {
-    for (ReloadViewBlock block in self.reloadViewBlockArray) {
+- (id<HyBlockProtocol>)addActionSuccessHandler:(void (^)(id _Nonnull, id _Nonnull))successHandler
+                                        forKey:(NSString *)key {
+    
+    if (!successHandler) { return nil;}
+    if (!key.length) {key = NSStringFromClass(self.class);}
+
+    NSMutableArray<void (^)(id, id)> *array = [self.successHandlerDict objectForKey:key];
+    if (!array) {
+        array = @[].mutableCopy;
+        [self.successHandlerDict setObject:array forKey:key];
+    }
+    [array addObject:successHandler];
+
+    HyBlockObject *object = [HyBlockObject block:successHandler];
+    object.releaseB = ^{
+        [array removeObject:successHandler];
+    };
+    return object;
+}
+
+- (id<HyBlockProtocol>)addActionFailureHandler:(void (^)(id _Nonnull, NSError * _Nonnull))failureHandler
+                                        forKey:(NSString *)key {
+    
+    if (!failureHandler) { return nil;}
+    if (!key.length) {key = NSStringFromClass(self.class);}
+
+    NSMutableArray<void (^)(id, NSError *)> *array = [self.failureHandlerDict objectForKey:key];
+    if (!array) {
+        array = @[].mutableCopy;
+        [self.failureHandlerDict setObject:array forKey:key];
+    }
+    [array addObject:failureHandler];
+
+    HyBlockObject *object = [HyBlockObject block:failureHandler];
+    object.releaseB = ^{
+        [array removeObject:failureHandler];
+    };
+    return object;
+}
+
+- (NSArray<id<HyBlockProtocol>> *)addActionSuccessHandler:(void (^)(id _Nullable, id _Nullable))successHandler
+                                           failureHandler:(void (^)(id _Nullable, NSError * _Nonnull))failureHandler
+                                                   forKey:(NSString *)key {
+
+    id<HyBlockProtocol> successB = [self addActionSuccessHandler:successHandler forKey:key];
+    id<HyBlockProtocol> failureB = [self addActionFailureHandler:failureHandler forKey:key];
+    NSMutableArray *array = @[].mutableCopy;
+    if (successB) {
+        [array addObject:successB];
+    }
+    if (failureB) {
+        [array addObject:failureB];
+    }
+    return array;
+}
+
+- (NSArray<typeof(void (^)(id _Nonnull))> * _Nonnull (^)(NSString * _Nonnull))refreshViewBlock {
+    __weak typeof(self) _self = self;
+    return ^(NSString *key) {
+        __strong typeof(_self) self = _self;
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return [self.refreshViewBlockDict objectForKey:key].copy;
+    };
+}
+
+- (id<HyBlockProtocol>)addRefreshViewBlock:(void (^)(id _Nonnull))block forKey:(NSString *)key {
+    
+    if (!block) { return nil;}
+    if (!key.length) {key = NSStringFromClass(self.class);}
+
+    NSMutableArray<void (^)(id _Nonnull)> *array = [self.refreshViewBlockDict objectForKey:key];
+    if (!array) {
+        array = @[].mutableCopy;
+    }
+    [array addObject:block];
+    [self.refreshViewBlockDict setObject:array forKey:key];
+
+    HyBlockObject *object = [HyBlockObject block:block];
+    object.releaseB = ^{
+        [array removeObject:block];
+    };
+    return object;
+}
+
+- (void)refreshViewWithParameter:(id)parameter forKey:(NSString *)key {
+
+    if (!key.length) {key = NSStringFromClass(self.class);}
+
+    NSMutableArray<void (^)(id _Nonnull)> *array = [self.refreshViewBlockDict objectForKey:key];
+    if (!array.count) {
+        return;
+    }
+    for (void (^block)(id _Nonnull) in array) {
         block(parameter);
     }
 }
 
+- (id (^)(NSMutableDictionary *, NSString *, id(^)(void)))_objectForKey {
+    return ^(NSMutableDictionary *dict, NSString *key, id(^block)(void)){
+        return [dict objectForKey:key] ?: ({
+            id object = !block ? nil : block();
+            if (object) {
+                [dict setObject:object forKey:key];
+            }
+            object;
+        });
+    };
+}
+
+- (NSMutableDictionary<NSString *,void (^)(id _Nonnull)> *)actionBlockDict {
+    if (!_actionBlockDict) {
+        _actionBlockDict = @{}.mutableCopy;
+    }
+    return _actionBlockDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<void (^)(id _Nonnull)> *> *)refreshViewBlockDict {
+    if (!_refreshViewBlockDict) {
+        _refreshViewBlockDict = @{}.mutableCopy;
+    }
+    return _refreshViewBlockDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<void (^)(id _Nonnull, id _Nonnull)> *> *)successHandlerDict {
+    if (!_successHandlerDict) {
+        _successHandlerDict = @{}.mutableCopy;
+    }
+    return _successHandlerDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<void (^)(id _Nonnull, NSError *)> *> *)failureHandlerDict {
+    if (!_failureHandlerDict) {
+        _failureHandlerDict = @{}.mutableCopy;
+    }
+    return _failureHandlerDict;
+}
+
+#pragma mark - command - signal
+- (RACCommand * _Nonnull (^)(NSString * _Nonnull))command {
+    @weakify(self);
+    return ^RACCommand *(NSString *key){
+        @strongify(self);
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return self._objectForKey(self.commandDict, key, ^id{
+            @strongify(self);
+            return [self commandForKey:key];
+        });
+    };
+}
+
+- (RACCommand *)commandForKey:(NSString *)key {
+    return hy_command(self.commandEnabledSignal(key),
+                      self.commandInputHandler(key),
+                      self.commandSignal(key));
+}
+
+- (RACSubject * _Nonnull (^)(NSString * _Nonnull))refreshViewSignal {
+    @weakify(self);
+    return ^RACSubject *(NSString *key){
+        @strongify(self);
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return self._objectForKey(self.refreshViewSignalDict, key, ^{
+            return [RACSubject subject];
+        });
+    };
+}
+
+- (RACSignal<NSNumber *> * _Nonnull (^)(NSString * _Nonnull))commandEnabledSignal {
+    @weakify(self);
+    return ^RACSignal<NSNumber *> *(NSString *key){
+        @strongify(self);
+        return [self commandEnabledSignalForKey:key];
+    };
+}
+
+- (typeof(void(^)(id _Nonnull)) (^)(NSString * _Nonnull))commandInputHandler {
+    @weakify(self);
+    return ^(NSString *key){
+        return ^(id input) {
+            @strongify(self);
+            [self commandInputHandlerWithInput:input forkey:key];
+        };
+    };
+}
+
+- (typeof(RACSignal *(^)(id _Nonnull))  _Nonnull (^)(NSString * _Nonnull))commandSignal {
+    @weakify(self);
+    return ^(NSString *key) {
+        return ^RACSignal *(id input){
+            @strongify(self);
+            return [self commandSignalWithInput:input forKey:key];
+        };
+    };
+}
+
+- (RACSignal *)commandEnabledSignalForKey:(NSString *)key {
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    return self.model.enabledSignal(key) ?: hy_signalWithValue(@YES);
+}
+
+- (RACSignal *)commandSignalWithInput:(id)input forKey:(NSString *)key {
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    return self.model.signal(key)(input) ?:  [RACSignal empty];
+}
+
+- (void)commandInputHandlerWithInput:(id)input forkey:(NSString *)key {}
+
+- (NSMutableDictionary<NSString *,RACCommand *> *)commandDict {
+    if (!_commandDict) {
+        _commandDict = @{}.mutableCopy;
+    }
+    return _commandDict;
+}
+
+- (NSMutableDictionary<NSString *,RACSubject *> *)refreshViewSignalDict {
+    if (!_refreshViewSignalDict) {
+        _refreshViewSignalDict = @{}.mutableCopy;
+    }
+    return _refreshViewSignalDict;
+}
+
 #pragma mark - HyViewInvokerProtocol
 - (id<HyViewDataProtocol>)viewDataProviderForClassString:(NSString *)classString {
-    return nil;
+    return (id)self;
 }
 
 - (id<HyViewEventProtocol>)viewEventHandlerForClassString:(NSString *)classString {
-    return nil;
+    return (id)self;
+}
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
 }
 
 @end

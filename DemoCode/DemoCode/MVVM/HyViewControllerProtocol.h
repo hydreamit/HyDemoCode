@@ -7,35 +7,35 @@
 //
 
 #import "HyViewControllerJumpProtocol.h"
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "HyViewModelProtocol.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol HyViewModelProtocol;
-@protocol HyViewControllerProtocol <NSObject>
+@protocol HyViewControllerProtocol <HyViewControllerJumpProtocol>
 @optional
 
-+ (UIViewController<HyViewControllerProtocol> *)viewControllerWithViewModelName:(NSString * _Nullable)viewModelName
-                                                                      parameter:(NSDictionary * _Nullable)parameter;
++ (instancetype)viewControllerWithViewModelName:(NSString * _Nullable)viewModelName
+                                      parameter:(NSDictionary * _Nullable)parameter;
 
-+ (UIViewController<HyViewControllerProtocol> *)pushViewControllerWithViewModelName:(NSString *_Nullable)viewModelName
-                                                 parameter:(NSDictionary *_Nullable)parameter
-                                                  animated:(BOOL)flag
-                                                completion:(void(^_Nullable)(UIViewController<HyViewControllerProtocol> *controller))completion;
++ (instancetype)pushViewControllerWithViewModelName:(NSString *_Nullable)viewModelName
+                                          parameter:(NSDictionary *_Nullable)parameter
+                                           animated:(BOOL)flag
+                                         completion:(void(^_Nullable)(UIViewController<HyViewControllerProtocol> *controller))completion;
 
-+ (UIViewController<HyViewControllerProtocol> *)presentViewControllerWithViewModelName:(NSString * _Nullable)viewModelName
-                                                parameter:(NSDictionary *_Nullable)parameter
-                                                 animated:(BOOL)flag
-                                               completion:(void(^_Nullable)(UIViewController<HyViewControllerProtocol> *controller))completion;
++ (instancetype)presentViewControllerWithViewModelName:(NSString * _Nullable)viewModelName
+                                             parameter:(NSDictionary *_Nullable)parameter
+                                              animated:(BOOL)flag
+                                            completion:(void(^_Nullable)(UIViewController<HyViewControllerProtocol> *controller))completion;
 
 
-@property (nonatomic,strong) NSDictionary *parameter;
-@property (nonatomic,strong) id<HyViewModelProtocol> viewModel;
+@property (nonatomic,strong,readonly) NSDictionary *parameter;
+@property (nonatomic,strong,readonly) id<HyViewModelProtocol> viewModel;
 - (void)viewModelWillLoad;
 - (void)viewModelDidLoad;
 - (void)popFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;
 - (void)dismissFromViewController:(NSString *)name parameter:(NSDictionary *)parameter;
+
 @end
 
 

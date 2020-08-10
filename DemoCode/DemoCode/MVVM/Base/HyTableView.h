@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyTableView : UITableView <HyViewControllerJumpProtocol, HyListViewProtocol>
+@interface HyTableView : UITableView <HyListViewProtocol>
 
 @end
 

@@ -7,20 +7,19 @@
 //
 
 #import "HyNewsViewModel.h"
+#import "HyNewsModel.h"
+
+@interface HyNewsViewModel ()
+@property (nonatomic, strong)HyNewsModel *model;
+@end
 
 @implementation HyNewsViewModel
+@dynamic model;
 
 - (void)viewModelLoad {
     [super viewModelLoad];
-        
-    @weakify(self);
-    [self configRequestIsGet:YES url:^NSString * _Nonnull(id  _Nullable input, HyListViewRequestDataType type) {
-        @strongify(self);
-        return
-        [NSString stringWithFormat:@"http://i.play.163.com/user/article/list/%ld/%ld", (long)self.getRequestDataPageNumber(type) * self.getPageSize, (long)self.getPageSize];
-    } parameter:nil sectionDataHandler:nil cellDataHandler:^NSArray<id> * _Nonnull(id  _Nullable input, NSDictionary * _Nonnull sectionData, NSUInteger section, HyListViewRequestDataType type) {
-        return @[sectionData[@"info"], HyNewsModel.class];
-    }];
+
+    
 }
 
 @end

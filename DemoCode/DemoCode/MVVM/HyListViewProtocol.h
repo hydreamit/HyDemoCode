@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+
 typedef NS_ENUM(NSUInteger, HyListViewRefreshType) {
     HyListViewRefreshTypeNone,
     HyListViewRefreshTypePullDown,
@@ -19,13 +21,22 @@ typedef NS_ENUM(NSUInteger, HyListViewRefreshType) {
     HyListViewRefreshTypePullDownAndUp
 };
 
+
+@protocol HyListViewInvokerProtocol <NSObject>
+@optional;
+- (id<HyListEntityProtocol>)listViewDataProviderForKey:(NSString *)key;
+@end
+
 typedef void(^HyListViewRefreshAction)(void);
 @protocol HyListViewProtocol <NSObject>
 @optional
 
+
+@property (nonatomic, copy) NSString *key;
+
 - (void)configRefreshFramework:(nullable NSString *)framework
                    refreshType:(HyListViewRefreshType)refreshType
-           refreshRequestInput:(id (^_Nullable)(HyListViewRequestDataType type))inputBlock
+           refreshRequestInput:(id (^_Nullable)(HyListActionType type))inputBlock
            refreshCustomAction:(HyListViewRefreshAction(^ _Nullable)(BOOL isHeaderRefresh))actionBlock;
 
 - (void)headerBeginRefreshing;

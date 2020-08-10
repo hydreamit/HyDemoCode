@@ -8,11 +8,11 @@
 
 #import "HyViewModel.h"
 #import "HyListViewModelProtocol.h"
-
+#import "HyListViewProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyListViewModel : HyViewModel <HyListViewModelProtocol>
+@interface HyListViewModel : HyViewModel <HyListViewModelProtocol, HyListViewInvokerProtocol>
 
 @end
 

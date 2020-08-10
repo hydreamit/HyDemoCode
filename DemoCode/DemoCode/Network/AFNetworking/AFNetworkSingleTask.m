@@ -42,15 +42,15 @@
     return self.networkTaskInfo;
 }
 
-- (void)resume {
-    self.resumeAtObjcet(nil);
+- (instancetype)resume {
+  return  self.resumeAtObjcet(nil);
 }
 
-- (void (^)(NSObject *object))resumeAtObjcet {
+- (instancetype (^)(NSObject *object))resumeAtObjcet {
     return ^(NSObject *object) {
         
         if (self.taskInfo.taskStatus == HyNetworkTaskStatusResuming) {
-            return;
+            return self;
         }
         
         if (object) {
@@ -106,7 +106,7 @@
                 [self.netWork.noResumeSingleTasks removeObject:self];
             }
             
-            return;
+            return self;
         }
         
         if (self.taskInfo.showHUD) {
@@ -237,7 +237,8 @@
         if ([self.netWork.noNetworkResumedSingleTasks containsObject:self]) {
             [self.netWork.noNetworkResumedSingleTasks removeObject:self];
         }
-        
+       
+        return self;
     };
 }
 

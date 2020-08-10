@@ -13,268 +13,288 @@
 #import "NSObject+HyProtocol.h"
 #import "HyNetworkManager.h"
 
+@interface HyBlockObject : NSObject<HyBlockProtocol>
+@property (nonatomic,copy) id bk;
+@property (nonatomic,copy) void(^releaseB)(void);
+@end
+
 
 @interface HyListViewModel ()
-@property (nonatomic,assign) BOOL isGet;
-@property (nonatomic,assign) NSInteger pageSize;
-@property (nonatomic,assign) NSInteger pageNumber;
-@property (nonatomic,assign) NSInteger startPage;
-
-@property (nonatomic,copy) NSString *(^urlBlock)(id, HyListViewRequestDataType);
-@property (nonatomic,copy) NSDictionary *(^parameterBlock)(id, HyListViewRequestDataType);
-@property (nonatomic,copy) NSArray *(^sectionDataHandler)(id, NSDictionary *, HyListViewRequestDataType);
-@property (nonatomic,copy) NSArray *(^cellDataHandler)(id, NSDictionary *, NSInteger, HyListViewRequestDataType);
-@property (nonatomic,copy) void(^successHandler)(id input,
-                                                    id<HyListModelProtocol> listModel,
-                                                    HyListViewRequestDataType type,
-                                                    BOOL noMore);
-@property (nonatomic,copy) void(^failureHandler)(id input,
-                                                NSError *error,
-                                                HyListViewRequestDataType type);
+@property (nonatomic, strong) id<HyListModelProtocol> model;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, void (^)(id _Nonnull, HyListActionType)> *listActionBlockDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<void (^)(id _Nonnull, id _Nonnull, HyListActionType, BOOL)> *> *listSuccessHandlerDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<void (^)(id _Nonnull, NSError *, HyListActionType)> *> *listFailureHandlerDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<void (^)(id _Nonnull)> *> *refreshListViewBlockDict;
+#pragma mark - RAC
+@property (nonatomic,strong) NSMutableDictionary<NSString *, RACCommand *> *listCommandDict;
+@property (nonatomic,strong) NSMutableDictionary<NSString *, RACSubject *> *refreshListViewSignalDict;
 @end
 
 
 @implementation HyListViewModel
-@synthesize listModel = _listModel, reloadListViewBlock = _reloadListViewBlock;
+@dynamic model;
+
 - (void)viewModelLoad {
     [super viewModelLoad];
-    
-    self.isGet = YES;
-    self.startPage = 0;
-    self.pageNumber = self.startPage;
-    self.pageSize = 20;
-}
 
-- (void)configStartPage:(NSInteger)startPage
-               pageSize:(NSInteger)pageSize {
-    
-    self.pageSize = pageSize;
-    self.startPage = startPage;
-}
-
-- (void)configRequestIsGet:(BOOL)isGet
-                       url:(NSString *(^)(id _Nullable input, HyListViewRequestDataType type))url
-                 parameter:(NSDictionary *(^_Nullable)(id _Nullable input, HyListViewRequestDataType type))parameter
-         sectionDataHandler:(NSArray<id> *(^_Nullable)(id _Nullable input, NSDictionary *response, HyListViewRequestDataType type))sectionDataHandler
-            cellDataHandler:(NSArray<id> *(^_Nullable)(id _Nullable input, NSDictionary *sectionData, NSUInteger section, HyListViewRequestDataType type))cellDataHandler {
-    
-    self.isGet = isGet;
-    self.urlBlock = [url copy];
-    self.parameterBlock = [parameter copy];
-    self.sectionDataHandler = [sectionDataHandler copy];
-    self.cellDataHandler = [cellDataHandler copy];
-}
-
-- (void)requestListSuccessHandler:(void (^)(id input,
-                                            id<HyListModelProtocol> listModel,
-                                            HyListViewRequestDataType type,
-                                            BOOL noMore))successHandler
-                   failureHandler:(void (^)(id input,
-                                            NSError *error,
-                                            HyListViewRequestDataType type))failureHandler {
-    
-    self.successHandler = [successHandler copy];
-    self.failureHandler = [failureHandler copy];
-}
-
-- (void)requestListDataWithInput:(id)input type:(HyListViewRequestDataType)type {
-    
-    NSString *url = self.urlBlock ? self.urlBlock(input,type) : @"";
-    NSDictionary *parameter = self.parameterBlock ? self.parameterBlock(input,type) : input;
-    BOOL showHUD = type == HyListViewRequestDataTypeFirst;
-    
-    void (^success)(id<HyNetworkSuccessProtocol>) =
-    ^(id<HyNetworkSuccessProtocol>  _Nullable successObject){
-        [self _handleResponse:successObject.response input:input type:type];
-    };
-    
-    void (^failure)(id<HyNetworkFailureProtocol>) =
-    ^(id<HyNetworkFailureProtocol>  _Nullable failureObject){
-        !self.failureHandler ?: self.failureHandler(input, failureObject.error, type);
-    };
-    
-    if (self.isGet) {
-        [HyNetworkManager.network getShowHUD:showHUD
-                                        cache:NO
-                                          url:url
-                                    parameter:parameter
-                                 successBlock:success
-                                 failureBlock:failure].resumeAtObjcet(self);
-    } else {
-        [HyNetworkManager.network postShowHUD:showHUD
-                                         cache:NO
-                                           url:url
-                                     parameter:parameter
-                                  successBlock:success
-                                  failureBlock:failure].resumeAtObjcet(self);
+    if (self.model) {
+        __weak typeof(self) _self = self;
+        self.model.listActionSuccess = ^typeof(void (^)(id _Nonnull, id _Nonnull, HyListActionType, BOOL)) (NSString *key){
+            return ^(id _Nonnull input, id _Nonnull data, HyListActionType type, BOOL noMore){
+                __strong typeof(_self) self = _self;
+                NSArray<void (^)(id, id, HyListActionType, BOOL)> *array = [self.listSuccessHandlerDict objectForKey:key];
+                if (array.count) {
+                    for (void (^block)(id, id, HyListActionType, BOOL) in array) {
+                        block(input, data, type, noMore);
+                    }
+                }
+            };
+        };
+        
+        self.model.listActionFailure = ^typeof(void (^)(id _Nonnull, NSError * _Nonnull, HyListActionType)) (NSString *key){
+            return ^(id _Nonnull input, NSError * _Nonnull error, HyListActionType type){
+                __strong typeof(_self) self = _self;
+                NSArray<void (^)(id, NSError *, HyListActionType)> *array = [self.listFailureHandlerDict objectForKey:key];
+                if (array.count) {
+                    for (void (^block)(id, NSError *, HyListActionType) in array) {
+                        block(input, error, type);
+                    }
+                }
+            };
+        };
     }
 }
 
-- (void)_handleResponse:(NSDictionary *)response
-                  input:(id)input
-                   type:(HyListViewRequestDataType)type {
+- (id<HyListEntityProtocol>  _Nonnull (^)(NSString * _Nonnull))listEntity {
+    @weakify(self);
+    return ^(NSString *key){
+        @strongify(self);
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return self.model.listEntity(key);
+    };
+}
+
+- (Class)defaultModelClass {
+    return HyListModel.class;
+}
+
+- (typeof(void (^)(id _Nonnull, HyListActionType))  _Nonnull (^)(NSString * _Nonnull))listAction {
+    __weak typeof(self) _self = self;
+    return ^typeof(void (^)(id _Nonnull, HyListActionType)) (NSString *key) {
+        __strong typeof(_self) self = _self;
+        if (!key.length) {key = NSStringFromClass(self.class);}
+         return self._objectForKey(self.listActionBlockDict, key, ^id {
+             return ^(id input, HyListActionType type){
+                 __strong typeof(_self) self = _self;
+                 [self listActionWithInput:input type:type forKey:key];
+             };
+         });
+    };
+}
+
+- (void)listActionWithInput:(id)input type:(HyListActionType)type  forKey:(NSString *)key  {
     
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-        NSMutableArray<HyListModelProtocol> *sectionModelArray = @[].mutableCopy;
-         
-           if (self.sectionDataHandler) {
-               
-               id sectionData = nil;
-               Class<HyModelProtocol> sectionModelClass = HyListModel.class;
-               NSArray *sectionArray = self.sectionDataHandler(input, response, type);
-               if (sectionArray.count) {
-                   sectionData = sectionArray.firstObject;
-                   if (sectionArray.count == 2) {
-                       Class cls = sectionArray.lastObject;
-                       if ([cls conformsToProtocol:@protocol(HyListModelProtocol)] &&
-                           Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
-                           sectionModelClass = cls;
-                       }
-                   }
-               }
+}
 
-               if (sectionData) {
-                   if ([sectionData isKindOfClass:NSDictionary.class]) {
-                       [sectionModelArray addObject:[sectionModelClass modelWithParameter:sectionData]];
-                   } else if ([sectionData isKindOfClass:NSArray.class] ||
-                              [sectionData isKindOfClass:NSMutableArray.class]) {
-                       for (NSDictionary *dict in sectionData) {
-                           [sectionModelArray addObject:[sectionModelClass modelWithParameter:dict]];
-                       }
-                   }
-               }
-           }
-           
-           if (self.cellDataHandler) {
-               
-               if (!sectionModelArray.count) {
-                   id<HyListModelProtocol> listModel = (id<HyListModelProtocol>)[HyListModel modelWithParameter:response];
-                   [sectionModelArray addObject:listModel];
-               }
-               
-               for (id<HyListModelProtocol> sectionModel in sectionModelArray) {
-                   
-                   NSInteger index = [sectionModelArray indexOfObject:sectionModel];
-                   NSDictionary *sectionDict = sectionModel.parameter;
-        
-                   id cellData = nil;
-                   Class cellModelClass = HyModel.class;
-                   NSMutableArray<HyModelProtocol> *cellModelArray = @[].mutableCopy;
-                   NSArray *cellArray = self.cellDataHandler(input, sectionDict, index, type);
-                   if (cellArray.count) {
-                       cellData = cellArray.firstObject;
-                       if (cellArray.count == 2) {
-                           Class cls = cellArray.lastObject;
-                           if ([cls conformsToProtocol:@protocol(HyModelProtocol)] &&
-                               Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
-                               cellModelClass = cls;
-                           }
-                       }
-                   }
-                   
-                   if (cellData) {
-                       if ([cellData isKindOfClass:NSDictionary.class]) {
-                          [cellModelArray addObject:[cellModelClass modelWithParameter:cellData]];
-                       } else if ([cellData isKindOfClass:NSArray.class] ||
-                                  [cellData isKindOfClass:NSMutableArray.class]) {
-                          for (NSDictionary *dict in cellData) {
-                              [cellModelArray addObject:[cellModelClass modelWithParameter:dict]];
-                          }
-                       }
-                       [sectionModel.listModelArray addObjectsFromArray:cellModelArray];
-                   }
-               }
-           }
+- (id<HyBlockProtocol>)addListActionSuccessHandler:(void (^)(id _Nonnull, id _Nonnull, HyListActionType, BOOL))successHandler
+                                            forKey:(NSString *)key {
+    if (!successHandler) { return nil;}
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    
+    NSMutableArray<void (^)(id, id, HyListActionType, BOOL)> *array = [self.listSuccessHandlerDict objectForKey:key];
+    if (!array) {
+        array = @[].mutableCopy;
+        [self.listSuccessHandlerDict setObject:array forKey:key];
+    }
+    [array addObject:successHandler];
+    
+    HyBlockObject *object = [HyBlockObject block:successHandler];
+    object.releaseB = ^{
+        [array removeObject:successHandler];
+    };
+    return object;
+}
 
-           if (type == HyListViewRequestDataTypeNew ||
-               type == HyListViewRequestDataTypeFirst) {
-               
-               if (self.sectionDataHandler) {
-                  [self.listModel.listModelArray removeAllObjects];
-               } else {
-                   [((id<HyListModelProtocol>)self.listModel.listModelArray.firstObject).listModelArray removeAllObjects];
-               }
-               self.pageNumber = self.startPage + 1;
-           } else {
-               self.pageNumber += 1;
-           }
-           
-           BOOL noMore = NO;
-           if (self.sectionDataHandler) {
-              [self.listModel.listModelArray addObjectsFromArray:sectionModelArray];
-               noMore = sectionModelArray.count < self.pageSize;
-           } else {
-               
-               if (!self.listModel.listModelArray.count) {
-                   id<HyListModelProtocol> listModel = (id<HyListModelProtocol> )[HyListModel modelWithParameter:nil];
-                   [self.listModel.listModelArray addObject:listModel];
-               }
-               
-               NSArray<id<HyModelProtocol>> *cellModels = ((id<HyListModelProtocol> )sectionModelArray.firstObject).listModelArray;
-               [((id<HyListModelProtocol>)self.listModel.listModelArray.firstObject).listModelArray addObjectsFromArray:cellModels];
-               
-                noMore = cellModels.count < self.pageSize;
-           }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-             !self.successHandler ?: self.successHandler(input,
-                                                         self.listModel,
-                                                         type,
-                                                         noMore);
+- (id<HyBlockProtocol>)addListActionFailureHandler:(void (^)(id _Nonnull, NSError * _Nonnull, HyListActionType))failureHandler
+                                            forKey:(NSString *)key {
+    
+    if (!failureHandler) { return nil;}
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    
+    NSMutableArray<void (^)(id, NSError *, HyListActionType)> *array = [self.listFailureHandlerDict objectForKey:key];
+    if (!array) {
+        array = @[].mutableCopy;
+        [self.listFailureHandlerDict setObject:array forKey:key];
+    }
+    [array addObject:failureHandler];
+    
+    HyBlockObject *object = [HyBlockObject block:failureHandler];
+    object.releaseB = ^{
+        [array removeObject:failureHandler];
+    };
+    return object;
+}
+
+- (NSArray<id<HyBlockProtocol>> *)addListActionSuccessHandler:(void (^)(id _Nullable, id _Nullable, HyListActionType, BOOL))successHandler
+                                               failureHandler:(void (^)(id _Nullable, NSError * _Nonnull, HyListActionType))failureHandler
+                                                       forKey:(NSString *)key {
+    
+    id<HyBlockProtocol> successB = [self addListActionSuccessHandler:successHandler forKey:key];
+    id<HyBlockProtocol> failureB = [self addListActionFailureHandler:failureHandler forKey:key];
+    NSMutableArray *array = @[].mutableCopy;
+    if (successB) {
+        [array addObject:successB];
+    }
+    if (failureB) {
+        [array addObject:failureB];
+    }
+    return array;
+}
+
+
+- (id (^)(NSMutableDictionary *, NSString *, id(^)(void)))_objectForKey {
+    return ^(NSMutableDictionary *dict, NSString *key, id(^block)(void)){
+        return [dict objectForKey:key] ?: ({
+            id object = !block ? nil : block();
+            if (object) {
+                [dict setObject:object forKey:key];
+            }
+            object;
         });
-    });
-}
-
-- (NSInteger)getPageSize {
-    return self.pageSize;
-}
-
-- (NSInteger(^)(HyListViewRequestDataType type))getRequestDataPageNumber {
-    __weak typeof(self) _self = self;
-    return ^NSInteger(HyListViewRequestDataType type){
-        __strong typeof(_self) self = _self;
-        return type == HyListViewRequestDataTypeMore ? self.pageNumber : self.startPage;
     };
 }
 
-- (id<HyListModelProtocol> (^)(NSUInteger section))sectionModel {
-     __weak typeof(self) _self = self;
-    return ^ id<HyListModelProtocol> (NSUInteger section){
-        __strong typeof(_self) self = _self;
-        if (!self.listModel) { return nil; }
-        if (section >= self.listModel.listModelArray.count) { return nil;}
-        return self.listModel.listModelArray[section];
+#pragma mark - RAC
+- (RACCommand<RACTuple *,RACTuple *> * _Nonnull (^)(NSString * _Nonnull))listCommand {
+    @weakify(self);
+    return ^RACCommand *(NSString *key){
+        @strongify(self);
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return self._objectForKey(self.listCommandDict, key, ^id{
+            @strongify(self);
+            return [self listCommandForKey:key];
+        });
     };
 }
 
-- (id<HyModelProtocol> (^)(NSIndexPath *indexPath))cellModel {
-    __weak typeof(self) _self = self;
-    return ^ id<HyModelProtocol> (NSIndexPath *indexPath){
-        __strong typeof(_self) self = _self;
-        
-        if (!self.listModel || !indexPath) { return nil; }
-        
-        id<HyListModelProtocol> sectionData = self.sectionModel(indexPath.section);
-        if (!sectionData) { return nil; }
-        if (indexPath.row >= sectionData.listModelArray.count) {
-            return nil;
-        }
-        return sectionData.listModelArray[indexPath.row];
+- (RACSubject * _Nonnull (^)(NSString * _Nonnull))refreshListViewSignal {
+    @weakify(self);
+    return ^RACSubject *(NSString *key){
+        @strongify(self);
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return self._objectForKey(self.refreshListViewSignalDict, key, ^{
+            return [RACSubject subject];
+        });
     };
 }
 
-- (id<HyListModelProtocol>)listModel {
-    if (!_listModel) {
-        Class<HyModelProtocol> cls = getObjcectPropertyClass([self class], "listModel");
-        if (cls == NULL) {
-            cls = HyListModel.class;
-        }
-        if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
-            _listModel = (id<HyListModelProtocol>)[cls modelWithParameter:self.parameter];
-        }
+- (RACCommand *)listCommandForKey:(NSString *)key {
+    return hy_command(self.listCommandEnabledSignal(key),
+                      self.listCommandInputHandler(key),
+                      self.listCommandSignal(key));
+}
+
+- (RACSignal<NSNumber *> * _Nonnull (^)(NSString * _Nonnull))listCommandEnabledSignal {
+    return ^RACSignal<NSNumber *> *(NSString *key){
+        return [self listCommandEnabledSignalForKey:key];
+    };
+}
+
+- (typeof(void(^)(id _Nonnull)) (^)(NSString * _Nonnull))listCommandInputHandler {
+    @weakify(self);
+    return ^(NSString *key){
+        @strongify(self);
+        if (!key.length) { key = NSStringFromClass(self.class);}
+        return ^(id input) {
+            if ([input isKindOfClass:RACTuple.class]) {
+                RACTuple *tuple = input;
+                if (tuple.count == 2) {
+                    @strongify(self);
+                    id inputValue = tuple.first;
+                    HyListActionType type = [tuple.last integerValue];
+                    [self listCommandInputHandlerWithInput:inputValue type:type forkey:key];
+                }
+            }
+        };
+    };
+}
+
+- (typeof(RACSignal *(^)(id _Nonnull))  _Nonnull (^)(NSString * _Nonnull))listCommandSignal {
+    @weakify(self);
+    return ^(NSString *key) {
+        @strongify(self);
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return ^RACSignal *(id input){
+            if ([input isKindOfClass:RACTuple.class]) {
+                RACTuple *tuple = input;
+                if (tuple.count == 2) {
+                    @strongify(self);
+                    id inputValue = tuple.first;
+                    HyListActionType type = [tuple.last integerValue];
+                   return [self listCommandSignalWithInput:inputValue type:type forKey:key];
+                }
+            }
+            NSLog(@"input需要传RACTuple ->(input, HyListActionType)");
+            return [RACSignal return:nil];
+        };
+    };
+}
+
+- (RACSignal *)listCommandEnabledSignalForKey:(NSString *)key {
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    return self.model.listEnabledSignal(key) ?: [RACSignal return:@YES];
+}
+
+- (RACSignal *)listCommandSignalWithInput:(id)input type:(HyListActionType)type forKey:(NSString *)key {
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    return self.model.listSignal(type,key)(input) ?: [RACSignal empty];
+}
+
+- (void)listCommandInputHandlerWithInput:(id)input type:(HyListActionType)type forkey:(NSString *)key {}
+
+
+- (id<HyListEntityProtocol>)listViewDataProviderForKey:(NSString *)key {
+    if (!key.length) {key = NSStringFromClass(self.class);}
+    return self.model.listEntity(key);
+}
+
+- (NSMutableDictionary<NSString *,void (^)(id _Nonnull, HyListActionType)> *)listActionBlockDict {
+    if (!_listActionBlockDict) {
+        _listActionBlockDict = @{}.mutableCopy;
     }
-    return _listModel;
+    return _listActionBlockDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<void (^)(id _Nonnull, id _Nonnull, HyListActionType, BOOL)> *> *)listSuccessHandlerDict {
+    if (!_listSuccessHandlerDict) {
+        _listSuccessHandlerDict = @{}.mutableCopy;
+    }
+    return _listSuccessHandlerDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<void (^)(id _Nonnull, NSError *, HyListActionType)> *> *)listFailureHandlerDict {
+    if (!_listFailureHandlerDict) {
+        _listFailureHandlerDict = @{}.mutableCopy;
+    }
+    return _listFailureHandlerDict;
+}
+
+- (NSMutableDictionary<NSString *,RACCommand *> *)listCommandDict {
+    if (!_listCommandDict) {
+        _listCommandDict = @{}.mutableCopy;
+    }
+    return _listCommandDict;
+}
+
+- (NSMutableDictionary<NSString *,RACSubject *> *)refreshListViewSignalDict {
+    if (!_refreshListViewSignalDict) {
+        _refreshListViewSignalDict = @{}.mutableCopy;
+    }
+    return _refreshListViewSignalDict;
+}
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
 }
 
 @end

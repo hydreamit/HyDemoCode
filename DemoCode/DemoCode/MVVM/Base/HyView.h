@@ -13,14 +13,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HyView<__covariant viewModelType: HyViewModel *,
+@interface HyView<__covariant viewModelType:  HyViewModel*,
                   __covariant viewDataProviderType: id<HyViewDataProtocol>,
-                  __covariant viewEventHandlerType: id<HyViewEventProtocol>> : UIView <HyViewControllerJumpProtocol, HyViewProtocol>
+                  __covariant viewEventHandlerType: id<HyViewEventProtocol>> : UIView<HyViewProtocol>
 
-@property (nonatomic,strong) viewModelType viewModel;
+@property (nonatomic,strong,readonly) viewModelType viewModel;
 @property (nonatomic,weak,readonly) viewDataProviderType dataProvider;
 @property (nonatomic,weak,readonly) viewEventHandlerType eventHandler;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

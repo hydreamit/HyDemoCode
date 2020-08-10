@@ -251,7 +251,7 @@
 - (nullable UIViewController *)hy_popViewControllerAnimated:(BOOL)animated
                                                  completion:(void (^_Nullable)(void))completion {
     
-    if (self.viewControllers.count > 2) {
+    if (self.viewControllers.count > 1) {
         NSInteger index = self.viewControllers.count - 2;
         [self hy_hookDidAppearWithViewController:self.viewControllers[index] completion:completion];
     }
@@ -262,7 +262,7 @@
                                                                  animated:(BOOL)animated
                                                                completion:(void (^_Nullable)(void))completion {
     
-    if (self.viewControllers.count > 2 && [self.viewControllers containsObject:viewController]) {
+    if (self.viewControllers.count > 1 && [self.viewControllers containsObject:viewController]) {
         [self hy_hookDidAppearWithViewController:viewController completion:completion];
     }
     return [self popToViewController:viewController animated:animated];
@@ -271,7 +271,7 @@
 - (nullable NSArray<__kindof UIViewController *> *)hy_popToRootViewControllerAnimated:(BOOL)animated
                                                                            completion:(void (^_Nullable)(void))completion {
     
-    if (self.viewControllers.count > 2) {
+    if (self.viewControllers.count > 1) {
         [self hy_hookDidAppearWithViewController:self.viewControllers.firstObject completion:completion];
     }
     return [self popToRootViewControllerAnimated:animated];

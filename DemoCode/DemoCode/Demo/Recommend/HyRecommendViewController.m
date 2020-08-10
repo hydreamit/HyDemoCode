@@ -35,7 +35,7 @@
 }
 
 - (void)viewModelDidLoad {
-    [self.viewModel requestListDataWithInput:nil type:0];
+//    [self.viewModel requestListDataWithInput:nil type:0];
 }
 
 - (void)scrollToTop {

@@ -10,6 +10,7 @@
 #import "HyNewsModel.h"
 #import <HyCategoriess/HyCategories.h>
 #import <YYWebImage/YYWebImage.h>
+#import "HyNewsCellEntity.h"
 
 @interface HyNewsCell ()
 @property (nonatomic, strong) UIView *lineView;
@@ -29,8 +30,8 @@
 }
 
 - (void)hy_reloadCellData {
-    self.newsTitleLabel.attributedText = ((HyNewsModel *)self.hy_cellData).titleAttr;
-    [self.newsImageView yy_setImageWithURL:[NSURL URLWithString:((HyNewsModel *)self.hy_cellData).imageUrlStr]
+    self.newsTitleLabel.attributedText = ((HyNewsCellEntity *)self.hy_cellData).titleAttr;
+    [self.newsImageView yy_setImageWithURL:[NSURL URLWithString:((HyNewsCellEntity *)self.hy_cellData).imageUrlStr]
                                placeholder:nil
                                    options:YYWebImageOptionSetImageWithFadeAnimation |
                    YYWebImageOptionProgressiveBlur           |

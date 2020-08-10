@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HyNetworkBaseTaskProtocol <NSObject>
 
-- (void)resume;
+- (instancetype)resume;
 
 // object 销毁时 如果任务在请求中 取消请求
-- (void(^)(NSObject * _Nullable object))resumeAtObjcet;
+- (instancetype (^)(NSObject * _Nullable object))resumeAtObjcet;
 
 
 - (void)cancel;

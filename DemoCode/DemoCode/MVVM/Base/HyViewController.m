@@ -23,27 +23,34 @@
     HyViewController *controller = [[self alloc] init];
     controller.parameter = parameter;
     if (viewModelName.length) {
-        Class viewModelClass = NSClassFromString(viewModelName);        
+        
+        Class viewModelClass = NSClassFromString(viewModelName);
+        
         if (Hy_ProtocolAndSelector(viewModelClass,
                                    @protocol(HyViewModelProtocol),
                                    @selector(viewModelWithParameter:))) {
             
-            id<HyViewModelProtocol> viewModel = [viewModelClass viewModelWithParameter:parameter];
-            controller.viewModel = viewModel;
-            if ([viewModel respondsToSelector:sel_registerName("setViewModelController:")]) {
-                ((void(*)(id, SEL, id))objc_msgSend)(viewModel, sel_registerName("setViewModelController:"), controller);
-            }
-            if (Hy_ProtocolAndSelector(viewModel,
-                                       @protocol(HyViewModelProtocol),
-                                       @selector(viewModelLoad))) {
-                [controller viewModelWillLoad];
-                [viewModel viewModelLoad];
-                controller.hy_viewWillAppearBlock = ^(UIViewController * _Nonnull _self, BOOL animated, BOOL firstLoad) {
-                    if (firstLoad) {
-                         [(UIViewController<HyViewControllerProtocol> *)_self viewModelDidLoad];
-                    }
-                };
-            }
+            controller.hy_viewDidLoadBlock = ^(UIViewController * _Nonnull _self) {
+                
+                HyViewController *vc = (id)_self;
+                id<HyViewModelProtocol> viewModel = [viewModelClass viewModelWithParameter:parameter];
+                vc.viewModel = viewModel;
+                if ([viewModel respondsToSelector:sel_registerName("setViewModelController:")]) {
+                    ((void(*)(id, SEL, id))objc_msgSend)(viewModel, sel_registerName("setViewModelController:"), vc);
+                }
+                if (Hy_ProtocolAndSelector(viewModel,
+                                           @protocol(HyViewModelProtocol),
+                                           @selector(viewModelLoad))) {
+                    [vc viewModelWillLoad];
+                    [viewModel viewModelLoad];
+                }
+            };
+            
+            controller.hy_viewWillAppearBlock = ^(UIViewController * _Nonnull _self, BOOL animated, BOOL firstLoad) {
+               if (firstLoad) {
+                    [(UIViewController<HyViewControllerProtocol> *)_self viewModelDidLoad];
+               }
+           };
         }
     }
     return controller;
@@ -75,7 +82,7 @@
 
 - (void)viewModelWillLoad {}
 - (void)viewModelDidLoad {}
-- (void)hy_viewDidLoad {self.view.backgroundColor = UIColor.whiteColor;}
+- (void)hy_viewDidLoad {[super hy_viewDidLoad]; self.view.backgroundColor = UIColor.whiteColor;}
 - (void)popFromViewController:(NSString *)controllerName parameter:(NSDictionary *)parameter {}
 - (void)dissmissFromViewController:(NSString *)controllerName parameter:(NSDictionary *)parameter {}
 

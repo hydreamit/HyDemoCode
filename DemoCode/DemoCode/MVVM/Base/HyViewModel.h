@@ -18,12 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HyViewModel : NSObject <HyViewModelProtocol, HyViewInvokerProtocol>
 
 #pragma mark - 子类重写
-- (void)actionWithInput:(id)input forKey:(NSString *)key;
+- (void)actionWithInput:(id _Nullable)input forKey:(NSString *)key;
 
 - (RACCommand *)commandForKey:(NSString *)key;
 - (RACSignal *)commandEnabledSignalForKey:(NSString *)key;
-- (RACSignal *)commandSignalWithInput:(id)input forKey:(NSString *)key;
-- (void)commandInputHandlerWithInput:(id)input forkey:(NSString *)key;
+- (RACSignal *)commandSignalWithInput:(id _Nullable)input forKey:(NSString *)key;
+- (void)commandInputHandlerWithInput:(id _Nullable)input forkey:(NSString *)key;
+- (nullable id)handleInput:(id _Nullable)input forKey:(NSString *)key;
 
 @end
 

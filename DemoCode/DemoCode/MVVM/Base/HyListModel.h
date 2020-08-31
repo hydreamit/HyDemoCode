@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configListReuestConfigure:(ListRequestConfigure *)configure;
 
+- (void)entityParserCompleteHandler:(id<HyNetworkSuccessProtocol>)successObject
+                         listEntity:(id<HyListEntityProtocol>)listEntity
+                   requestConfigure:(ListRequestConfigure *)configure;
+
 #pragma mark -
 - (void)listActionWithInput:(NSString *)input type:(HyListActionType)type forKey:(NSString *)key;
 - (void)handleListSuccess:(id<HyNetworkSuccessProtocol>)successObject requestConfigure:(ListRequestConfigure *)configure;

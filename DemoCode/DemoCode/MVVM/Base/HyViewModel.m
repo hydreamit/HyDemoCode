@@ -135,7 +135,7 @@
         return self._objectForKey(self.actionBlockDict, key, ^id {
             return ^(id input){
                 __strong typeof(_self) self = _self;
-                [self actionWithInput:input forKey:key];
+                [self actionWithInput:[self handleInput:input forKey:key] forKey:key];
             };
         });
     };
@@ -143,6 +143,10 @@
 
 - (void)actionWithInput:(id)input forKey:(NSString *)key {
     [self.model actionWithInput:input forKey:key];
+}
+
+- (nullable id)handleInput:(id)input forKey:(NSString *)key {
+    return input;
 }
 
 - (id<HyBlockProtocol>)addActionSuccessHandler:(void (^)(id _Nonnull, id _Nonnull))successHandler
@@ -325,7 +329,7 @@
     return ^(NSString *key){
         return ^(id input) {
             @strongify(self);
-            [self commandInputHandlerWithInput:input forkey:key];
+            [self commandInputHandlerWithInput:[self handleInput:input forKey:key]  forkey:key];
         };
     };
 }
@@ -335,7 +339,7 @@
     return ^(NSString *key) {
         return ^RACSignal *(id input){
             @strongify(self);
-            return [self commandSignalWithInput:input forKey:key];
+            return [self commandSignalWithInput:[self handleInput:input forKey:key]  forKey:key];
         };
     };
 }

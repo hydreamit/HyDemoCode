@@ -56,7 +56,9 @@
     return ^NSMutableDictionary * (NSString *key) {
         __strong typeof(_self) self = _self;
         return self._objectForKey(self.listPageDict, key, ^id{
-            return @{@"pageSize" : @([self pageSizeForKey:key])}.mutableCopy;
+            return @{@"pageSize" : @([self pageSizeForKey:key]),
+                     @"startIndex" : @([self startIndexForKey:key])
+            }.mutableCopy;
         });
     };
 }
@@ -74,7 +76,9 @@
     return ^NSInteger (HyListActionType type, NSString *key){
         __strong typeof(_self) self = _self;
         NSDictionary *dict = self.listPage(key);
-        return type == HyListActionTypeMore ? [[dict objectForKey:@"pageIndex"] integerValue] : [[dict objectForKey:@"startIndex"] integerValue];
+        return type == HyListActionTypeMore ?
+        [[dict objectForKey:@"pageIndex"] integerValue] :
+        [[dict objectForKey:@"startIndex"] integerValue];
     };
 }
 
@@ -83,7 +87,11 @@
 }
 
 - (NSInteger)pageSizeForKey:(NSString *)key {
-    return 10;
+    return 20;
+}
+
+- (NSInteger)startIndexForKey:(NSString *)key {
+    return 1;
 }
 
 - (id (^)(NSMutableDictionary *, NSString *, id(^)(void)))_objectForKey {
@@ -145,16 +153,17 @@
     }
 }
 
-- (void)handleListSuccess:(id<HyNetworkSuccessProtocol>)successObject requestConfigure:(ListRequestConfigure *)configure {
+- (void)handleListSuccess:(id<HyNetworkSuccessProtocol>)successObject
+         requestConfigure:(ListRequestConfigure *)configure {
     [self handleListSuccess:successObject requestConfigure:configure completion:^(id<HyListEntityProtocol> listEntity) {
-        void(^block)(id, id, HyListActionType, BOOL) = self.listActionSuccess(configure.key);
+        void(^block)(id, id, HyListActionType, BOOL) = self.listActionSuccess ? self.listActionSuccess(configure.key) : nil;
         !block ?: block(configure.input, listEntity, configure.type, configure.noMore);
     }];
 }
 
 - (void)handleListFailure:(id<HyNetworkFailureProtocol>)failureObject
          requestConfigure:(ListRequestConfigure *)configure {
-    void (^block)(id, NSError *, HyListActionType) = self.listActionFailure(configure.key);
+    void (^block)(id, NSError *, HyListActionType) = self.listActionFailure ? self.listActionFailure(configure.key) : nil;
     !block ?: block(configure.input, failureObject.error, configure.type);
 }
 
@@ -240,7 +249,7 @@
     NSString *key = configure.key;
     id input = configure.input;
     
-    HyListEntity *listEntity = self.listEntity(key);
+    id<HyListEntityProtocol> listEntity = self.listEntity(key);
     NSMutableDictionary *listPage = self.listPage(key);
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -339,11 +348,21 @@
             noMore = cellEntityArray.count < [listPage[@"pageSize"] integerValue];
         }
         configure.noMore = noMore;
+        
+        [self entityParserCompleteHandler:successObject
+                               listEntity:listEntity
+                         requestConfigure:configure];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             !completion ?: completion(listEntity);
         });
     });
+}
+
+- (void)entityParserCompleteHandler:(id<HyNetworkSuccessProtocol>)successObject
+                         listEntity:(id<HyListEntityProtocol>)listEntity
+                   requestConfigure:(ListRequestConfigure *)configure {
+    
 }
 
 - (NSMutableDictionary<NSString *,HyListEntity *> *)listEntityDict {

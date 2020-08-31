@@ -85,9 +85,12 @@
 - (void)hy_viewDidLoad {[super hy_viewDidLoad]; self.view.backgroundColor = UIColor.whiteColor;}
 - (void)popFromViewController:(NSString *)controllerName parameter:(NSDictionary *)parameter {}
 - (void)dissmissFromViewController:(NSString *)controllerName parameter:(NSDictionary *)parameter {}
-
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 - (void)dealloc {
     NSLog(@"%s", __func__);
 }
+
 
 @end

@@ -86,14 +86,18 @@
          return self._objectForKey(self.listActionBlockDict, key, ^id {
              return ^(id input, HyListActionType type){
                  __strong typeof(_self) self = _self;
-                 [self listActionWithInput:input type:type forKey:key];
+                 [self listActionWithInput:[self handleListInput:input type:type forKey:key] type:type forKey:key];
              };
          });
     };
 }
 
+- (nullable id)handleListInput:(id)input type:(HyListActionType)type forKey:(NSString *)key{
+    return input;
+}
+
 - (void)listActionWithInput:(id)input type:(HyListActionType)type  forKey:(NSString *)key  {
-    
+    self.model.listAction(input, type, key);
 }
 
 - (id<HyBlockProtocol>)addListActionSuccessHandler:(void (^)(id _Nonnull, id _Nonnull, HyListActionType, BOOL))successHandler
@@ -151,6 +155,46 @@
     return array;
 }
 
+- (NSArray<typeof(void (^)(id _Nonnull))> * _Nonnull (^)(NSString * _Nonnull))refreshListViewBlock {
+    __weak typeof(self) _self = self;
+    return ^(NSString *key) {
+        __strong typeof(_self) self = _self;
+        if (!key.length) {key = NSStringFromClass(self.class);}
+        return [self.refreshListViewBlockDict objectForKey:key].copy;
+    };
+}
+
+- (id<HyBlockProtocol>)addRefreshListViewBlock:(void (^)(id _Nonnull))block forKey:(NSString *)key {
+    
+    if (!block) { return nil;}
+    if (!key.length) {key = NSStringFromClass(self.class);}
+
+    NSMutableArray<void (^)(id _Nonnull)> *array = [self.refreshListViewBlockDict objectForKey:key];
+    if (!array) {
+        array = @[].mutableCopy;
+    }
+    [array addObject:block];
+    [self.refreshListViewBlockDict setObject:array forKey:key];
+
+    HyBlockObject *object = [HyBlockObject block:block];
+    object.releaseB = ^{
+        [array removeObject:block];
+    };
+    return object;
+}
+
+- (void)refreshListViewWithParameter:(id)parameter forKey:(NSString *)key {
+
+    if (!key.length) {key = NSStringFromClass(self.class);}
+
+    NSMutableArray<void (^)(id _Nonnull)> *array = [self.refreshListViewBlockDict objectForKey:key];
+    if (!array.count) {
+        return;
+    }
+    for (void (^block)(id _Nonnull) in array) {
+        block(parameter);
+    }
+}
 
 - (id (^)(NSMutableDictionary *, NSString *, id(^)(void)))_objectForKey {
     return ^(NSMutableDictionary *dict, NSString *key, id(^block)(void)){
@@ -212,7 +256,7 @@
                     @strongify(self);
                     id inputValue = tuple.first;
                     HyListActionType type = [tuple.last integerValue];
-                    [self listCommandInputHandlerWithInput:inputValue type:type forkey:key];
+                    [self listCommandInputHandlerWithInput:[self handleListInput:inputValue type:type forKey:key] type:type forkey:key];
                 }
             }
         };
@@ -231,7 +275,7 @@
                     @strongify(self);
                     id inputValue = tuple.first;
                     HyListActionType type = [tuple.last integerValue];
-                   return [self listCommandSignalWithInput:inputValue type:type forKey:key];
+                   return [self listCommandSignalWithInput:[self handleListInput:inputValue type:type forKey:key] type:type forKey:key];
                 }
             }
             NSLog(@"input需要传RACTuple ->(input, HyListActionType)");
@@ -291,6 +335,13 @@
         _refreshListViewSignalDict = @{}.mutableCopy;
     }
     return _refreshListViewSignalDict;
+}
+
+- (NSMutableDictionary<NSString *,NSMutableArray<void (^)(id _Nonnull)> *> *)refreshListViewBlockDict {
+    if (!_refreshListViewBlockDict) {
+        _refreshListViewBlockDict = @{}.mutableCopy;
+    }
+    return _refreshListViewBlockDict;
 }
 
 - (void)dealloc {

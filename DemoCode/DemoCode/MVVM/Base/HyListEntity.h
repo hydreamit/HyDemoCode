@@ -12,8 +12,12 @@
 #import "HyEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class HyListEntity;
+@interface HyListEntity<__covariant ListEntityType : id<HyListEntityProtocol>> : HyEntity<HyListEntityProtocol>
 
-@interface HyListEntity : HyEntity<HyListEntityProtocol>
+//@property (nonatomic,strong,readonly) NSMutableArray<ListEntityType> *entityArray;
+
+//- (NSMutableArray<ListEntityType> *)entityArray;
 
 @end
 

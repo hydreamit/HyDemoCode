@@ -54,7 +54,7 @@
        ((refreshType == HyListViewRefreshTypePullDown ||
        refreshType == HyListViewRefreshTypePullDownAndUp) ?
         ^{  __strong typeof(_self) self = _self;
-            id input = inputBlock ? inputBlock(HyListActionTypeNew) : nil;
+           id input = inputBlock ? inputBlock(HyListActionTypeNew) : self.key;
            [self.listViewModel.listCommand(self.key) execute:RACTuplePack(input, @(HyListActionTypeNew))];
 //           self.listViewModel.listAction(self.key)(input, HyListActionTypeNew);
        } : nil);
@@ -63,7 +63,7 @@
        ((refreshType == HyListViewRefreshTypePullUp ||
        refreshType == HyListViewRefreshTypePullDownAndUp) ?
         ^{  __strong typeof(_self) self = _self;
-            id input = inputBlock ? inputBlock(HyListActionTypeMore) : nil;
+           id input = inputBlock ? inputBlock(HyListActionTypeMore) : self.key;
            [self.listViewModel.listCommand(self.key) execute:RACTuplePack(input, @(HyListActionTypeMore))];
 //           self.listViewModel.listAction(self.key)(input, HyListActionTypeMore);
        } : nil);
@@ -171,13 +171,13 @@
      listViewModel.refreshListViewSignal(self.key).deliverOnMainThread.subscribeNext(refreshHandler)];
     
 
-//        [self.blocks makeObjectsPerformSelector:@selector(releaseBlock)];
-//        [self.blocks removeAllObjects];
-//        [self.blocks addObjectsFromArray:
-//         [listViewModel addListActionSuccessHandler:successHandler
-//                                     failureHandler:failureHandler
-//                                             forKey:self.key]];
-//        [self.blocks addObject:[listViewModel addRefreshListView:refreshHandler forKey:self.key]];
+//    [self.blocks makeObjectsPerformSelector:@selector(releaseBlock)];
+//    [self.blocks removeAllObjects];
+//    [self.blocks addObjectsFromArray:
+//     [listViewModel addListActionSuccessHandler:successHandler
+//                                 failureHandler:failureHandler
+//                                         forKey:self.key]];
+//    [self.blocks addObject:[listViewModel addRefreshListViewBlock:refreshHandler forKey:self.key]];
 }
 
 - (NSMutableArray<id<HyBlockProtocol>> *)blocks {

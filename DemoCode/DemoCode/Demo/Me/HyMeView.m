@@ -40,6 +40,7 @@
 
 - (void)configLayout {
     
+    
     [self.accountTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(30);
         make.top.mas_equalTo(50);

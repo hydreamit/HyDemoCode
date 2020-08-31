@@ -48,6 +48,7 @@ static NSMutableArray<Class> *_centerContentViewClass;
     };
 }
 
+static NSMutableArray<Class> * _contentViewClass;
 + (void)addContentViewClass:(Class)class {
     if (![self.getContentViewClass containsObject:class]) {
         [self.getContentViewClass addObject:class];
@@ -59,10 +60,12 @@ static NSMutableArray<Class> *_centerContentViewClass;
 }
 
 + (NSMutableArray<Class> *)getContentViewClass {
-    if (!_centerContentViewClass) {
-        _centerContentViewClass = @[].mutableCopy;
-    }
-    return _centerContentViewClass;
+    _contentViewClass = @[UIView.class].mutableCopy;
+    return _contentViewClass;
+}
+
++ (NSArray<Class> *)tipViewOfContentViewClass {
+    return _contentViewClass;
 }
 
 @end

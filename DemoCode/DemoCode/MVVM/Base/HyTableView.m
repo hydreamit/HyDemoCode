@@ -35,11 +35,25 @@
 
 - (void)hy_tableViewLoad {
     if (self.listViewModel) {
+        
+        [self configRefreshFramework:nil
+                         refreshType:HyListViewRefreshTypePullDownAndUp
+                 refreshRequestInput:nil
+                 refreshCustomAction:nil];
+        
+        self.backgroundColor = UIColor.whiteColor;
+        self.showsVerticalScrollIndicator = NO;
+        self.estimatedRowHeight = 100;
+        self.rowHeight = UITableViewAutomaticDimension;
+        
         __weak typeof(self) _self = self;
         self.hy_delegateConfigure.configSectionAndCellDataKey(^NSArray *{
             __strong typeof(_self) self = _self;
-            id<HyListEntityProtocol> listEntity = [self.listViewModel listViewDataProviderForKey:self.key];
-            return @[listEntity.entityArray, @"entityArray"];
+            if ([self.listViewModel conformsToProtocol:@protocol(HyListViewModelProtocol)]) {
+                id<HyListEntityProtocol> listEntity = [self.listViewModel listViewDataProviderForKey:self.key];
+                return @[listEntity.entityArray, @"entityArray"];
+            }
+            return nil;
         });
     }
 }
@@ -56,18 +70,22 @@
        ((refreshType == HyListViewRefreshTypePullDown ||
        refreshType == HyListViewRefreshTypePullDownAndUp) ?
         ^{  __strong typeof(_self) self = _self;
-            id input = inputBlock ? inputBlock(HyListActionTypeNew) : nil;
-           [self.listViewModel.listCommand(self.key) execute:RACTuplePack(input, @(HyListActionTypeNew))];
-//           self.listViewModel.listAction(self.key)(input, HyListActionTypeNew);
+           if ([self.listViewModel conformsToProtocol:@protocol(HyListViewModelProtocol)]) {
+               id input = inputBlock ? inputBlock(HyListActionTypeNew) : self.key;
+               [self.listViewModel.listCommand(self.key) execute:RACTuplePack(input, @(HyListActionTypeNew))];
+//               self.listViewModel.listAction(self.key)(input, HyListActionTypeNew);
+           }
        } : nil);
 
        void (^footerRefresh)(void) = (actionBlock ? actionBlock(NO) : nil) ?:
        ((refreshType == HyListViewRefreshTypePullUp ||
        refreshType == HyListViewRefreshTypePullDownAndUp) ?
         ^{  __strong typeof(_self) self = _self;
-            id input = inputBlock ? inputBlock(HyListActionTypeMore) : nil;
-           [self.listViewModel.listCommand(self.key) execute:RACTuplePack(input, @(HyListActionTypeMore))];
-//           self.listViewModel.listAction(self.key)(input, HyListActionTypeMore);
+           if ([self.listViewModel conformsToProtocol:@protocol(HyListViewModelProtocol)]) {
+               id input = inputBlock ? inputBlock(HyListActionTypeMore) : self.key;
+               [self.listViewModel.listCommand(self.key) execute:RACTuplePack(input, @(HyListActionTypeMore))];
+//               self.listViewModel.listAction(self.key)(input, HyListActionTypeMore);
+           }
        } : nil);
 
     self.refreshViewFactory =
@@ -171,13 +189,13 @@
     [self.disposables addObject:listViewModel.refreshListViewSignal(self.key).deliverOnMainThread.subscribeNext(refreshHandler)];
     
 
-//        [self.blocks makeObjectsPerformSelector:@selector(releaseBlock)];
-//        [self.blocks removeAllObjects];
-//        [self.blocks addObjectsFromArray:
-//         [listViewModel addListActionSuccessHandler:successHandler
-//                                     failureHandler:failureHandler
-//                                             forKey:self.key]];
-//        [self.blocks addObject:[listViewModel addRefreshListView:refreshHandler forKey:self.key]];
+//    [self.blocks makeObjectsPerformSelector:@selector(releaseBlock)];
+//    [self.blocks removeAllObjects];
+//    [self.blocks addObjectsFromArray:
+//     [listViewModel addListActionSuccessHandler:successHandler
+//                                 failureHandler:failureHandler
+//                                         forKey:self.key]];
+//    [self.blocks addObject:[listViewModel addRefreshListViewBlock:refreshHandler forKey:self.key]];
 }
 
 - (NSMutableArray<id<HyBlockProtocol>> *)blocks {

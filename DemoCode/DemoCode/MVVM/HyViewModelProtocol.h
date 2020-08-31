@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)viewModelWithParameter:(nullable NSDictionary *)parameter;
 - (void)viewModelLoad;
 
-#pragma mark -
+#pragma mark - Block
 @property (nonatomic,copy,readonly) typeof(void(^)(id _Nullable parameter)) (^action)(NSString *_Nullable key);
 - (id<HyBlockProtocol>)addActionSuccessHandler:(void(^)(id _Nullable input, id _Nullable data))successHandler
                                         forKey:(NSString *_Nullable)key;
@@ -40,9 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
                                            failureHandler:(void(^)(id _Nullable input, NSError *error))failureHandler
                                                    forKey:(NSString *_Nullable)key;
 
-// refreshView
+
 @property (nonatomic,copy,readonly) NSArray<typeof(void(^)(id _Nullable parameter))> *(^refreshView)(NSString *_Nullable key);
-- (id<HyBlockProtocol>)addRefreshView:(void(^)(id _Nullable parameter))block forKey:(NSString *_Nullable)key;
+- (id<HyBlockProtocol>)addRefreshViewBlock:(void(^)(id _Nullable parameter))block forKey:(NSString *_Nullable)key;
 - (void)refreshViewWithParameter:(id _Nullable)parameter forKey:(NSString *_Nullable)key;
 
 

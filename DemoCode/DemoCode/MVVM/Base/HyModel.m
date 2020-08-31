@@ -9,7 +9,38 @@
 #import "HyModel.h"
 #import "NSObject+HyProtocol.h"
 #import "HyModelParser.h"
+#import "HyTipText.h"
 
+void handleSuccess(id<HyNetworkSuccessProtocol> successObject, RequestConfigure *configure, void(^completion)(id model)) {
+
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        id modelData = successObject.response;
+        Class<HyModelProtocol> modelClass = HyModel.class;
+        if (configure.dataHandlerConfigure) {
+            NSArray *array = configure.dataHandlerConfigure(modelData);
+            if (array.count) {
+                modelData = array.firstObject;
+                if (array.count == 2) {
+                    Class cls = array.lastObject;
+                    if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:)) ||
+                        Hy_ProtocolAndSelector(cls, @protocol(HyEntityProtocol), @selector(entityWithParameter:))) {
+                        modelClass = cls;
+                    }
+                }
+            }
+        }
+
+        id<HyModelProtocol> model;
+        if (Hy_ProtocolAndSelector(modelClass, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
+            model = [modelClass modelWithParameter:modelData];
+        } else {
+            model = [((Class<HyEntityProtocol>)modelClass) entityWithParameter:modelData];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            !completion ?: completion(model);
+        });
+    });
+}
 
 @interface RequestConfigure()
 @property (nonatomic,copy) NSString *key;
@@ -80,15 +111,15 @@
 }
 
 - (void)handleSuccess:(id<HyNetworkSuccessProtocol>)successObject requestConfigure:(RequestConfigure *)configure {
-    [self handleSuccess:successObject requestConfigure:configure completion:^(id model) {
-        void (^block)(id, id) = self.actionSuccess(configure.key);
+    handleSuccess(successObject, configure, ^(id model) {
+        void (^block)(id, id) = self.actionSuccess ? self.actionSuccess(configure.key) : nil;
         !block ?: block(configure.input, model);
-    }];
+    });
 }
-  
+
 - (void)handleFailure:(id<HyNetworkFailureProtocol>)failureObject
      requestConfigure:(RequestConfigure *)configure {
-    void (^block)(id, id) = self.actionFailure(configure.key);
+    void (^block)(id, id) = self.actionFailure ? self.actionFailure(configure.key) : nil;
     !block ?: block(configure.input, failureObject.error);
 }
 
@@ -124,58 +155,78 @@
     
     HyNetworkSignalSuccessSubscribeBlock successSubscribeBlock = configure.successSubscribeBlock ?:
     ({
-        @weakify(self);
         ^(id<HyNetworkSuccessProtocol>  _Nonnull successObject, id<RACSubscriber>  _Nonnull subscriber) {
-           @strongify(self);
-            [self handleSuccess:successObject requestConfigure:configure completion:^(id model) {
-                [subscriber sendNext:model];
-                [subscriber sendCompleted];
-            }];
+            NSString *status= [NSString stringWithFormat:@"%@",successObject.response[@"code"]];
+            if (![status isEqualToString:@"200"]) {
+                NSString *errorString = [NSString stringWithFormat:@"%@",successObject.response[@"code_desc"]];
+                HyTipText.show(nil, errorString, nil);
+                [subscriber sendError:nil];
+            }else{
+                if (configure.dataHandlerConfigure) {
+                    handleSuccess(successObject, configure, ^(id model) {
+                        [subscriber sendNext:model];
+                        [subscriber sendCompleted];
+                    });
+                } else {
+                    [subscriber sendNext:successObject.response[@"ch_msg"]];
+                    [subscriber sendCompleted];
+                }
+            }
         };
     });
     
     if (configure.isGet) {
         return
-        hy_getSiganl(configure.showHUD, configure.cache, configure.url, configure.parameter, successSubscribeBlock, configure.failureSubscribeBlock);
+        hy_getSiganl(configure.showHUD,
+                     configure.cache,
+                     configure.url,
+                     configure.parameter,
+                     successSubscribeBlock,
+                     configure.failureSubscribeBlock);
     } else {
         return
-        hy_postSiganl(configure.showHUD, configure.cache, configure.url, configure.parameter, successSubscribeBlock, configure.failureSubscribeBlock);
+        hy_postSiganl(configure.showHUD,
+                      configure.cache,
+                      configure.url,
+                      configure.parameter,
+                      successSubscribeBlock,
+                      configure.failureSubscribeBlock);
     }
 }
 
 - (void)configReuestConfigure:(RequestConfigure *)configure {}
-- (void)handleSuccess:(id<HyNetworkSuccessProtocol>)successObject
-     requestConfigure:(RequestConfigure *)configure
-           completion:(void(^)(id))completion {
-
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        id modelData = successObject.response;
-        Class<HyModelProtocol> modelClass = self.class;
-        if (configure.dataHandlerConfigure) {
-            NSArray *array = configure.dataHandlerConfigure(modelData);
-            if (array.count) {
-                modelData = array.firstObject;
-                if (array.count == 2) {
-                    Class cls = array.lastObject;
-                    if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:)) ||
-                        Hy_ProtocolAndSelector(cls, @protocol(HyEntityProtocol), @selector(entityWithParameter:))) {
-                        modelClass = cls;
-                    }
-                }
-            }
-        }
-         
-        id<HyModelProtocol> model;
-        if (Hy_ProtocolAndSelector(modelClass, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
-            model = [modelClass modelWithParameter:modelData];
-        } else {
-            model = [((Class<HyEntityProtocol>)modelClass) entityWithParameter:modelData];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            !completion ?: completion(model);
-        });
-    });
-}
+//- (void)handleSuccess:(id<HyNetworkSuccessProtocol>)successObject
+//     requestConfigure:(RequestConfigure *)configure
+//           completion:(void(^)(id))completion {
+//
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        id modelData = successObject.response;
+//        Class<HyModelProtocol> modelClass = self.class;
+//        if (configure.dataHandlerConfigure) {
+//            NSArray *array = configure.dataHandlerConfigure(modelData);
+//            if (array.count) {
+//                modelData = array.firstObject;
+//                if (array.count == 2) {
+//                    Class cls = array.lastObject;
+//                    if (Hy_ProtocolAndSelector(cls, @protocol(HyModelProtocol), @selector(modelWithParameter:)) ||
+//                        Hy_ProtocolAndSelector(cls, @protocol(HyEntityProtocol), @selector(entityWithParameter:))) {
+//                        modelClass = cls;
+//                    }
+//                }
+//            }
+//        }
+//
+//        id<HyModelProtocol> model;
+//        if (Hy_ProtocolAndSelector(modelClass, @protocol(HyModelProtocol), @selector(modelWithParameter:))) {
+//            model = [modelClass modelWithParameter:modelData];
+//        } else {
+//            model = [((Class<HyEntityProtocol>)modelClass) entityWithParameter:modelData];
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            !completion ?: completion(model);
+//        });
+//    });
+//}
 
 - (void)dealloc {
     NSLog(@"%s", __func__);

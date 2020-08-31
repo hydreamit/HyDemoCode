@@ -21,10 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HyListViewModelProtocol <HyViewModelProtocol>
 @optional
 
-
 @property (nonatomic,copy,readonly) id<HyListEntityProtocol>(^listEntity)(NSString *_Nullable key);
 
-// 事件
+#pragma mark - Block
 @property (nonatomic,copy,readonly) typeof(void(^)(id parameter, HyListActionType type)) (^listAction)(NSString *_Nullable key);
 - (id<HyBlockProtocol>)addListActionSuccessHandler:(void(^)(id _Nullable input, id _Nullable data, HyListActionType type, BOOL noMore))successHandler
                                             forKey:(NSString *_Nullable)key;
@@ -34,9 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                failureHandler:(void(^_Nullable)(id _Nullable input, NSError *error, HyListActionType type))failureHandler
                                                        forKey:(NSString *_Nullable)key;
 
-// refreshView
 @property (nonatomic,copy,readonly) NSArray<typeof(void(^)(id _Nullable parameter))> *(^refreshListView)(NSString *_Nullable key);
-- (id<HyBlockProtocol>)addRefreshListView:(void(^)(id _Nullable parameter))block forKey:(NSString *_Nullable)key;
+- (id<HyBlockProtocol>)addRefreshListViewBlock:(void(^)(id _Nullable parameter))block forKey:(NSString *_Nullable)key;
 - (void)refreshListViewWithParameter:(id _Nullable)parameter forKey:(NSString *_Nullable)key;
 
 

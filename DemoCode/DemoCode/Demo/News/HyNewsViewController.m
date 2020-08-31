@@ -14,6 +14,7 @@
 #import "HyTableView.h"
 #import "HyNewsCell.h"
 #import "HyNewsCellEntity.h"
+#import "HyTipCenterTool.h"
 
 
 @interface HyNewsViewController ()
@@ -25,20 +26,37 @@
 - (void)hy_viewDidLoad {
     [super hy_viewDidLoad];
     
-    [self.view addSubview:self.tableView];
     
-    @weakify(self);
-    [HyNetworkManager.network addNetworkStatusChangeBlock:^(HyNetworStatus currentStatus, HyNetworStatus lastStatus) {
-        @strongify(self);
-        if ((lastStatus == HyNetworStatusUnKnown || lastStatus == HyNetworStatusNotReachable) &&
-            (currentStatus == HyNetworStatusReachableViaWWAN || currentStatus == HyNetworStatusReachbleViaWiFi)) {
-            [self.tableView headerBeginRefreshing];
-        }
-    } key:NSStringFromClass(self.class)];
+    
+    
+ 
+//    [self.view addSubview:self.tableView];
+//
+//    @weakify(self);
+//    [HyNetworkManager.network addNetworkStatusChangeBlock:^(HyNetworStatus currentStatus, HyNetworStatus lastStatus) {
+//        @strongify(self);
+//        if ((lastStatus == HyNetworStatusUnKnown || lastStatus == HyNetworStatusNotReachable) &&
+//            (currentStatus == HyNetworStatusReachableViaWWAN || currentStatus == HyNetworStatusReachbleViaWiFi)) {
+//            [self.tableView headerBeginRefreshing];
+//        }
+//    } key:NSStringFromClass(self.class)];
 }
 
 - (void)viewModelDidLoad {
     [self.viewModel.listCommand(nil) execute:RACTuplePack(nil, @(0))];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+
+    UIView *view = UIView.new;
+    view.backgroundColor = UIColor.redColor;
+    view.size = CGSizeMake(100, 100);
+    [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel)]];
+}
+
+- (void)cancel {
+    HyTipCenterTool.dismiss(nil, nil);
 }
 
 - (void)scrollToTop {

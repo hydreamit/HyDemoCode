@@ -21,6 +21,7 @@
 @property (nonatomic,assign) CGPoint pointA;
 @property (nonatomic,assign) CGPoint pointB;
 @property (nonatomic,assign) CGPoint pointC;
+@property (nonatomic, assign) CGFloat percent;
 @end
 
 
@@ -35,8 +36,8 @@
         self.pointB = CGPointMake(CircleSizeWH / 2, self.layer.bounds.size.height - CircleSizeWH / 2);
         self.pointC = CGPointMake(self.layer.bounds.size.width - CircleSizeWH / 2, self.layer.bounds.size.height - CircleSizeWH / 2);
 
-        self.circleA = [self createCircleLayerWithColor:UIColor.orangeColor];
-        self.circleB = [self createCircleLayerWithColor:UIColor.blueColor];
+        self.circleA = [self createCircleLayerWithColor:UIColor.blueColor];
+        self.circleB = [self createCircleLayerWithColor:UIColor.orangeColor];
         self.circleC = [self createCircleLayerWithColor:UIColor.greenColor];
         
         [self.layer addSublayer:self.circleA];
@@ -52,6 +53,12 @@
     if (handleP > 1) {
         handleP = 1.0;
     }
+    
+    if (self.percent == percent) {
+        return;
+    }
+    self.percent = percent;
+    
     self.circleA.position = CGPointMake(self.centerPoint.x + (self.pointA.x - self.centerPoint.x) * handleP, self.centerPoint.y + (self.pointA.y - self.centerPoint.y) * handleP);
     
     self.circleB.position = CGPointMake(self.centerPoint.x + (self.pointB.x - self.centerPoint.x) * handleP, self.centerPoint.y + (self.pointB.y - self.centerPoint.y) * handleP);

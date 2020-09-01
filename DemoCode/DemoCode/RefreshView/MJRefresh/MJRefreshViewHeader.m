@@ -11,6 +11,7 @@
 #import "HyRefreshAnimationView.h"
 
 @interface MJRefreshViewCustomHeader : MJRefreshHeader
+@property (nonatomic, assign) BOOL isAutoRefreshing;
 @property (nonatomic,strong) HyRefreshAnimationView *animationView;
 @end
 @implementation MJRefreshViewCustomHeader
@@ -24,12 +25,22 @@
         state == MJRefreshStatePulling) {
         [self.animationView stopAnimating];
     }  else if (state == MJRefreshStateRefreshing) {
-        [self.animationView startAnimating];
+        
+        NSTimeInterval delayInSeconds = self.isAutoRefreshing ? .3 : 0;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.animationView startAnimating];
+        });
+        self.isAutoRefreshing = NO;
     }
 }
 - (void)setPullingPercent:(CGFloat)pullingPercent {
     [super setPullingPercent:pullingPercent];
-    [self.animationView changeWithPercent:pullingPercent];
+    
+    if (self.isAutoRefreshing) {
+        [self.animationView changeWithPercent:1.0];
+    } else {
+        [self.animationView changeWithPercent:pullingPercent];
+    }
 }
 - (HyRefreshAnimationView *)animationView {
     if (!_animationView){
@@ -58,6 +69,7 @@
 }
 
 - (void)beginRefreshing {
+    ((MJRefreshViewCustomHeader *)self.scrollView.mj_header).isAutoRefreshing = YES;
     [self.scrollView.mj_header beginRefreshing];
 }
 

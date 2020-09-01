@@ -22,7 +22,7 @@
     KafkaRefreshFooter *header = [[KafkaRefreshFooter alloc] init];
     header.scrollView = scrollView;
     [scrollView bindFootRefreshHandler:refreshAction
-                            themeColor:nil
+                            themeColor:UIColor.blueColor
                           refreshStyle:KafkaRefreshStyleReplicatorArc];
     scrollView.footRefreshControl.hidden = YES;
     return header;

@@ -22,7 +22,7 @@
     KafkaRefreshHeader *header = [[KafkaRefreshHeader alloc] init];
     header.scrollView = scrollView;
     [scrollView bindHeadRefreshHandler:refreshAction
-                            themeColor:UIColor.orangeColor
+                            themeColor:UIColor.blueColor
                           refreshStyle:KafkaRefreshStyleReplicatorArc];
     return header;
 }

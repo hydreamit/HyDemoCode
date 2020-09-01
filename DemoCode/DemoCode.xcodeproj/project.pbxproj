@@ -156,6 +156,7 @@
 		B569C83D24D959F1009B2EB4 /* HyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B569C83824D959F1009B2EB4 /* HyModel.m */; };
 		B569C83E24D959F1009B2EB4 /* HyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B569C83A24D959F1009B2EB4 /* HyViewController.m */; };
 		B5A0700424D299F500C5C4B8 /* NSObject+HyRACExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A0700324D299F500C5C4B8 /* NSObject+HyRACExtension.m */; };
+		B5A7623624FE086E008742DA /* HyRefreshFooterAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A7623524FE086E008742DA /* HyRefreshFooterAnimationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -633,6 +634,8 @@
 		B569C83A24D959F1009B2EB4 /* HyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyViewController.m; sourceTree = "<group>"; };
 		B5A0700224D299F500C5C4B8 /* NSObject+HyRACExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+HyRACExtension.h"; sourceTree = "<group>"; };
 		B5A0700324D299F500C5C4B8 /* NSObject+HyRACExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HyRACExtension.m"; sourceTree = "<group>"; };
+		B5A7623424FE086E008742DA /* HyRefreshFooterAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyRefreshFooterAnimationView.h; sourceTree = "<group>"; };
+		B5A7623524FE086E008742DA /* HyRefreshFooterAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyRefreshFooterAnimationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -730,6 +733,8 @@
 				5134352A238E877D007600EA /* MJRefreshViewFooter.m */,
 				51A24838239F5345002497BB /* HyRefreshAnimationView.h */,
 				51A24839239F5345002497BB /* HyRefreshAnimationView.m */,
+				B5A7623424FE086E008742DA /* HyRefreshFooterAnimationView.h */,
+				B5A7623524FE086E008742DA /* HyRefreshFooterAnimationView.m */,
 			);
 			path = MJRefresh;
 			sourceTree = "<group>";
@@ -2039,6 +2044,7 @@
 				516CAFD42418DE1100D9447A /* GPUImageFilter+Extension.m in Sources */,
 				513436182397A6FB007600EA /* HyTipViewPosition.m in Sources */,
 				516CAFDC2418DE1100D9447A /* HyAudioWriter.m in Sources */,
+				B5A7623624FE086E008742DA /* HyRefreshFooterAnimationView.m in Sources */,
 				04E1543D24DC539300D8DA17 /* HyEntity.m in Sources */,
 				519032CC23C1C8CC00130D01 /* HySocketViewController.m in Sources */,
 				51A2483A239F5345002497BB /* HyRefreshAnimationView.m in Sources */,

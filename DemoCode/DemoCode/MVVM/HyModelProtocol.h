@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong,readonly) NSDictionary *parameter;
 + (instancetype)modelWithParameter:(nullable NSDictionary *)parameter;
+- (void)setModelWithParameter:(nullable NSDictionary *)parameter;
 - (void)modelLoad;
 
 

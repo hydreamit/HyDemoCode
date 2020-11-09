@@ -9,11 +9,10 @@
 #import "HyMeViewController.h"
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <Masonry/Masonry.h>
-#import <HyCategoriess/UIColor+HyExtension.h>
+#import <HyCategoriess/HyCategories.h>
 #import "HyMeViewModel.h"
 #import "HyMeView.h"
-#import <HyCategoriess/HyCategories.h>
-#import "HyMeModel.h"
+
 
 @interface HyMeViewController ()
 @property (nonatomic,strong) UIButton *popButton;
@@ -57,7 +56,7 @@
 }
 
 - (void)popFromViewController:(NSString *)name parameter:(id)parameter {
-    self.viewModel.model.account = parameter[@"account"];
+    [self.viewModel setModelWithParameter:parameter];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

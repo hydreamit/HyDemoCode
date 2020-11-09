@@ -40,7 +40,6 @@
 
 - (void)configLayout {
     
-    
     [self.accountTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(30);
         make.top.mas_equalTo(50);
@@ -74,7 +73,7 @@
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         [btn setTitleColor:[UIColor hy_colorWithHexString:@"#3C8FF9"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-//        btn.rac_command = self.viewModel.command(@"code");
+        btn.rac_command = self.viewModel.command(@"code");
         
         _codeTextFieldView.rightView = btn;
     }

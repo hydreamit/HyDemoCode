@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ReactiveObjC/ReactiveObjC.h>
 #import "HyViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class HyMeModel;
+
 @interface HyMeViewModel : HyViewModel
-@property (nonatomic,strong) HyMeModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

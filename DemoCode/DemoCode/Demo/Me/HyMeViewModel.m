@@ -15,29 +15,12 @@
 
 
 @interface HyMeViewModel ()
-//@property (nonatomic,strong) HyMeModel *model;
+@property (nonatomic,strong) HyMeModel *model;
 @end
+
 
 @implementation HyMeViewModel
 @dynamic model;
-
-- (void)actionWithInput:(id)input forKey:(NSString *)key {
-    
-    if (isKey(@"push")) {
-        [HyMeViewModel pushViewControllerWithName:@"HyMeViewController"
-                                    viewModelName:@"HyMeViewModel"
-                                        parameter:@{@"account" : self.model.account}
-                                         animated:YES
-                                       completion:nil];
-    }
-    
-    if (isKey(@"pop")) {
-        [HyMeViewModel popViewControllerWithParameter:@{@"account" : self.model.account}
-                                             animated:YES
-                                           completion:nil];
-    }
-}
-
 
 - (RACCommand *)commandForKey:(NSString *)key {
     
@@ -52,7 +35,11 @@
         });
         
         RACCommand *command =
-        hy_pushCommand(pushEnabledSignal, @"HyMeViewController", @"HyMeViewModel", @{@"account" : self_weak_.model.account}, YES);
+        hy_pushCommand(pushEnabledSignal,
+                       @"HyMeViewController",
+                       @"HyMeViewModel",
+                       @{@"account" : self_weak_.model.account},
+                       YES);
         command.allowsConcurrentExecution = YES;
         return command;
     }
@@ -63,6 +50,7 @@
     
     return [super commandForKey:key];
 }
+
 
 - (RACSignal *)commandEnabledSignalForKey:(NSString *)key {
     
@@ -132,7 +120,7 @@
 
 - (id<HyViewDataProtocol>)viewDataProviderForClassString:(NSString *)classString {
     if ([classString isEqualToString:@"HyMeView"]) {
-        return self.model;
+        return (id)self.model;
     }
     return nil;
 }

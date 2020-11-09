@@ -94,6 +94,10 @@
     }
 }
 
+- (void)setModelWithParameter:(nullable NSDictionary *)parameter {
+    [self.model setModelWithParameter:parameter];
+}
+
 - (id<HyModelProtocol>)model {
     if (!_model) {
         Class<HyModelProtocol> cls = getObjcectPropertyClass([self class], "model");

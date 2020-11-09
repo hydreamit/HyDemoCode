@@ -66,6 +66,10 @@ void handleSuccess(id<HyNetworkSuccessProtocol> successObject, RequestConfigure 
     return model;
 }
 
+- (void)setModelWithParameter:(nullable NSDictionary *)parameter {
+    [self hy_modelSetWithJSON:parameter];
+}
+
 - (void)modelLoad {}
 
 - (void (^)(id _Nonnull, NSString * _Nonnull))action {
@@ -95,14 +99,14 @@ void handleSuccess(id<HyNetworkSuccessProtocol> successObject, RequestConfigure 
 
     if (configure.isGet) {
         [HyNetworkManager.network getShowHUD:configure.showHUD
-                                       cache:configure.showHUD
+                                       cache:configure.cache
                                          url:configure.url
                                    parameter:configure.parameter
                                 successBlock:success
                                 failureBlock:failure].resumeAtObjcet(self);
     } else {
         [HyNetworkManager.network postShowHUD:configure.showHUD
-                                        cache:configure.showHUD
+                                        cache:configure.cache
                                           url:configure.url
                                     parameter:configure.parameter
                                  successBlock:success

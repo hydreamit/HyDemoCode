@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)viewModelWithParameter:(nullable NSDictionary *)parameter;
 - (void)viewModelLoad;
 
+- (void)setModelWithParameter:(nullable NSDictionary *)parameter;
+
+
 #pragma mark - Block
 @property (nonatomic,copy,readonly) typeof(void(^)(id _Nullable parameter)) (^action)(NSString *_Nullable key);
 - (id<HyBlockProtocol>)addActionSuccessHandler:(void(^)(id _Nullable input, id _Nullable data))successHandler

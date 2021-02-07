@@ -81,7 +81,7 @@
   <td><img src="assets/Gif/_arrow.gif"></img></td>
 </tr>
 </table>
-
+ 
 ### Features
 
 *  **Built-in rich animation style, support self-customization** 

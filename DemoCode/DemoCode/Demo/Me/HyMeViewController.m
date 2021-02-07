@@ -87,4 +87,10 @@
     return _popButton;
 }
 
+- (void)dealloc {
+    
+    NSLog(@"==========xxxxxxxxxxx");
+    
+}
+
 @end

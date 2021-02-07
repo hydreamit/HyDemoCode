@@ -4,6 +4,8 @@
 
 * An easy way to use pull-to-refresh
 
+[📜✍🏻**Release Notes**: more details](https://github.com/CoderMJLee/MJRefresh/releases)
+
 ## Contents
 * Getting Started
     * [Features【Support what kinds of controls to refresh】](#Support_what_kinds_of_controls_to_refresh)
@@ -34,11 +36,11 @@
     * [The pull to refresh 09-DIY the control of refresh(Automatic refresh)](#The_pull_to_refresh_09-DIY_the_control_of_refresh(Automatic_refresh))
     * [The pull to refresh 10-DIY the control of refresh(Automatic back)](#The_pull_to_refresh_10-DIY_the_control_of_refresh(Automatic_back))
     * [UICollectionView01-The pull and drop-down refresh](#UICollectionView01-The_pull_and_drop-down_refresh)
-    * [UIWebView01-The drop-down refresh](#UIWebView01-The_drop-down_refresh)
+    * [WKWebView01-The drop-down refresh](#WKWebView01-The_drop-down_refresh)
 * [Hope](#Hope)
 
 ## <a id="Support_what_kinds_of_controls_to_refresh"></a>Support what kinds of controls to refresh
-* `UIScrollView`、`UITableView`、`UICollectionView`、`UIWebView`
+* `UIScrollView`、`UITableView`、`UICollectionView`、`WKWebView`
 
 ## <a id="How_to_use_MJRefresh"></a>How to use MJRefresh
 * Installation with CocoaPods：`pod 'MJRefresh'`
@@ -332,7 +334,7 @@ self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingB
 ```
 ![(UICollectionView01-上下拉刷新)](http://images0.cnblogs.com/blog2015/497279/201506/141206021603758.gif)
 
-## <a id="UIWebView01-The_drop-down_refresh"></a>UIWebView01-The drop-down refresh
+## <a id="WKWebView01-The_drop-down_refresh"></a>WKWebView01-The drop-down refresh
 ```objc
 //Add the control of The drop-down refresh
 self.webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

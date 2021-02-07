@@ -2,6 +2,7 @@ ${PODS_ROOT}/Target Support Files/Pods-DemoCode/Pods-DemoCode-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework
 ${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework
+${BUILT_PRODUCTS_DIR}/HyBaseComponents/HyBaseComponents.framework
 ${BUILT_PRODUCTS_DIR}/HyCategoriess/HyCategoriess.framework
 ${BUILT_PRODUCTS_DIR}/KafkaRefresh/KafkaRefresh.framework
 ${BUILT_PRODUCTS_DIR}/LFPhoneInfo/LFPhoneInfo.framework

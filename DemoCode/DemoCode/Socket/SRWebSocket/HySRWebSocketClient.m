@@ -16,7 +16,7 @@
 #import "HyNetworkManager.h"
 
 
-@interface HySRWebSocketClient ()
+@interface HySRWebSocketClient ()<SRWebSocketDelegate>
 @property (nonatomic,copy) NSString *ip;
 @property (nonatomic,copy) NSString *port;
 @property (nonatomic,strong) SRWebSocket *webSocket;
@@ -43,6 +43,7 @@
     self.webSocket = [[SRWebSocket alloc]initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"ws://%@:%@", self.ip, self.port]]];
     NSOperationQueue *queue = [[NSOperationQueue alloc]init];
     queue.maxConcurrentOperationCount = 1;
+    self.webSocket.delegate = self;
     [self.webSocket setDelegateOperationQueue:queue];
 }
 

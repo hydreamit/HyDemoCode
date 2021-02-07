@@ -777,29 +777,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.hy_delegateConfigure.emtyViewBlock) {
            
-           NSInteger sectionCount =
-           self.hy_delegateConfigure.numberOfSections ?
-           self.hy_delegateConfigure.numberOfSections(self) :
-           [self.hy_delegateConfigure getSectionCount];
+        NSInteger sectionCount =
+        self.hy_delegateConfigure.numberOfSections ?
+        self.hy_delegateConfigure.numberOfSections(self) :
+        [self.hy_delegateConfigure getSectionCount];
            
-           if (sectionCount <= 1) {
+        if (sectionCount <= 1) {
                
-               NSInteger cellCount =
-               self.hy_delegateConfigure.numberOfRowsInSection ?
-               self.hy_delegateConfigure.numberOfRowsInSection(self, 0) :
-               [self.hy_delegateConfigure getCellCountInSection:0];
-               
-               if (cellCount == 0) {
-                   self.hy_emtyContainerView.hidden = NO;
-                   [self.hy_emtyContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                   self.hy_delegateConfigure.emtyViewBlock(self,self.hy_emtyContainerView);
-               } else {
-                   self.hy_emtyContainerView.hidden = YES;
-               }
+           NSInteger cellCount =
+           self.hy_delegateConfigure.numberOfRowsInSection ?
+           self.hy_delegateConfigure.numberOfRowsInSection(self, 0) :
+           [self.hy_delegateConfigure getCellCountInSection:0];
+           
+           if (cellCount == 0) {
+               self.hy_emtyContainerView.hidden = NO;
+               [self.hy_emtyContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+               self.hy_delegateConfigure.emtyViewBlock(self,self.hy_emtyContainerView);
            } else {
                self.hy_emtyContainerView.hidden = YES;
            }
-       }
+        } else {
+               self.hy_emtyContainerView.hidden = YES;
+        }
+    }
     
     !self.hy_didReloadDataHandler ?: self.hy_didReloadDataHandler(self);
 }

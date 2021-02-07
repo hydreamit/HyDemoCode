@@ -1,0 +1,6 @@
+framework module HyBaseComponents {
+  umbrella header "HyBaseComponents-umbrella.h"
+
+  export *
+  module * { export * }
+}

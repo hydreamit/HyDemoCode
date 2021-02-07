@@ -16,6 +16,7 @@
 #import "ViewController.h"
 #import "HySocketViewController.h"
 #import "HyAudioVideoViewController.h"
+#import "HyNaViewController.h"
 
 
 @implementation HyTabBarController
@@ -46,7 +47,7 @@
     
     for (UIViewController<HyViewControllerProtocol> *vc in array) {
         NSInteger index = [array indexOfObject:vc];
-        [self hy_addChildViewController:[[UINavigationController alloc] initWithRootViewController:vc]
+        [self hy_addChildViewController:[[HyNaViewController alloc] initWithRootViewController:vc]
                                   title:titles[index]
                                   image:normalImages[index]
                           selectedImage:selImages[index]

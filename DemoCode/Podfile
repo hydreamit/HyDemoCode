@@ -1,20 +1,19 @@
 
+source 'https://github.com/hydreamit/Specs'
+source 'https://cdn.cocoapods.org/'
+
 platform :ios, "9.0"
 inhibit_all_warnings!
 use_frameworks!
 
 target 'DemoCode' do
 
-    pod 'ReactiveObjC'
-    pod 'AFNetworking'
-    pod 'MJExtension'
-    pod 'MJRefresh’
-    pod 'Masonry'
-    pod 'YYModel'
-    pod 'YYCache'
-    pod 'YYWebImage'
+    pod 'HyBaseComponents'
     pod 'HyCategoriess'
-    pod 'KafkaRefresh'
+    
+    pod 'Masonry'
+    pod 'YYWebImage'
+  
     pod 'CocoaAsyncSocket'
     pod 'SocketRocket'
     
